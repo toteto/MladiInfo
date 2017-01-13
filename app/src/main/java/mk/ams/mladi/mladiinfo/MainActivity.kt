@@ -3,6 +3,7 @@ package mk.ams.mladi.mladiinfo
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import io.paperdb.Paper
 import mk.ams.mladi.mladiinfo.DataModels.Training
 import mk.ams.mladi.mladiinfo.DataProviders.Callback
 import mk.ams.mladi.mladiinfo.DataProviders.DataProvider
@@ -11,6 +12,7 @@ class MainActivity : AppCompatActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    Paper.init(applicationContext)
     setContentView(R.layout.activity_main)
   }
 
