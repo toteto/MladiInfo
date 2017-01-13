@@ -3,13 +3,9 @@ package mk.ams.mladi.mladiinfo
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import mk.ams.mladi.mladiinfo.DataModels.Training
-import mk.ams.mladi.mladiinfo.DataProviders.MladiInfoApiClient
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import mk.ams.mladi.mladiinfo.DataProviders.Callback
+import mk.ams.mladi.mladiinfo.DataProviders.DataProvider
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,16 +16,15 @@ class MainActivity : AppCompatActivity() {
 
   override fun onResume() {
     super.onResume()
-    MladiInfoApiClient.client.getTraining().enqueue(object : Callback<String> {
-      override fun onResponse(call: Call<String>?, response: Response<String>?) {
-        val rawData = response?.body().toString()
-        val trainings: List<Training> = Gson().fromJson(rawData, object : TypeToken<List<Training>>() {}.type)
-        Log.d("asd", trainings.toString())
+    DataProvider(this).getTraining(object : Callback<List<Training>> {
+      override fun onSuccess(listData: List<Training>) {
+        Log.d("asd", listData.toString())
       }
 
-      override fun onFailure(call: Call<String>?, t: Throwable?) {
-        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
+      override fun onFailure(message: String) {
+        Log.e("asd", message)
       }
+
     })
   }
 }

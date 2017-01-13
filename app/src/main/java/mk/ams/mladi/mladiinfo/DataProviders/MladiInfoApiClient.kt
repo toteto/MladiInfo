@@ -1,13 +1,13 @@
 package mk.ams.mladi.mladiinfo.DataProviders
 
 import retrofit2.Retrofit
-import retrofit2.converter.scalars.ScalarsConverterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 
 class MladiInfoApiClient {
   private object Holder {
     val INSTANCE: MladiInfoApiInterface = Retrofit.Builder()
         .baseUrl(BASE_URL)
-        .addConverterFactory(ScalarsConverterFactory.create())
+        .addConverterFactory(GsonConverterFactory.create())
         .build().create(MladiInfoApiInterface::class.java)
   }
 

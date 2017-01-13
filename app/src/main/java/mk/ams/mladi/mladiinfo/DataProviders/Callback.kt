@@ -5,5 +5,5 @@ interface Callback<T> {
   fun onSuccess(listData: T)
 
   /** Called when the request for the data has failed. */
-  fun onFaulure(message: String)
+  fun onFailure(message: String)
 }

@@ -38,12 +38,12 @@ class CachedDataProvider(val context: Context) : DataProviderServices {
         val result = ObjectInputStream(inputStream).readObject() as List<T>
         callback.onSuccess(result)
       } catch (e: Exception) {
-        callback.onFaulure(e.message ?: "Failed cached data retrieval.")
+        callback.onFailure(e.message ?: "Failed cached data retrieval.")
         Log.e(LOG_TAG, e.message, e)
       } finally {
         inputStream?.close()
       }
-    })
+    }).start()
   }
 
   fun <T> putData(filename: String, data: List<T>) {
@@ -57,7 +57,7 @@ class CachedDataProvider(val context: Context) : DataProviderServices {
       } finally {
         outputStream?.close()
       }
-    })
+    }).start()
   }
 
   override fun getTraining(callback: Callback<List<Training>>) = getData(TRAINING_FILE_KEY, callback)
