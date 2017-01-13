@@ -1,36 +1,35 @@
 package mk.ams.mladi.mladiinfo.DataProviders
 
-import android.provider.ContactsContract
 import mk.ams.mladi.mladiinfo.DataModels.*
 
 interface DataProviderServices {
-  fun getTraining(): List<Training>
+  fun getTraining(): DataProviderCallback<List<Training>>
 
-  fun getSeminars(): List<Training>
+  fun getSeminars(): DataProviderCallback<List<Training>>
 
-  fun getConferences(): List<Training>
+  fun getConferences(): DataProviderCallback<List<Training>>
 
-  fun getJobsAndInternships(): List<Work>
+  fun getJobsAndInternships(): DataProviderCallback<List<Work>>
 
-  fun getInternships(): List<Work>
+  fun getInternships(): DataProviderCallback<List<Work>>
 
-  fun getJobs(): List<Work>
+  fun getJobs(): DataProviderCallback<List<Work>>
 
-  fun getOrganizations(): List<Organization>
+  fun getOrganizations(): DataProviderCallback<List<Organization>>
 
-  fun getStudentOrganizations(): List<Organization>
+  fun getStudentOrganizations(): DataProviderCallback<List<Organization>>
 
-  fun getNonGovermentOrganizations(): List<Organization>
+  fun getNonGovermentOrganizations(): DataProviderCallback<List<Organization>>
 
-  fun getScholarships(): List<Scholarship>
+  fun getScholarships(): DataProviderCallback<List<Scholarship>>
 
-  fun getDorms(): List<Dorm>
+  fun getDorms(): DataProviderCallback<List<Dorm>>
 
-  fun getLibraries(): List<Library>
+  fun getLibraries(): DataProviderCallback<List<Library>>
 
-  fun getUniversities(): List<School>
+  fun getUniversities(): DataProviderCallback<List<School>>
 
-  fun getFaculties(universityId: Int): List<Faculty>
+  fun getFaculties(universityId: Int): DataProviderCallback<List<Faculty>>
 
-  fun getArticles(): List<Article>
+  fun getArticles(): DataProviderCallback<List<Article>>
 }
