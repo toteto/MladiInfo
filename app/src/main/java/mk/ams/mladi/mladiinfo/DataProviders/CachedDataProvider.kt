@@ -3,11 +3,13 @@ package mk.ams.mladi.mladiinfo.DataProviders
 import android.content.Context
 import android.util.Log
 import mk.ams.mladi.mladiinfo.DataModels.*
+import java.io.InputStream
 import java.io.ObjectInputStream
+import java.io.ObjectOutputStream
+import java.io.OutputStream
 
 class CachedDataProvider(val context: Context) : DataProviderServices {
-  val LOG_TAG = CachedDataProvider::class.java.simpleName
-  val client = MladiInfoApiClient.client
+  val LOG_TAG: String = CachedDataProvider::class.java.simpleName
 
   companion object {
     val TRAINING_FILE_KEY = "training"
@@ -29,13 +31,31 @@ class CachedDataProvider(val context: Context) : DataProviderServices {
 
   fun <T> getData(filename: String, callback: Callback<List<T>>) {
     Thread(Runnable {
+      var inputStream: InputStream? = null
       try {
+        inputStream = context.openFileInput(filename)
         @Suppress("UNCHECKED_CAST")
-        val result = ObjectInputStream(context.openFileInput(TRAINING_FILE_KEY)).readObject() as List<T>
+        val result = ObjectInputStream(inputStream).readObject() as List<T>
         callback.onSuccess(result)
       } catch (e: Exception) {
         callback.onFaulure(e.message ?: "Failed cached data retrieval.")
         Log.e(LOG_TAG, e.message, e)
+      } finally {
+        inputStream?.close()
+      }
+    })
+  }
+
+  fun <T> putData(filename: String, data: List<T>) {
+    Thread(Runnable {
+      var outputStream: OutputStream? = null
+      try {
+        outputStream = context.openFileOutput(filename, Context.MODE_PRIVATE)
+        ObjectOutputStream(outputStream).writeObject(data)
+      } catch (e: Exception) {
+        throw RuntimeException(e)
+      } finally {
+        outputStream?.close()
       }
     })
   }
@@ -46,7 +66,7 @@ class CachedDataProvider(val context: Context) : DataProviderServices {
 
   override fun getConferences(callback: Callback<List<Training>>) = getData(CONFERENCES_FILE_KEY, callback)
 
-  override fun getJobsAndInternships(callback: Callback<List<Work>>) = getData(WORKS_FILE_KEY, callback)
+  override fun getWorks(callback: Callback<List<Work>>) = getData(WORKS_FILE_KEY, callback)
 
   override fun getInternships(callback: Callback<List<Work>>) = getData(INTERNSHIPS_FILE_KEY, callback)
 
@@ -70,64 +90,33 @@ class CachedDataProvider(val context: Context) : DataProviderServices {
 
   override fun getArticles(callback: Callback<List<Article>>) = getData(ARTICLES_FILE_KEY, callback)
 
+  fun putTraining(input: List<Training>) = putData(TRAINING_FILE_KEY, input)
 
-  fun setTraining(input: List<Training>) {
+  fun putSeminars(input: List<Training>) = putData(SEMINARS_FILE_KEY, input)
 
-  }
+  fun putConferences(input: List<Training>) = putData(CONFERENCES_FILE_KEY, input)
 
-  fun setSeminars(input: List<Training>) {
+  fun putWorks(input: List<Work>) = putData(WORKS_FILE_KEY, input)
 
-  }
+  fun putInternships(input: List<Work>) = putData(INTERNSHIPS_FILE_KEY, input)
 
-  fun setConferences(input: List<Training>) {
+  fun putJobs(input: List<Work>) = putData(JOBS_FILE_KEY, input)
 
-  }
+  fun putOrganizations(input: List<Organization>) = putData(ORGANIZATIONS_FILE_KEY, input)
 
-  fun setJobsAndInternships(input: List<Work>) {
+  fun putStudentOrganizations(input: List<Organization>) = putData(STUDENT_ORGANIZATIONS_FILE_KEY, input)
 
-  }
+  fun putNonGovernmentOrganizations(input: List<Organization>) = putData(NON_GOVERNMENT_FILE_KEY, input)
 
-  fun setInternships(input: List<Work>) {
+  fun putScholarships(input: List<Scholarship>) = putData(SCHOLARSHIPS_FILE_KEY, input)
 
-  }
+  fun putDorms(input: List<Dorm>) = putData(DORMS_FILE_KEY, input)
 
-  fun setJobs(input: List<Work>) {
+  fun putLibraries(input: List<Library>) = putData(LIBRARIES_FILE_KEY, input)
 
-  }
+  fun putUniversities(input: List<School>) = putData(UNIVERSITIES_FILE_KEY, input)
 
-  fun setOrganizations(input: List<Organization>) {
+  fun putFaculties(inputId: Int, input: List<School>) = putData(FACULTIES_FILE_KEY(inputId), input)
 
-  }
-
-  fun setStudentOrganizations(input: List<Organization>) {
-
-  }
-
-  fun setNonGovernmentOrganizations(input: List<Organization>) {
-
-  }
-
-  fun setScholarships(input: List<Scholarship>) {
-
-  }
-
-  fun setDorms(input: List<Dorm>) {
-
-  }
-
-  fun setLibraries(input: List<Library>) {
-
-  }
-
-  fun setUniversities(input: List<School>) {
-
-  }
-
-  fun setFaculties(inputId: Int, input: List<School>) {
-
-  }
-
-  fun setArticles(input: List<Article>) {
-
-  }
+  fun putArticles(input: List<Article>) = putData(ARTICLES_FILE_KEY, input)
 }

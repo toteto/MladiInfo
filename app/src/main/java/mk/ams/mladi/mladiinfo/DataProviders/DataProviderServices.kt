@@ -9,7 +9,7 @@ interface DataProviderServices {
 
   fun getConferences(callback: Callback<List<Training>>)
 
-  fun getJobsAndInternships(callback: Callback<List<Work>>)
+  fun getWorks(callback: Callback<List<Work>>)
 
   fun getInternships(callback: Callback<List<Work>>)
 
