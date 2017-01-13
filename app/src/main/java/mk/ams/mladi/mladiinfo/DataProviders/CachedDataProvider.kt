@@ -1,70 +1,75 @@
 package mk.ams.mladi.mladiinfo.DataProviders
 
 import android.content.Context
+import android.util.Log
 import mk.ams.mladi.mladiinfo.DataModels.*
+import java.io.ObjectInputStream
 
 class CachedDataProvider(val context: Context) : DataProviderServices {
+  val LOG_TAG = CachedDataProvider::class.java.simpleName
   val client = MladiInfoApiClient.client
 
-  override fun getTraining(): DataProviderCallback<List<Training>> {
-    throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
+  companion object {
+    val TRAINING_FILE_KEY = "training"
+    val SEMINARS_FILE_KEY = "seminars"
+    val CONFERENCES_FILE_KEY = "conferences"
+    val WORKS_FILE_KEY = "works"
+    val INTERNSHIPS_FILE_KEY = "internships"
+    val JOBS_FILE_KEY = "jobs"
+    val ORGANIZATIONS_FILE_KEY = "organizations"
+    val STUDENT_ORGANIZATIONS_FILE_KEY = "student_organizations"
+    val NON_GOVERNMENT_FILE_KEY = "non_government_organizations"
+    val SCHOLARSHIPS_FILE_KEY = "scholarships"
+    val DORMS_FILE_KEY = "dorms"
+    val LIBRARIES_FILE_KEY = "libraries"
+    val UNIVERSITIES_FILE_KEY = "universities"
+    fun FACULTIES_FILE_KEY(id: Int) = "faculties_" + id
+    val ARTICLES_FILE_KEY = "articles"
   }
 
-  override fun getSeminars(): DataProviderCallback<List<Training>> {
-    throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
+  fun <T> getData(filename: String, callback: Callback<List<T>>) {
+    Thread(Runnable {
+      try {
+        @Suppress("UNCHECKED_CAST")
+        val result = ObjectInputStream(context.openFileInput(TRAINING_FILE_KEY)).readObject() as List<T>
+        callback.onSuccess(result)
+      } catch (e: Exception) {
+        callback.onFaulure(e.message ?: "Failed cached data retrieval.")
+        Log.e(LOG_TAG, e.message, e)
+      }
+    })
   }
 
-  override fun getConferences(): DataProviderCallback<List<Training>> {
-    throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
-  }
+  override fun getTraining(callback: Callback<List<Training>>) = getData(TRAINING_FILE_KEY, callback)
 
-  override fun getJobsAndInternships(): DataProviderCallback<List<Work>> {
-    throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
-  }
+  override fun getSeminars(callback: Callback<List<Training>>) = getData(SEMINARS_FILE_KEY, callback)
 
-  override fun getInternships(): DataProviderCallback<List<Work>> {
-    throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
-  }
+  override fun getConferences(callback: Callback<List<Training>>) = getData(CONFERENCES_FILE_KEY, callback)
 
-  override fun getJobs(): DataProviderCallback<List<Work>> {
-    throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
-  }
+  override fun getJobsAndInternships(callback: Callback<List<Work>>) = getData(WORKS_FILE_KEY, callback)
 
-  override fun getOrganizations(): DataProviderCallback<List<Organization>> {
-    throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
-  }
+  override fun getInternships(callback: Callback<List<Work>>) = getData(INTERNSHIPS_FILE_KEY, callback)
 
-  override fun getStudentOrganizations(): DataProviderCallback<List<Organization>> {
-    throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
-  }
+  override fun getJobs(callback: Callback<List<Work>>) = getData(JOBS_FILE_KEY, callback)
 
-  override fun getNonGovermentOrganizations(): DataProviderCallback<List<Organization>> {
-    throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
-  }
+  override fun getOrganizations(callback: Callback<List<Organization>>) = getData(ORGANIZATIONS_FILE_KEY, callback)
 
-  override fun getScholarships(): DataProviderCallback<List<Scholarship>> {
-    throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
-  }
+  override fun getStudentOrganizations(callback: Callback<List<Organization>>) = getData(STUDENT_ORGANIZATIONS_FILE_KEY, callback)
 
-  override fun getDorms(): DataProviderCallback<List<Dorm>> {
-    throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
-  }
+  override fun getNonGovernmentOrganizations(callback: Callback<List<Organization>>) = getData(NON_GOVERNMENT_FILE_KEY, callback)
 
-  override fun getLibraries(): DataProviderCallback<List<Library>> {
-    throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
-  }
+  override fun getScholarships(callback: Callback<List<Scholarship>>) = getData(SCHOLARSHIPS_FILE_KEY, callback)
 
-  override fun getUniversities(): DataProviderCallback<List<School>> {
-    throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
-  }
+  override fun getDorms(callback: Callback<List<Dorm>>) = getData(DORMS_FILE_KEY, callback)
 
-  override fun getFaculties(universityId: Int): DataProviderCallback<List<Faculty>> {
-    throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
-  }
+  override fun getLibraries(callback: Callback<List<Library>>) = getData(LIBRARIES_FILE_KEY, callback)
 
-  override fun getArticles(): DataProviderCallback<List<Article>> {
-    throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
-  }
+  override fun getUniversities(callback: Callback<List<School>>) = getData(UNIVERSITIES_FILE_KEY, callback)
+
+  override fun getFaculties(id: Int, callback: Callback<List<Faculty>>) = getData(FACULTIES_FILE_KEY(id), callback)
+
+  override fun getArticles(callback: Callback<List<Article>>) = getData(ARTICLES_FILE_KEY, callback)
+
 
   fun setTraining(input: List<Training>) {
 
@@ -98,7 +103,7 @@ class CachedDataProvider(val context: Context) : DataProviderServices {
 
   }
 
-  fun setNonGovermentOrganizations(input: List<Organization>) {
+  fun setNonGovernmentOrganizations(input: List<Organization>) {
 
   }
 

@@ -1,6 +1,6 @@
 package mk.ams.mladi.mladiinfo.DataProviders
 
-interface DataProviderCallback<T> {
+interface Callback<T> {
   /** Called when the requested data has been successfully retrieved. */
   fun onSuccess(listData: T)
 

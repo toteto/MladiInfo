@@ -3,33 +3,33 @@ package mk.ams.mladi.mladiinfo.DataProviders
 import mk.ams.mladi.mladiinfo.DataModels.*
 
 interface DataProviderServices {
-  fun getTraining(): DataProviderCallback<List<Training>>
+  fun getTraining(callback: Callback<List<Training>>)
 
-  fun getSeminars(): DataProviderCallback<List<Training>>
+  fun getSeminars(callback: Callback<List<Training>>)
 
-  fun getConferences(): DataProviderCallback<List<Training>>
+  fun getConferences(callback: Callback<List<Training>>)
 
-  fun getJobsAndInternships(): DataProviderCallback<List<Work>>
+  fun getJobsAndInternships(callback: Callback<List<Work>>)
 
-  fun getInternships(): DataProviderCallback<List<Work>>
+  fun getInternships(callback: Callback<List<Work>>)
 
-  fun getJobs(): DataProviderCallback<List<Work>>
+  fun getJobs(callback: Callback<List<Work>>)
 
-  fun getOrganizations(): DataProviderCallback<List<Organization>>
+  fun getOrganizations(callback: Callback<List<Organization>>)
 
-  fun getStudentOrganizations(): DataProviderCallback<List<Organization>>
+  fun getStudentOrganizations(callback: Callback<List<Organization>>)
 
-  fun getNonGovermentOrganizations(): DataProviderCallback<List<Organization>>
+  fun getNonGovernmentOrganizations(callback: Callback<List<Organization>>)
 
-  fun getScholarships(): DataProviderCallback<List<Scholarship>>
+  fun getScholarships(callback: Callback<List<Scholarship>>)
 
-  fun getDorms(): DataProviderCallback<List<Dorm>>
+  fun getDorms(callback: Callback<List<Dorm>>)
 
-  fun getLibraries(): DataProviderCallback<List<Library>>
+  fun getLibraries(callback: Callback<List<Library>>)
 
-  fun getUniversities(): DataProviderCallback<List<School>>
+  fun getUniversities(callback: Callback<List<School>>)
 
-  fun getFaculties(universityId: Int): DataProviderCallback<List<Faculty>>
+  fun getFaculties(id: Int, callback: Callback<List<Faculty>>)
 
-  fun getArticles(): DataProviderCallback<List<Article>>
+  fun getArticles(callback: Callback<List<Article>>)
 }
