@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
     lvItems.adapter = ArrayAdapter<Work>(this, android.R.layout.simple_list_item_1)
-    btnRefresh.setOnClickListener { MladiInfoApiClient(this).client.getInternships().enqueue(responseCallback) }
+    btnRefresh.setOnClickListener { MladiInfoApiClient(this).client.getWorkPostings().enqueue(responseCallback) }
   }
 
   val responseCallback: Callback<List<Work>> = object : Callback<List<Work>> {
@@ -30,7 +30,6 @@ class MainActivity : AppCompatActivity() {
       Toast.makeText(this@MainActivity, t?.message ?: "Api call failed", Toast.LENGTH_SHORT).show()
       t?.printStackTrace()
     }
-
   }
 
   override fun onResume() {

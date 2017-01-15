@@ -10,7 +10,7 @@ interface MladiInfoApiInterface {
   fun getTraining(): Call<List<Training>>
 
   @GET("GetInternships")
-  fun getInternships(): Call<List<Work>>
+  fun getWorkPostings(): Call<List<Work>>
 
   @GET("GetOrganizations")
   fun getOrganizations(): Call<List<Organization>>
