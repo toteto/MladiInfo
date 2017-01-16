@@ -4,6 +4,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
+  android:orientation="vertical"
   tools:context="mk.ams.mladi.mladiinfo.MainActivity">
 
   <TextView
@@ -17,8 +18,8 @@
     android:layout_height="wrap_content"
     android:text="@string/restart"/>
 
-  <ListView
-    android:id="@+id/lvItems"
+  <android.support.v7.widget.RecyclerView
+    android:id="@+id/rvItems"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"/>
 
