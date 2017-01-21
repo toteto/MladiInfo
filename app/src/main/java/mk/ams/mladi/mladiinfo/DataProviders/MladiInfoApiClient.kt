@@ -12,6 +12,11 @@ import java.util.concurrent.TimeUnit
 
 
 class MladiInfoApiClient(val context: Context) {
+  enum class CACHE_CONTROL(val value: String?) {
+    NO_CACHE("no-cache"),
+    MAYBE_CACHED(null)
+  }
+
   private val BASE_URL = "http://mladi.ams.mk/eduservice.svc/"
   private val CACHE_MINUTES_VALIDITY: Long = 10
   private val OFFLINE_CACHE_VALIDITY: Long = 7

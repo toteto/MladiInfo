@@ -26,12 +26,15 @@ class MainActivity : AppCompatActivity() {
     val itemDecorator = DividerItemDecoration(this, LinearLayoutManager.VERTICAL)
     itemDecorator.setDrawable(ContextCompat.getDrawable(this, R.drawable.training_item_divider))
     rvItems.addItemDecoration(itemDecorator)
-    btnRefresh.setOnClickListener { MladiInfoApiClient(this).client.getTraining().enqueue(responseCallback) }
+    srlRefresh.setOnRefreshListener {
+      // srlRefresh.isRefreshing = true
+      MladiInfoApiClient(this).client.getTraining(if (switchCache.isChecked) "no-cache" else null).enqueue(responseCallback)
+    }
   }
 
   val responseCallback: Callback<List<Training>> = object : Callback<List<Training>> {
     override fun onResponse(call: Call<List<Training>>?, response: Response<List<Training>>?) {
-
+      srlRefresh.isRefreshing = false
       if (response?.isSuccessful ?: false && response?.body() != null) {
         itemsAdapter.items = buildArticleItems(response?.body() as List<Training>)
         itemsAdapter.notifyDataSetChanged()
@@ -39,6 +42,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onFailure(call: Call<List<Training>>?, t: Throwable?) {
+      srlRefresh.isRefreshing = false
       Toast.makeText(this@MainActivity, t?.message ?: "Api call failed", Toast.LENGTH_SHORT).show()
       t?.printStackTrace()
     }
