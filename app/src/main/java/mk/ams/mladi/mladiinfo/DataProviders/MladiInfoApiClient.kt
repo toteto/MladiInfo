@@ -5,6 +5,9 @@ import android.net.ConnectivityManager
 import okhttp3.Cache
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
@@ -54,3 +57,20 @@ class MladiInfoApiClient(val context: Context) {
 }
 
 fun Context.getConnectivityManager() = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+fun <T> Call<T>.methodNoName(blockOnSuccess: (result: T) -> Unit, blockOnFailure: () -> Unit) {
+  enqueue(object : Callback<T> {
+    override fun onResponse(call: Call<T>?, response: Response<T>?) {
+      val result = response?.body()
+      if (response?.isSuccessful ?: false && result != null) {
+        blockOnSuccess(result)
+      } else {
+        blockOnFailure()
+      }
+    }
+
+    override fun onFailure(call: Call<T>?, t: Throwable?) {
+      blockOnFailure()
+    }
+  })
+}
