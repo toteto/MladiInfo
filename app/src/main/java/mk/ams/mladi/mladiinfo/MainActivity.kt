@@ -9,18 +9,20 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import mk.ams.mladi.mladiinfo.DataModels.Training
 import mk.ams.mladi.mladiinfo.DataProviders.MladiInfoApiClient
-import mk.ams.mladi.mladiinfo.ViewModels.ArticleItem
+import mk.ams.mladi.mladiinfo.ViewModels.ArticleModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
   private val LOG_TAG: String = MainActivity::class.java.simpleName
-  private val itemsAdapter = ArticleItemsAdapter()
+  lateinit var itemsAdapter: OverviewAdapter
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
+    itemsAdapter = OverviewAdapter(this)
+
     rvItems.adapter = itemsAdapter
     rvItems.layoutManager = LinearLayoutManager(this)
     val itemDecorator = DividerItemDecoration(this, LinearLayoutManager.VERTICAL)
@@ -35,9 +37,11 @@ class MainActivity : AppCompatActivity() {
   val responseCallback: Callback<List<Training>> = object : Callback<List<Training>> {
     override fun onResponse(call: Call<List<Training>>?, response: Response<List<Training>>?) {
       srlRefresh.isRefreshing = false
-      if (response?.isSuccessful ?: false && response?.body() != null) {
-        itemsAdapter.items = buildArticleItems(response?.body() as List<Training>)
-        itemsAdapter.notifyDataSetChanged()
+      val result = response?.body()
+      if (response?.isSuccessful ?: false && result != null && result.isNotEmpty()) {
+        itemsAdapter.bindTrainings(result)
+      } else {
+
       }
     }
 
@@ -52,6 +56,6 @@ class MainActivity : AppCompatActivity() {
     super.onResume()
   }
 
-  fun buildArticleItems(items: List<Training>): List<ArticleItem> = items.flatMap { listOf(ArticleItem(it.title, it.description, it.crawlDate, it.siteName)) }
+  fun buildArticleItems(items: List<Training>): List<ArticleModel> = items.flatMap { listOf(ArticleModel(it.title, it.description, it.crawlDate, it.siteName)) }
 }
 
