@@ -16,4 +16,6 @@ data class Library(
     @SerializedName("TW") val tw: String,
     @SerializedName("Telephone") val phoneNumber: String,
     @SerializedName("Website") val websiteUrl: String
-)
+): UrlInterface {
+  override fun getUrl() = websiteUrl
+}
