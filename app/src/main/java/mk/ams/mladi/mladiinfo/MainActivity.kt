@@ -21,22 +21,24 @@ class MainActivity : AppCompatActivity() {
     rvItems.adapter = itemsAdapter
     rvItems.layoutManager = LinearLayoutManager(this)
     srlRefresh.setOnRefreshListener {
-      // srlRefresh.isRefreshing = true
-      MladiInfoApiClient(this).client.getTraining().getDataHandleRefresh({
-        itemsAdapter.bindTrainings(it.slice(0 until Math.min(it.size, 3)))
-      }, {
-        Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show()
-      })
+      val client = MladiInfoApiClient(this).client
+
+      client.getScholarships().getDataHandleRefresh { itemsAdapter.bindScholarships(it.slice(0 until 3)) }
+      client.getWorkPostings().getDataHandleRefresh {
+        val workPostings = it.partition { it.workType == "Internship" }
+        itemsAdapter.bindInternships(workPostings.first.slice(0 until 3))
+        itemsAdapter.bindEmployments(workPostings.second.slice(0 until 3))
+      }
     }
   }
 
-  fun <T> Call<T>.getDataHandleRefresh(blockOnSuccess: (result: T) -> Unit, blockOnFailure: () -> Unit) {
+  fun <T> Call<T>.getDataHandleRefresh(blockOnSuccess: (result: T) -> Unit) {
     methodNoName({
       srlRefresh.isRefreshing = false
       blockOnSuccess(it)
     }, {
       srlRefresh.isRefreshing = false
-      blockOnFailure()
+      Toast.makeText(this@MainActivity, "Something went wrong", Toast.LENGTH_SHORT).show()
     })
   }
 }

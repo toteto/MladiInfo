@@ -2,4 +2,7 @@
   <string name="app_name">MladiInfo</string>
   <string name="restart">Restart</string>
   <string name="more">More</string>
+  <string name="internships">Internships</string>
+  <string name="scholarships">Scholarships</string>
+  <string name="employments">Employments</string>
 </resources>
