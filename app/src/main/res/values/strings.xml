@@ -5,4 +5,18 @@
   <string name="internships">Internships</string>
   <string name="scholarships">Scholarships</string>
   <string name="employments">Employments</string>
+  <string name="trainings">Trainings</string>
+  <string name="educational_institutions">Educational institutions</string>
+  <string name="work">Work</string>
+  <string name="student_discounts">Student discounts</string>
+  <string name="organisations">Organisations</string>
+  <string name="ams">AMS</string>
+  <string name="polls">Polls</string>
+  <string name="starting_page">Starting page</string>
+  <string name="seminars">Seminars</string>
+  <string name="conferences">Conferences</string>
+  <string name="categories">Categories</string>
+  <string name="social_networks">Social networks</string>
+  <string name="you_tube">YouTube</string>
+  <string name="facebook">Facebook</string>
 </resources>

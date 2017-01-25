@@ -2,44 +2,26 @@ package mk.ams.mladi.mladiinfo
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
-import android.widget.Toast
-import kotlinx.android.synthetic.main.activity_main.*
-import mk.ams.mladi.mladiinfo.DataProviders.MladiInfoApiClient
-import mk.ams.mladi.mladiinfo.DataProviders.methodNoName
-import retrofit2.Call
+import android.view.Gravity
+import android.view.MenuItem
+import kotlinx.android.synthetic.main.main_activity_layout.*
 
 class MainActivity : AppCompatActivity() {
-  private val LOG_TAG: String = MainActivity::class.java.simpleName
-  lateinit var itemsAdapter: OverviewAdapter
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_main)
-    itemsAdapter = OverviewAdapter(this)
-
-    rvItems.adapter = itemsAdapter
-    rvItems.layoutManager = LinearLayoutManager(this)
-    srlRefresh.setOnRefreshListener {
-      val client = MladiInfoApiClient(this).client
-
-      client.getScholarships().getDataHandleRefresh { itemsAdapter.bindScholarships(it.slice(0 until 3)) }
-      client.getWorkPostings().getDataHandleRefresh {
-        val workPostings = it.partition { it.workType == "Internship" }
-        itemsAdapter.bindInternships(workPostings.first.slice(0 until 3))
-        itemsAdapter.bindEmployments(workPostings.second.slice(0 until 3))
-      }
-    }
+    setContentView(R.layout.main_activity_layout)
+    setSupportActionBar(toolbar)
+    supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_menu)
+    supportActionBar?.setDisplayHomeAsUpEnabled(true)
   }
 
-  fun <T> Call<T>.getDataHandleRefresh(blockOnSuccess: (result: T) -> Unit) {
-    methodNoName({
-      srlRefresh.isRefreshing = false
-      blockOnSuccess(it)
-    }, {
-      srlRefresh.isRefreshing = false
-      Toast.makeText(this@MainActivity, "Something went wrong", Toast.LENGTH_SHORT).show()
-    })
+  override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    if (item.itemId == android.R.id.home) {
+      drawerLayout.openDrawer(Gravity.START)
+      return true
+    }
+    return super.onOptionsItemSelected(item)
   }
 }
 

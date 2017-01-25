@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+  <item
+    android:id="@+id/starting_page"
+    android:icon="@drawable/icon_home"
+    android:title="@string/starting_page"/>
+  <item android:title="@string/categories">
+    <menu>
+      <group android:checkableBehavior="single">
+        <item
+          android:id="@+id/trainings"
+          android:icon="@drawable/icon_book"
+          android:title="@string/trainings"/>
+        <item
+          android:id="@+id/educational_institutions"
+          android:icon="@drawable/icon_education_building"
+          android:title="@string/educational_institutions"/>
+        <item
+          android:id="@+id/work"
+          android:icon="@drawable/icon_briefcase"
+          android:title="@string/work"/>
+        <item
+          android:id="@+id/student_discounts"
+          android:icon="@drawable/icon_shopping_cart"
+          android:title="@string/student_discounts"/>
+        <item
+          android:id="@+id/organizations"
+          android:icon="@drawable/icon_organization"
+          android:title="@string/organisations"/>
+        <item
+          android:id="@+id/info"
+          android:icon="@drawable/icon_info"
+          android:title="@string/ams"/>
+        <item
+          android:id="@+id/scholarships"
+          android:icon="@drawable/icon_hat"
+          android:title="@string/scholarships"/>
+        <item
+          android:id="@+id/polls"
+          android:icon="@drawable/icon_chart"
+          android:title="@string/polls"/>
+      </group>
+    </menu>
+  </item>
+
+  <item android:title="@string/social_networks">
+    <menu>
+      <group android:checkableBehavior="single">
+        <item
+          android:id="@+id/facebook"
+          android:icon="@drawable/icon_fb"
+          android:title="@string/facebook"/>
+        <item
+          android:id="@+id/youtube"
+          android:icon="@drawable/icon_youtube"
+          android:title="@string/you_tube"/>
+      </group>
+    </menu>
+  </item>
+</menu>
