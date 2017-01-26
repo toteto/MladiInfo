@@ -1,55 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.v7.widget.CardView
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  android:orientation="vertical"
-  android:paddingBottom="5dp"
-  android:paddingLeft="10dp"
-  android:paddingRight="10dp"
-  android:paddingTop="5dp">
-
-  <TextView
-    android:id="@+id/tvArticleTitle"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="5dp"
-    android:layout_marginTop="5dp"
-    android:textAppearance="@style/TextAppearance.AppCompat.Title"
-    tools:text="Sixth Groningen Energy Summer School"/>
-
-  <TextView
-    android:id="@+id/tvArticleDescription"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:maxLines="5"
-    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-    tools:text="Deadline: 15 March 2017 Open to: intended for PhD candidates \/ students with a sufficient command of the English language Scholarship: cover full tuition fees and accommodation during the summer school + EC\/Certificate Description The Groningen Energy Summer School (GESS) 2017 takes an interdisciplinary approach to the societal and technological dimensions of the energy transition. By combining a broad...  [read more] \u000a The post  Sixth Groningen Energy Summer School  appeared first on  Mladiinfo."/>
+  android:layout_margin="5dp">
 
 
   <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     android:layout_marginTop="5dp"
-    android:orientation="horizontal">
+    android:layout_marginBottom="5dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp">
 
     <TextView
-      android:id="@+id/tvArticleData"
-      android:layout_width="0dp"
+      android:id="@+id/tvArticleTitle"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_weight="1"
-      android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-      tools:text="пред еден час"
-      />
+      android:layout_marginBottom="5dp"
+      android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+      android:textColor="@color/primary_text"
+      tools:text="Sixth Groningen Energy Summer School"/>
 
     <TextView
-      android:id="@+id/tvArticleSource"
-      android:layout_width="wrap_content"
+      android:id="@+id/tvArticleDescription"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-      tools:text="Млади инфо"/>
+      android:maxLines="3"
+      android:textAppearance="@style/TextAppearance.AppCompat.Small"
+      android:textColor="@color/secondary_text"
+      tools:text="The Groningen Energy Summer School (GESS) 2017 takes an interdisciplinary approach to the societal and technological dimensions of the energy transition."/>
+
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="5dp"
+      android:orientation="horizontal">
+
+      <TextView
+        android:id="@+id/tvArticleData"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        tools:text="пред еден час"
+        />
+
+      <TextView
+        android:id="@+id/tvArticleSource"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        tools:text="Млади инфо"/>
+    </LinearLayout>
+
+
   </LinearLayout>
-
-
-</LinearLayout>
+</android.support.v7.widget.CardView>
