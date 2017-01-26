@@ -1,6 +1,8 @@
 package mk.ams.mladi.mladiinfo.MVPContracts
 
-interface MainContract : MVPContract {
+import mk.ams.mladi.mladiinfo.ViewModels.Category
+
+interface MainContract {
   enum class CATEGORY_MENU_ITEM {
     STARTING_PAGE,
     TRAININGS,
@@ -17,10 +19,10 @@ interface MainContract : MVPContract {
 
   interface View : MVPContract.View {
     fun showOverview()
-    fun showCategory()
+    fun showCategory(addSubCategory: Category)
   }
 
-  interface Presenter : MVPContract.Presenter<MainContract.View> {
-    fun onCategoryItemSelected(item: CATEGORY_MENU_ITEM)
+  abstract class Presenter : MVPPresenter<View>() {
+    abstract fun onCategoryItemSelected(item: CATEGORY_MENU_ITEM)
   }
 }

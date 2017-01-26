@@ -58,7 +58,7 @@ class MladiInfoApiClient(val context: Context) {
 
 fun Context.getConnectivityManager() = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
-fun <T> Call<T>.methodNoName(blockOnSuccess: (result: T) -> Unit, blockOnFailure: () -> Unit) {
+fun <T> Call<T>.methodNoName(blockOnSuccess: (result: T) -> Unit, blockOnFailure: () -> Unit): Call<T> {
   enqueue(object : Callback<T> {
     override fun onResponse(call: Call<T>?, response: Response<T>?) {
       val result = response?.body()
@@ -73,4 +73,5 @@ fun <T> Call<T>.methodNoName(blockOnSuccess: (result: T) -> Unit, blockOnFailure
       blockOnFailure()
     }
   })
+  return this
 }

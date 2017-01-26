@@ -2,6 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
   <item
     android:id="@+id/starting_page"
+    android:checked="true"
     android:icon="@drawable/icon_home"
     android:title="@string/starting_page"/>
   <item android:title="@string/categories">
