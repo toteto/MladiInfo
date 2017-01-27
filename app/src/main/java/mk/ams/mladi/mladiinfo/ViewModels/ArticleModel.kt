@@ -1,29 +1,23 @@
 package mk.ams.mladi.mladiinfo.ViewModels
 
+import android.text.format.DateUtils
 import android.view.View
 import com.airbnb.epoxy.EpoxyHolder
 import com.airbnb.epoxy.EpoxyModel
 import com.airbnb.epoxy.EpoxyModelWithHolder
 import kotlinx.android.synthetic.main.article_item.view.*
-import mk.ams.mladi.mladiinfo.DataModels.Scholarship
-import mk.ams.mladi.mladiinfo.DataModels.Training
-import mk.ams.mladi.mladiinfo.DataModels.Work
+import mk.ams.mladi.mladiinfo.DataModels.ArticleInterface
 import mk.ams.mladi.mladiinfo.R
+import java.util.*
 
-class ArticleModel(val title: String, val description: String, val date: String, val source: String)
+class ArticleModel(val title: String, val description: String, val date: Date, val source: String)
   : EpoxyModelWithHolder<ArticleModel.ArticleItemVH>() {
   var id = hashCode().toLong()
 
-  constructor(training: Training) : this(training.title, training.description, training.crawlDate, training.siteName) {
-    id(training.id.toLong())
-  }
-
-  constructor(scholarship: Scholarship) : this(scholarship.title, scholarship.description, scholarship.crawlDate, scholarship.siteName) {
-    id(scholarship.id.toLong())
-  }
-
-  constructor(work: Work) : this(work.id, work.description, work.inserted, work.websiteID) {
-    id(work.id.toLong())
+  constructor(dataModel: ArticleInterface) :
+      this(dataModel.getArticleTitle().trim(), dataModel.getArticleDescription().trim(),
+          dataModel.getArticlePublishDate(), dataModel.getArticleSiteName().trim()) {
+    id(dataModel.getArticleId().toLong())
   }
 
   override fun createNewHolder() = ArticleItemVH()
@@ -31,9 +25,15 @@ class ArticleModel(val title: String, val description: String, val date: String,
   override fun getDefaultLayout() = R.layout.article_item
 
   override fun bind(holder: ArticleItemVH) {
+    val dateStr = DateUtils.getRelativeDateTimeString(holder.itemView.context,
+        date.time,
+        DateUtils.MINUTE_IN_MILLIS,
+        DateUtils.WEEK_IN_MILLIS,
+        0)
+    holder.itemView.context
     holder.itemView.tvArticleTitle.text = title
     holder.itemView.tvArticleDescription.text = description
-    holder.itemView.tvArticleData.text = date
+    holder.itemView.tvArticleData.text = dateStr
     holder.itemView.tvArticleSource.text = source
   }
 
