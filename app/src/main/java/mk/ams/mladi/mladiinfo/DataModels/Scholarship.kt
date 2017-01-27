@@ -1,6 +1,9 @@
 package mk.ams.mladi.mladiinfo.DataModels
 
 import com.google.gson.annotations.SerializedName
+import mk.ams.mladi.mladiinfo.parseMladiInfoDate
+import mk.ams.mladi.mladiinfo.parseMladiInfoDescription
+import java.util.*
 
 data class Scholarship(
     @SerializedName("CrawlDate") val crawlDate: String,
@@ -9,6 +12,20 @@ data class Scholarship(
     @SerializedName("ID") val id: String,
     @SerializedName("Link") val websiteUrl: String,
     @SerializedName("Title") val title: String
-): UrlInterface {
-  override fun getUrl() = websiteUrl
+) : ArticleInterface {
+  override fun getArticleTitle(): String = title
+
+  override fun getArticleDescription(): String = description.parseMladiInfoDescription(websiteUrl)
+
+  override fun getArticleSiteName(): String = siteName
+
+  override fun getArticlePublishDate(): Date = crawlDate.parseMladiInfoDate()
+
+  override fun getArticleUrl(): String = websiteUrl
+
+  override fun searchArticle(query: String): Boolean {
+    throw UnsupportedOperationException("not implemented")
+  }
+
+  override fun getArticleId(): String = id
 }

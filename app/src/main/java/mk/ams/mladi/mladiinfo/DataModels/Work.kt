@@ -1,6 +1,9 @@
 package mk.ams.mladi.mladiinfo.DataModels
 
 import com.google.gson.annotations.SerializedName
+import mk.ams.mladi.mladiinfo.parseMladiInfoDate
+import mk.ams.mladi.mladiinfo.parseMladiInfoDescription
+import java.util.*
 
 data class Work(
     @SerializedName("CityID") val cityId: String,
@@ -18,6 +21,25 @@ data class Work(
     @SerializedName("Link") val moreInfoUrl: String,
     @SerializedName("Name") val name: String,
     @SerializedName("QualificationID") val qualificationId: String
-) : UrlInterface {
-  override fun getUrl() = moreInfoUrl
+) : ArticleInterface {
+  enum class TYPE(value: String) {
+    INTERNSHIP("Internship"),
+    EMPLOYMENT("Job")
+  }
+
+  override fun getArticleId(): String = id
+
+  override fun getArticleTitle(): String = name
+
+  override fun getArticleDescription(): String = description.parseMladiInfoDescription(moreInfoUrl)
+
+  override fun getArticleSiteName(): String = websiteID
+
+  override fun getArticlePublishDate(): Date = inserted.parseMladiInfoDate()
+
+  override fun getArticleUrl(): String = moreInfoUrl
+
+  override fun searchArticle(query: String): Boolean {
+    throw UnsupportedOperationException("not implemented")
+  }
 }
