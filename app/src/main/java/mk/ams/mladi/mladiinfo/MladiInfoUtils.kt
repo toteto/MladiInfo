@@ -1,5 +1,7 @@
 package mk.ams.mladi.mladiinfo
 
+import android.content.Context
+import android.text.format.DateUtils
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.regex.Pattern
@@ -16,3 +18,6 @@ fun String.parseMladiInfoDescription(crawlUrl: String): String {
   }
   return toString()
 }
+
+fun Date.toRelativeTime(context: Context): String = DateUtils.getRelativeDateTimeString(context,
+    time, DateUtils.MINUTE_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, 0).toString()
