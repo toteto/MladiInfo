@@ -14,7 +14,7 @@ class Training(
     @SerializedName("Link") val link: String,
     @SerializedName("Title") var title: String
 ) : ArticleInterface {
-  enum class TYPE(value: String) {
+  enum class TYPE(val value: String) {
     SEMINAR("Seminar"),
     CONFERENCE("Conference")
   }

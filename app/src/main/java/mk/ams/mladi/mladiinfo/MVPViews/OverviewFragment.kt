@@ -6,6 +6,7 @@ import android.view.View
 import kotlinx.android.synthetic.main.overview_fragment_layout.*
 import kotlinx.android.synthetic.main.overview_fragment_layout.view.*
 import mk.ams.mladi.mladiinfo.DataModels.Scholarship
+import mk.ams.mladi.mladiinfo.DataModels.Training
 import mk.ams.mladi.mladiinfo.DataModels.Work
 import mk.ams.mladi.mladiinfo.DataProviders.MladiInfoApiClient
 import mk.ams.mladi.mladiinfo.MVPContracts.MVPFragment
@@ -15,6 +16,7 @@ import mk.ams.mladi.mladiinfo.OverviewAdapter
 import mk.ams.mladi.mladiinfo.R
 
 class OverviewFragment : MVPFragment<OverviewContract.View, OverviewContract.Presenter>(), OverviewContract.View {
+  private var numOfItems = 3
   override fun getLayoutId(): Int = R.layout.overview_fragment_layout
 
   val itemsAdapter: OverviewAdapter by lazy { OverviewAdapter(activity) }
@@ -37,16 +39,28 @@ class OverviewFragment : MVPFragment<OverviewContract.View, OverviewContract.Pre
   }
 
   override fun showScholarships(list: List<Scholarship>) {
-    itemsAdapter.bindScholarships(list)
+    itemsAdapter.bindScholarships(list.getFirstN(numOfItems))
   }
 
   override fun showInternships(list: List<Work>) {
-    itemsAdapter.bindInternships(list)
+    itemsAdapter.bindInternships(list.getFirstN(numOfItems))
   }
 
   override fun showEmployments(list: List<Work>) {
-    itemsAdapter.bindEmployments(list)
+    itemsAdapter.bindEmployments(list.getFirstN(numOfItems))
+  }
+
+  override fun showSeminars(list: List<Training>) {
+    itemsAdapter.bindSeminars(list.getFirstN(numOfItems))
+  }
+
+  override fun showConferences(list: List<Training>) {
+    itemsAdapter.bindConferences(list.getFirstN(numOfItems))
   }
 
   override fun createPresenter(): OverviewContract.Presenter = OverviewPresenter(MladiInfoApiClient(activity).client)
+
+  override fun setNumberOfItemsToShow(n: Int) {
+    numOfItems = n
+  }
 }
