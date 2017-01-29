@@ -2,4 +2,19 @@
   <string name="app_name">МладиИнфо</string>
   <string name="restart">Рестарт</string>
   <string name="more">Повеќе</string>
+  <string name="categories">Категории</string>
+  <string name="conferences">Конференции</string>
+  <string name="educational_institutions">Образовни институции</string>
+  <string name="employments">Вработувања</string>
+  <string name="internships">Пракси</string>
+  <string name="organisations">Организации</string>
+  <string name="polls">Анкти</string>
+  <string name="scholarships">Стипендии</string>
+  <string name="seminars">Семинари</string>
+  <string name="social_networks">Социални мрежи</string>
+  <string name="starting_page">Почетна страна</string>
+  <string name="student_discounts">Студентски попусти</string>
+  <string name="trainings">Обуки</string>
+  <string name="work">Работа</string>
+  <string name="ams">АМС</string>
 </resources>

@@ -17,6 +17,6 @@
   <string name="conferences">Conferences</string>
   <string name="categories">Categories</string>
   <string name="social_networks">Social networks</string>
-  <string name="you_tube">YouTube</string>
-  <string name="facebook">Facebook</string>
+  <string name="you_tube" translatable="false">YouTube</string>
+  <string name="facebook" translatable="false">Facebook</string>
 </resources>
