@@ -3,6 +3,7 @@ package mk.ams.mladi.mladiinfo.ViewModels
 import android.support.annotation.ColorRes
 import android.support.v4.content.ContextCompat
 import android.view.View
+import android.widget.TextView
 import com.airbnb.epoxy.EpoxyHolder
 import com.airbnb.epoxy.EpoxyModel
 import com.airbnb.epoxy.EpoxyModelWithHolder
@@ -29,7 +30,7 @@ class ArticleModel(val title: String, val description: String, val date: Date, v
   override fun bind(holder: ArticleItemVH) {
     holder.itemView.context
     holder.itemView.tvArticleTitle.text = title
-    holder.itemView.tvArticleDescription.text = description
+    holder.itemView.tvArticleDescription.setTextWithVisibility(description)
     holder.itemView.tvArticleData.text = date.toRelativeTime(holder.itemView.context)
     holder.itemView.tvArticleSource.text = source
     holder.itemView.itemDivider.setBackgroundColor(ContextCompat.getColor(holder.itemView.context, dividerColor))
@@ -73,5 +74,12 @@ class ArticleModel(val title: String, val description: String, val date: Date, v
     return result
   }
 
-
+  fun TextView.setTextWithVisibility(content: CharSequence) {
+    if (content.isNotEmpty()) {
+      text = content
+      visibility = View.VISIBLE
+    } else {
+      visibility = View.GONE
+    }
+  }
 }

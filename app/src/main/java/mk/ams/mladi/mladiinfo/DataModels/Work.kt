@@ -22,7 +22,7 @@ data class Work(
     @SerializedName("Name") val name: String,
     @SerializedName("QualificationID") val qualificationId: String
 ) : ArticleInterface {
-  enum class TYPE(value: String) {
+  enum class TYPE(val value: String) {
     INTERNSHIP("Internship"),
     EMPLOYMENT("Job")
   }
