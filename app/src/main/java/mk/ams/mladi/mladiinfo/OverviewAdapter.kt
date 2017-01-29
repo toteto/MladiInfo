@@ -10,11 +10,11 @@ import mk.ams.mladi.mladiinfo.ViewModels.ArticleModel
 import mk.ams.mladi.mladiinfo.ViewModels.OverviewSection
 
 class OverviewAdapter(context: Context) : EpoxyAdapter() {
-  val scholarshipsSection = OverviewSection(context.getString(R.string.scholarships))
-  val internshipsSection = OverviewSection(context.getString(R.string.internships))
-  val employmentsSection = OverviewSection(context.getString(R.string.employments))
-  val seminarsSection = OverviewSection(context.getString(R.string.seminars))
-  val conferencesSection = OverviewSection(context.getString(R.string.conferences))
+  val scholarshipsSection = OverviewSection(context.getString(R.string.scholarships), R.color.orange)
+  val internshipsSection = OverviewSection(context.getString(R.string.internships), R.color.green)
+  val employmentsSection = OverviewSection(context.getString(R.string.employments), R.color.dark_orange)
+  val seminarsSection = OverviewSection(context.getString(R.string.seminars), R.color.orange)
+  val conferencesSection = OverviewSection(context.getString(R.string.conferences), R.color.orange)
 
   init {
     enableDiffing()
@@ -26,23 +26,23 @@ class OverviewAdapter(context: Context) : EpoxyAdapter() {
   }
 
   fun bindScholarships(scholarships: List<Scholarship>) {
-    bindCategory(scholarshipsSection, scholarships.flatMap { listOf(ArticleModel(it)) })
+    bindCategory(scholarshipsSection, scholarships.flatMap { listOf(ArticleModel(it, scholarshipsSection.headerColor)) })
   }
 
   fun bindInternships(internships: List<Work>) {
-    bindCategory(internshipsSection, internships.flatMap { listOf(ArticleModel(it)) })
+    bindCategory(internshipsSection, internships.flatMap { listOf(ArticleModel(it, internshipsSection.headerColor)) })
   }
 
   fun bindEmployments(employments: List<Work>) {
-    bindCategory(employmentsSection, employments.flatMap { listOf(ArticleModel(it)) })
+    bindCategory(employmentsSection, employments.flatMap { listOf(ArticleModel(it, employmentsSection.headerColor)) })
   }
 
   fun bindSeminars(seminars: List<Training>) {
-    bindCategory(seminarsSection, seminars.flatMap { listOf(ArticleModel(it)) })
+    bindCategory(seminarsSection, seminars.flatMap { listOf(ArticleModel(it, seminarsSection.headerColor)) })
   }
 
   fun bindConferences(conferences: List<Training>) {
-    bindCategory(conferencesSection, conferences.flatMap { listOf(ArticleModel(it)) })
+    bindCategory(conferencesSection, conferences.flatMap { listOf(ArticleModel(it, conferencesSection.headerColor)) })
   }
 
   fun bindCategory(section: OverviewSection, newModels: List<EpoxyModel<*>>) {

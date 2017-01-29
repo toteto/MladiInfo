@@ -1,5 +1,7 @@
 package mk.ams.mladi.mladiinfo.ViewModels
 
+import android.support.annotation.ColorRes
+import android.support.v4.content.ContextCompat
 import android.view.View
 import com.airbnb.epoxy.EpoxyHolder
 import com.airbnb.epoxy.EpoxyModel
@@ -10,13 +12,13 @@ import mk.ams.mladi.mladiinfo.R
 import mk.ams.mladi.mladiinfo.toRelativeTime
 import java.util.*
 
-class ArticleModel(val title: String, val description: String, val date: Date, val source: String)
+class ArticleModel(val title: String, val description: String, val date: Date, val source: String, val dividerColor: Int)
   : EpoxyModelWithHolder<ArticleModel.ArticleItemVH>() {
   var id = hashCode().toLong()
 
-  constructor(dataModel: ArticleInterface) :
+  constructor(dataModel: ArticleInterface, @ColorRes dividerColor: Int = R.color.secondary_text) :
       this(dataModel.getArticleTitle().trim(), dataModel.getArticleDescription().trim(),
-          dataModel.getArticlePublishDate(), dataModel.getArticleSiteName().trim()) {
+          dataModel.getArticlePublishDate(), dataModel.getArticleSiteName().trim(), dividerColor) {
     id(dataModel.getArticleId().toLong())
   }
 
@@ -30,6 +32,7 @@ class ArticleModel(val title: String, val description: String, val date: Date, v
     holder.itemView.tvArticleDescription.text = description
     holder.itemView.tvArticleData.text = date.toRelativeTime(holder.itemView.context)
     holder.itemView.tvArticleSource.text = source
+    holder.itemView.itemDivider.setBackgroundColor(ContextCompat.getColor(holder.itemView.context, dividerColor))
   }
 
   class ArticleItemVH : EpoxyHolder() {

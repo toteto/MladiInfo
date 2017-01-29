@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout android:id="@+id/headerContainer"
+              xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
+              android:background="@color/orange"
               android:orientation="horizontal"
               android:paddingBottom="10dp"
               android:paddingLeft="15dp"
@@ -14,20 +16,15 @@
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:layout_weight="1"
-    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-    android:textColor="@color/primary_text"
+    android:textAllCaps="true"
+    android:textColor="@android:color/white"
+    android:textSize="20sp"
     android:textStyle="bold"
     tools:text="Title"/>
 
-  <TextView
-    android:id="@+id/tvHeaderShowMore"
+  <ImageView
+    android:id="@+id/headerShowMoreIndicator"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="@string/more"
-    android:textAllCaps="true"
-    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-    android:textColor="@color/primary"
-    android:textStyle="bold"
-    android:visibility="gone"
-    tools:visibility="visible"/>
+    android:src="@drawable/ic_chevron_right"/>
 </LinearLayout>
