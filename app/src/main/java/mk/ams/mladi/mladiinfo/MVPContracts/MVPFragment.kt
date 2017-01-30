@@ -10,6 +10,11 @@ abstract class MVPFragment<V : MVPContract.View, P : MVPContract.Presenter<V>> :
   protected val presenter: P by lazy { createPresenter() }
   protected abstract fun createPresenter(): P
 
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    retainInstance = true
+  }
+
   override final fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
     return inflater.inflate(getLayoutId(), container, false)
   }

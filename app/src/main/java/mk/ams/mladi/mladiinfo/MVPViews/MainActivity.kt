@@ -13,9 +13,12 @@ import mk.ams.mladi.mladiinfo.R
 import mk.ams.mladi.mladiinfo.ViewModels.Category
 
 class MainActivity : MVPActivity<MainContract.View, MainContract.Presenter>(), MainContract.View {
-  val overviewFragment: OverviewFragment? by lazy { OverviewFragment() }
+  val overviewFragment: OverviewFragment by lazy {
+    supportFragmentManager.findFragmentByTag(OVERVIEW_FRAGMENT_TAG) as OverviewFragment? ?: OverviewFragment()
+  }
 
   companion object {
+    private val OVERVIEW_FRAGMENT_TAG = "overview"
     val CATEGORY_MAPPING = mapOf(
         R.id.trainings to CATEGORY_MENU_ITEM.TRAININGS,
         R.id.educational_institutions to CATEGORY_MENU_ITEM.EDUCATIONAL_INSTITUTIONS,
@@ -27,7 +30,10 @@ class MainActivity : MVPActivity<MainContract.View, MainContract.Presenter>(), M
   override fun createPresenter(): MainContract.Presenter = MainPresenter(MladiInfoApiClient(this).client)
 
   override fun showOverview() {
-    supportFragmentManager.beginTransaction().add(R.id.mainActivity_fragmentContainer, overviewFragment).commit()
+    if (overviewFragment.isAdded.not()) {
+      supportFragmentManager.beginTransaction().replace(R.id.mainActivity_fragmentContainer, overviewFragment,
+          OVERVIEW_FRAGMENT_TAG).commit()
+    }
   }
 
   override fun showCategory(addSubCategory: Category) {
