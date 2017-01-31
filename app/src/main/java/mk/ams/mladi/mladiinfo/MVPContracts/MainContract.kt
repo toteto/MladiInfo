@@ -3,7 +3,7 @@ package mk.ams.mladi.mladiinfo.MVPContracts
 import mk.ams.mladi.mladiinfo.ViewModels.Category
 
 interface MainContract {
-  enum class CATEGORY_MENU_ITEM {
+  enum class CATEGORY_ITEM {
     STARTING_PAGE,
     TRAININGS,
     EDUCATIONAL_INSTITUTIONS,
@@ -19,10 +19,10 @@ interface MainContract {
 
   interface View : MVPContract.View {
     fun showOverview()
-    fun showCategory(addSubCategory: Category)
+    fun showCategory(category: CATEGORY_ITEM)
   }
 
   abstract class Presenter : MVPPresenter<View>() {
-    abstract fun onCategoryItemSelected(item: CATEGORY_MENU_ITEM)
+    abstract fun onCategoryItemSelected(item: CATEGORY_ITEM)
   }
 }

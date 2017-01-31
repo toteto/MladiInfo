@@ -17,7 +17,8 @@
 
     <android.support.design.widget.AppBarLayout
       android:layout_width="match_parent"
-      android:layout_height="wrap_content">
+      android:layout_height="wrap_content"
+      app:layout_scrollFlags="scroll|enterAlways">
 
       <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -26,10 +27,9 @@
         android:background="@color/primary"
         android:minHeight="?attr/actionBarSize"
         app:layout_scrollFlags="scroll|enterAlways"
-        app:theme="@style/AppTheme.ActionBar">
-      </android.support.v7.widget.Toolbar>
+        app:theme="@style/AppTheme.ActionBar"/>
 
-    </android.support.design.widget.AppBarLayout>
+      </android.support.design.widget.AppBarLayout>
   </android.support.design.widget.CoordinatorLayout>
 
   <android.support.design.widget.NavigationView

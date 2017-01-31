@@ -2,30 +2,32 @@ package mk.ams.mladi.mladiinfo.MVPPresenters
 
 import mk.ams.mladi.mladiinfo.DataProviders.MladiInfoApiInterface
 import mk.ams.mladi.mladiinfo.MVPContracts.MainContract
-import mk.ams.mladi.mladiinfo.MVPContracts.MainContract.CATEGORY_MENU_ITEM
+import mk.ams.mladi.mladiinfo.MVPContracts.MainContract.CATEGORY_ITEM
 
 class MainPresenter(val client: MladiInfoApiInterface) : MainContract.Presenter() {
-  var currentCategory: CATEGORY_MENU_ITEM = CATEGORY_MENU_ITEM.STARTING_PAGE
-  override fun onCategoryItemSelected(item: CATEGORY_MENU_ITEM) {
+  var currentCategory: CATEGORY_ITEM = CATEGORY_ITEM.STARTING_PAGE
+  override fun onCategoryItemSelected(item: CATEGORY_ITEM) {
     if (item != currentCategory) {
       currentCategory = item
+      updateViewCategory()
     }
+
   }
 
-  private fun updateViewcategory() {
+  private fun updateViewCategory() {
     val view = getView()
     if (view != null) {
-      if (currentCategory == CATEGORY_MENU_ITEM.STARTING_PAGE) {
+      if (currentCategory == CATEGORY_ITEM.STARTING_PAGE) {
         view.showOverview()
       } else {
-        throw NotImplementedError("Not implemented")
+        view.showCategory(currentCategory)
       }
     }
   }
 
   override fun attachView(view: MainContract.View) {
     super.attachView(view)
-    updateViewcategory()
+    updateViewCategory()
   }
 
 }
