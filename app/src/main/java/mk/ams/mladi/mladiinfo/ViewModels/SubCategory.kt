@@ -1,11 +1,11 @@
 package mk.ams.mladi.mladiinfo.ViewModels
 
 import mk.ams.mladi.mladiinfo.DataProviders.MladiInfoApiInterface
-import mk.ams.mladi.mladiinfo.SubcategoryAdapter
+import mk.ams.mladi.mladiinfo.SubcategoryAdapterInterface
 import retrofit2.Call
 
 class SubCategory<T>(
     val name: String,
-    val call: (client: MladiInfoApiInterface) -> Call<T>,
-    val dataPreprocessor: (data: T) -> T = { it },
-    val bindDataTo: (data: T, adapter: SubcategoryAdapter) -> Unit)
+    val call: (client: MladiInfoApiInterface) -> Call<List<T>>,
+    val dataPreprocessor: (data: List<T>) -> List<T> = { it },
+    val bindDataTo: (data: List<T>, adapter: SubcategoryAdapterInterface) -> Unit)

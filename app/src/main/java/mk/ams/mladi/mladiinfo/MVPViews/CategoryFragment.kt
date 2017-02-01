@@ -33,7 +33,7 @@ class CategoryFragment : MVPFragment<CategoryFragment, CategoryPresenter>(), Cat
       else -> throw NotImplementedError("only ${MainContract.CATEGORY_ITEM.TRAININGS} is supported.")
     }
   }
-  val pagerAdapter: SubcategoriesPagerAdapter by lazy { SubcategoriesPagerAdapter(activity.supportFragmentManager) }
+  val pagerAdapter: SubcategoriesPagerAdapter by lazy { SubcategoriesPagerAdapter(childFragmentManager) }
 
   override fun getLayoutId(): Int = R.layout.category_fragment_layout
 
@@ -45,11 +45,11 @@ class CategoryFragment : MVPFragment<CategoryFragment, CategoryPresenter>(), Cat
     tabLayout.setupWithViewPager(viewPager)
   }
 
-  override fun setSubCategories(subCategories: List<SubCategory<*>>) {
+  override fun setSubCategories(subCategories: List<SubCategory<Any>>) {
     pagerAdapter.subcategories = subCategories
   }
 
-  override fun showSubCategory(subCategory: SubCategory<*>) {
+  override fun showSubCategory(subCategory: SubCategory<out Any>) {
     throw UnsupportedOperationException("not implemented")
   }
 
