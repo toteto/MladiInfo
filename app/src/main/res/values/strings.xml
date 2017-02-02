@@ -19,4 +19,10 @@
   <string name="social_networks">Social networks</string>
   <string name="you_tube" translatable="false">YouTube</string>
   <string name="facebook" translatable="false">Facebook</string>
+  <string name="call_phone">Call listed phone number</string>
+  <string name="send_email">Send email</string>
+  <string name="visit_fb_profile">Visit facebook profile</string>
+  <string name="visit_tw_profile">Visit twitter profile</string>
+  <string name="show_location_on_map">Show location on map</string>
+  <string name="open_website">Open website</string>
 </resources>

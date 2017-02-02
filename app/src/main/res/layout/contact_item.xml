@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:layout_marginBottom="5dp"
+  android:orientation="vertical">
+
+  <View
+    android:id="@+id/itemDivider"
+    android:layout_width="match_parent"
+    android:layout_height="2dp"/>
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginTop="5dp"
+    android:orientation="vertical">
+
+    <TextView
+      android:id="@+id/tvArticleTitle"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="5dp"
+      android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+      android:textColor="@color/primary_text"
+      tools:text="Sixth Groningen Energy Summer School"/>
+
+    <LinearLayout
+      android:id="@+id/collapsibleContainer"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:orientation="vertical"
+      android:visibility="gone"
+      tools:visibility="visible">
+
+      <TextView
+        android:id="@+id/tvArticleDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="3"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textColor="@color/secondary_text"
+        tools:text="The Groningen Energy Summer School (GESS) 2017 takes an interdisciplinary approach to the societal and technological dimensions of the energy transition."/>
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+
+        <ImageView
+          android:id="@+id/btnCallPhone"
+          android:layout_width="0dp"
+          android:layout_height="50dp"
+          android:layout_weight="1"
+          android:contentDescription="@string/call_phone"
+          android:src="@drawable/icon_phone"/>
+
+        <ImageView
+          android:id="@+id/btnSendMail"
+          android:layout_width="0dp"
+          android:layout_height="50dp"
+          android:layout_weight="1"
+          android:contentDescription="@string/send_email"
+          android:src="@drawable/icon_send_mail"/>
+
+
+        <ImageView
+          android:id="@+id/btnOpenLocation"
+          android:layout_width="0dp"
+          android:layout_height="50dp"
+          android:layout_weight="1"
+          android:contentDescription="@string/show_location_on_map"
+          android:src="@drawable/icon_map"/>
+
+        <ImageView
+          android:id="@+id/btnVisitWebsite"
+          android:layout_width="0dp"
+          android:layout_height="50dp"
+          android:layout_weight="1"
+          android:contentDescription="@string/open_website"
+          android:src="@drawable/icon_website"/>
+
+        <ImageView
+          android:id="@+id/btnVisitFacebook"
+          android:layout_width="0dp"
+          android:layout_height="50dp"
+          android:layout_weight="1"
+          android:contentDescription="@string/visit_fb_profile"
+          android:src="@drawable/icon_facebook"/>
+
+        <ImageView
+          android:id="@+id/btnVisitTwitter"
+          android:layout_width="0dp"
+          android:layout_height="50dp"
+          android:layout_weight="1"
+          android:contentDescription="@string/visit_tw_profile"
+          android:src="@drawable/icon_twitter"/>
+
+
+      </LinearLayout>
+    </LinearLayout>
+  </LinearLayout>
+
+  <ImageView
+    android:id="@+id/ivExpandIndicator"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:src="@drawable/ic_expand_more"
+    tools:src="@drawable/ic_expand_less"/>
+</LinearLayout>
