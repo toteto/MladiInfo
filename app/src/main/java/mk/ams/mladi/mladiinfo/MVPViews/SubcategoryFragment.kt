@@ -11,16 +11,16 @@ import mk.ams.mladi.mladiinfo.MVPPresenters.SubcategoryPresenter
 import mk.ams.mladi.mladiinfo.R
 import mk.ams.mladi.mladiinfo.SubcategoryAdapter
 import mk.ams.mladi.mladiinfo.SubcategoryAdapterInterface
-import mk.ams.mladi.mladiinfo.ViewModels.SubCategory
+import mk.ams.mladi.mladiinfo.ViewModels.Subcategory
 
 class SubcategoryFragment : MVPFragment<SubcategoryFragment, SubcategoryPresenter>(), SubcategoryContract.View {
-  lateinit var subcategory: SubCategory<Any>
+  lateinit var subcategory: Subcategory<Any>
   private val subcategoryAdapter = SubcategoryAdapter()
 
   companion object {
-    fun getInstance(subCategory: SubCategory<Any>): SubcategoryFragment {
+    fun getInstance(subcategory: Subcategory<Any>): SubcategoryFragment {
       val fragment = SubcategoryFragment()
-      fragment.subcategory = subCategory
+      fragment.subcategory = subcategory
       return fragment
     }
   }

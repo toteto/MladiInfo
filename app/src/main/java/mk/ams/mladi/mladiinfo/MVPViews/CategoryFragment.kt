@@ -10,7 +10,7 @@ import mk.ams.mladi.mladiinfo.MVPPresenters.CategoryPresenter
 import mk.ams.mladi.mladiinfo.R
 import mk.ams.mladi.mladiinfo.SubcategoriesPagerAdapter
 import mk.ams.mladi.mladiinfo.ViewModels.Category
-import mk.ams.mladi.mladiinfo.ViewModels.SubCategory
+import mk.ams.mladi.mladiinfo.ViewModels.Subcategory
 
 /** View that is used for displaying Category.*/
 class CategoryFragment : MVPFragment<CategoryFragment, CategoryPresenter>(), CategoryContract.View {
@@ -45,11 +45,11 @@ class CategoryFragment : MVPFragment<CategoryFragment, CategoryPresenter>(), Cat
     tabLayout.setupWithViewPager(viewPager)
   }
 
-  override fun setSubCategories(subCategories: List<SubCategory<Any>>) {
-    pagerAdapter.subcategories = subCategories
+  override fun setSubCategories(subcategories: List<Subcategory<Any>>) {
+    pagerAdapter.subcategories = subcategories
   }
 
-  override fun showSubCategory(subCategory: SubCategory<out Any>) {
+  override fun showSubCategory(subcategory: Subcategory<out Any>) {
     throw UnsupportedOperationException("not implemented")
   }
 

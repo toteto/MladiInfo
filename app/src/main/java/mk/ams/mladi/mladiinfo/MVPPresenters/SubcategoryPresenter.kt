@@ -3,16 +3,16 @@ package mk.ams.mladi.mladiinfo.MVPPresenters
 import mk.ams.mladi.mladiinfo.DataProviders.MladiInfoApiInterface
 import mk.ams.mladi.mladiinfo.MVPContracts.SubcategoryContract
 import mk.ams.mladi.mladiinfo.MVPViews.SubcategoryFragment
-import mk.ams.mladi.mladiinfo.ViewModels.SubCategory
+import mk.ams.mladi.mladiinfo.ViewModels.Subcategory
 
-class SubcategoryPresenter(val client: MladiInfoApiInterface, subCategory: SubCategory<Any>) : SubcategoryContract.Presenter<SubcategoryFragment>(subCategory) {
+class SubcategoryPresenter(val client: MladiInfoApiInterface, subcategory: Subcategory<Any>) : SubcategoryContract.Presenter<SubcategoryFragment>(subcategory) {
   override fun loadData(forceUpdate: Boolean) {
-    enqueueCall(subCategory.call(client),
+    enqueueCall(subcategory.call(client),
         {
           val view = getView()
           if (view != null) {
-            val pData = subCategory.dataPreprocessor(it)
-            subCategory.bindDataTo(pData, view.getSubcategoryItemAdapter())
+            val pData = subcategory.dataPreprocessor(it)
+            subcategory.bindDataTo(pData, view.getSubcategoryItemAdapter())
           }
         })
   }

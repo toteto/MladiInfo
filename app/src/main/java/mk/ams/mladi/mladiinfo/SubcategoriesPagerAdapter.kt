@@ -4,11 +4,11 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import mk.ams.mladi.mladiinfo.MVPViews.SubcategoryFragment
-import mk.ams.mladi.mladiinfo.ViewModels.SubCategory
+import mk.ams.mladi.mladiinfo.ViewModels.Subcategory
 import java.util.*
 
 class SubcategoriesPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
-  var subcategories: List<SubCategory<Any>> = ArrayList()
+  var subcategories: List<Subcategory<Any>> = ArrayList()
     set(value) {
       field = value
       notifyDataSetChanged()

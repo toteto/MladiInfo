@@ -4,7 +4,7 @@ import mk.ams.mladi.mladiinfo.DataProviders.MladiInfoApiInterface
 import mk.ams.mladi.mladiinfo.SubcategoryAdapterInterface
 import retrofit2.Call
 
-class SubCategory<T>(
+class Subcategory<T>(
     val name: String,
     val call: (client: MladiInfoApiInterface) -> Call<List<T>>,
     val dataPreprocessor: (data: List<T>) -> List<T> = { it },
