@@ -30,6 +30,8 @@ class CategoryFragment : MVPFragment<CategoryFragment, CategoryPresenter>(), Cat
   val category: Category by lazy {
     when (arguments.get(CATEGORY_KEY) as MainContract.CATEGORY_ITEM) {
       MainContract.CATEGORY_ITEM.TRAININGS -> Category.Factory.getTrainingCategory(activity)
+      MainContract.CATEGORY_ITEM.WORKS -> Category.Factory.getWorkCategory(activity)
+      MainContract.CATEGORY_ITEM.ORGANIZATIONS -> Category.Factory.getOrganizations(activity)
       else -> throw NotImplementedError("only ${MainContract.CATEGORY_ITEM.TRAININGS} is supported.")
     }
   }
