@@ -18,9 +18,11 @@ class Organization(
     @SerializedName("Telephone") val phoneNumber: String?,
     @SerializedName("Website") val websiteUrl: String?
 ) : ContactInterface {
+  override fun getContactId(): Long = id.toLong()
+
   enum class TYPE(val value: String) {
     STUDENT("Студентска организација"),
-    GENERAL("Организација")
+    NON_GOVERNMENTAL("Организација")
   }
 
   override fun getContactTitle(): String = name.trim()
@@ -34,17 +36,22 @@ class Organization(
   override fun getContactAddress(): String? = address?.trim()
 
   override fun getContactLatLong(): Pair<Double, Double>? {
-    if (locationY != null && locationX != null) {
-      return Pair(locationX.toDouble(), locationY.toDouble())
+    if (!locationY.isNullOrEmpty() && !locationX.isNullOrEmpty()) {
+      return Pair(locationX?.replace(',', '.')?.toDouble() as Double, locationY?.replace(',', '.')?.toDouble() as Double)
     }
     return null
   }
 
   override fun getContactSite(): String? = websiteUrl?.trim()
 
-  override fun getContactFacebookProfile(): String? {
-    throw UnsupportedOperationException("not implemented")
-  }
+  override fun getContactFacebookProfile(): String? = facebookUrl?.trim()
 
   override fun getContactTwitterProfile(): String? = tw?.trim()
+
+  override fun getContactLogoUrl(): String? {
+    if (student == TYPE.STUDENT.value) {
+      return "http://mladi.ams.mk/images/orgs/$id.png"
+    }
+    return null
+  }
 }

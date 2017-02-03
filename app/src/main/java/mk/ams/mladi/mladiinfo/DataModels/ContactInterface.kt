@@ -10,4 +10,6 @@ interface ContactInterface {
   fun getContactSite(): String?
   fun getContactFacebookProfile(): String?
   fun getContactTwitterProfile(): String?
+  fun getContactId(): Long
+  fun getContactLogoUrl() : String?
 }
