@@ -10,6 +10,8 @@
   <string name="work">Work</string>
   <string name="student_discounts">Student discounts</string>
   <string name="organisations">Organisations</string>
+  <string name="student_organizations">Student organizations</string>
+  <string name="non_governmental_organization">Non-governmental organization</string>
   <string name="ams">AMS</string>
   <string name="polls">Polls</string>
   <string name="starting_page">Starting page</string>
@@ -25,4 +27,6 @@
   <string name="visit_tw_profile">Visit twitter profile</string>
   <string name="show_location_on_map">Show location on map</string>
   <string name="open_website">Open website</string>
+  <string name="logo">Logo</string>
+  <string name="not_yet_supported">Not yet supported</string>
 </resources>

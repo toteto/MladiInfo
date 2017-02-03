@@ -4,13 +4,17 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  android:layout_marginBottom="5dp"
-  android:orientation="vertical">
+  android:orientation="vertical"
+  tools:layout_marginTop="24dp"
+  android:clickable="true"
+  android:focusable="true"
+  android:background="?selectableItemBackground">
 
   <View
     android:id="@+id/itemDivider"
     android:layout_width="match_parent"
-    android:layout_height="2dp"/>
+    android:layout_height="2dp"
+    tools:background="@color/orange"/>
 
   <LinearLayout
     android:layout_width="match_parent"
@@ -21,14 +25,31 @@
     android:layout_marginTop="5dp"
     android:orientation="vertical">
 
-    <TextView
-      android:id="@+id/tvArticleTitle"
+    <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:orientation="horizontal"
       android:layout_marginBottom="5dp"
-      android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-      android:textColor="@color/primary_text"
-      tools:text="Sixth Groningen Energy Summer School"/>
+      android:gravity="center_vertical">
+
+      <ImageView
+        android:contentDescription="@string/logo"
+        android:id="@+id/ivContactLogo"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        tools:src = "@drawable/icon_youtube"/>
+
+      <TextView
+        android:id="@+id/tvArticleTitle"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@color/primary_text"
+        android:layout_marginLeft="5dp"
+        tools:text="Sixth Groningen Energy Summer School"
+        android:minLines="2"/>
+    </LinearLayout>
 
     <LinearLayout
       android:id="@+id/collapsibleContainer"
@@ -42,7 +63,6 @@
         android:id="@+id/tvArticleDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:maxLines="3"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:textColor="@color/secondary_text"
         tools:text="The Groningen Energy Summer School (GESS) 2017 takes an interdisciplinary approach to the societal and technological dimensions of the energy transition."/>
@@ -51,7 +71,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:gravity="right">
 
         <ImageView
           android:id="@+id/btnCallPhone"
@@ -59,7 +80,10 @@
           android:layout_height="50dp"
           android:layout_weight="1"
           android:contentDescription="@string/call_phone"
-          android:src="@drawable/icon_phone"/>
+          android:src="@drawable/icon_phone"
+          android:clickable="true"
+          android:focusable="true"
+          android:background="?selectableItemBackground"/>
 
         <ImageView
           android:id="@+id/btnSendMail"
@@ -67,7 +91,10 @@
           android:layout_height="50dp"
           android:layout_weight="1"
           android:contentDescription="@string/send_email"
-          android:src="@drawable/icon_send_mail"/>
+          android:src="@drawable/icon_send_mail"
+          android:clickable="true"
+          android:focusable="true"
+          android:background="?selectableItemBackground"/>
 
 
         <ImageView
@@ -76,7 +103,10 @@
           android:layout_height="50dp"
           android:layout_weight="1"
           android:contentDescription="@string/show_location_on_map"
-          android:src="@drawable/icon_map"/>
+          android:src="@drawable/icon_map"
+          android:clickable="true"
+          android:focusable="true"
+          android:background="?selectableItemBackground"/>
 
         <ImageView
           android:id="@+id/btnVisitWebsite"
@@ -84,7 +114,10 @@
           android:layout_height="50dp"
           android:layout_weight="1"
           android:contentDescription="@string/open_website"
-          android:src="@drawable/icon_website"/>
+          android:src="@drawable/icon_website"
+          android:clickable="true"
+          android:focusable="true"
+          android:background="?selectableItemBackground"/>
 
         <ImageView
           android:id="@+id/btnVisitFacebook"
@@ -92,7 +125,10 @@
           android:layout_height="50dp"
           android:layout_weight="1"
           android:contentDescription="@string/visit_fb_profile"
-          android:src="@drawable/icon_facebook"/>
+          android:src="@drawable/icon_facebook"
+          android:clickable="true"
+          android:focusable="true"
+          android:background="?selectableItemBackground"/>
 
         <ImageView
           android:id="@+id/btnVisitTwitter"
@@ -100,7 +136,10 @@
           android:layout_height="50dp"
           android:layout_weight="1"
           android:contentDescription="@string/visit_tw_profile"
-          android:src="@drawable/icon_twitter"/>
+          android:src="@drawable/icon_twitter"
+          android:clickable="true"
+          android:focusable="true"
+          android:background="?selectableItemBackground"/>
 
 
       </LinearLayout>
@@ -111,6 +150,7 @@
     android:id="@+id/ivExpandIndicator"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:src="@drawable/ic_expand_more"
-    tools:src="@drawable/ic_expand_less"/>
+    android:src="@drawable/ic_expand_less"
+    android:visibility="gone"
+    tools:visibility="visible"/>
 </LinearLayout>

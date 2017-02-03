@@ -1,30 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:id="@+id/headerContainer"
-              xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:background="@color/orange"
-              android:orientation="horizontal"
-              android:paddingBottom="10dp"
-              android:paddingLeft="15dp"
-              android:paddingRight="15dp"
-              android:paddingTop="15dp">
+<FrameLayout
+  android:id="@+id/headerContainer"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:background="@color/orange"
+  android:clickable="true"
+  android:focusable="true">
 
-  <TextView
-    android:id="@+id/tvHeaderTitle"
-    android:layout_width="0dp"
+  <LinearLayout
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_weight="1"
-    android:textAllCaps="true"
-    android:textColor="@android:color/white"
-    android:textSize="20sp"
-    android:textStyle="bold"
-    tools:text="Title"/>
+    android:background="?selectableItemBackground"
 
-  <ImageView
-    android:id="@+id/headerShowMoreIndicator"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:src="@drawable/ic_chevron_right"/>
-</LinearLayout>
+    android:orientation="horizontal"
+    android:paddingBottom="10dp"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    android:paddingTop="15dp">
+
+    <TextView
+      android:id="@+id/tvHeaderTitle"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:textAllCaps="true"
+      android:textColor="@android:color/white"
+      android:textSize="20sp"
+      android:textStyle="bold"
+      tools:text="Title"/>
+
+    <ImageView
+      android:id="@+id/headerShowMoreIndicator"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:src="@drawable/ic_chevron_right"/>
+  </LinearLayout>
+</FrameLayout>
