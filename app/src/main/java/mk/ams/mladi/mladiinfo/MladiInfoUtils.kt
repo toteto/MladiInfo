@@ -11,12 +11,12 @@ fun String.parseMladiInfoDate(): Date = SimpleDateFormat("dd.MM.yyyy HH:mm:ss", 
 fun String.parseMladiInfoDescription(crawlUrl: String): String {
   if (crawlUrl.contains("www.mladiinfo.eu")) {
     val pattern = Pattern.compile("Description (.*).\\[read more\\]")
-    val matcher = pattern.matcher(toString())
+    val matcher = pattern.matcher(this)
     if (matcher.find()) {
       return matcher.group(1)
     }
   }
-  return toString()
+  return this
 }
 
 fun Date.toRelativeTime(context: Context): String = DateUtils.getRelativeDateTimeString(context,
