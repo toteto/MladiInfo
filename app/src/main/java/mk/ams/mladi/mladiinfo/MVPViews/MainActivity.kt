@@ -49,6 +49,7 @@ class MainActivity : MVPActivity<MainContract.View, MainContract.Presenter>(), M
 
     navigationView.setNavigationItemSelectedListener {
       presenter.onCategoryItemSelected(CATEGORY_MAPPING[it.itemId] ?: CATEGORY_ITEM.STARTING_PAGE)
+      drawerLayout.closeDrawer(navigationView)
       true
     }
   }

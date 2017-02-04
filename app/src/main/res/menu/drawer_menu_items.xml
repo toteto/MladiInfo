@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
   <item
-    android:id="@+id/starting_page"
+    android:checkable="true"
     android:checked="true"
+    android:id="@+id/starting_page"
     android:icon="@drawable/icon_home"
     android:title="@string/starting_page"/>
   <item android:title="@string/categories">
