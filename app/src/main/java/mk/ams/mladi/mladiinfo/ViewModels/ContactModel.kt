@@ -24,6 +24,11 @@ class ContactModel(val contact: ContactInterface) : EpoxyModelWithHolder<Contact
     holder.bindContact(contact)
   }
 
+  override fun unbind(holder: ContactViewHolder) {
+    super.unbind(holder)
+    holder.unbindContact()
+  }
+
   override fun getDefaultLayout(): Int = R.layout.contact_item
 
   class ContactViewHolder : EpoxyHolder() {
@@ -87,6 +92,11 @@ class ContactModel(val contact: ContactInterface) : EpoxyModelWithHolder<Contact
       bindDescription()
       updateButtons()
       view.itemDivider.setBackgroundColor(ContextCompat.getColor(view.context, contact.getDividerColor()))
+    }
+
+    fun unbindContact() {
+      this.contact = null
+      collapseView()
     }
 
     private val expandCollapseClickListener = View.OnClickListener {
