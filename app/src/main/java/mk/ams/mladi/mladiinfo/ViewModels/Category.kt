@@ -40,7 +40,7 @@ class Category(val name: String) {
             call = { it.getWorkPostings() },
             dataPreprocessor = { it.filter { it.workType == Work.TYPE.EMPLOYMENT.value } },
             bindDataTo = { data, adapter -> adapter.bindArticleItems(data) },
-            color = R.color.dark_orange))
+            color = R.color.deep_orange))
 
     fun getOrganizations(context: Context) = Category(context.getString(R.string.organisations))
         .addSubCategory(Subcategory(context.getString(R.string.student_organizations),

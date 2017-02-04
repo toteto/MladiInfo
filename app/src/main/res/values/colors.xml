@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <color name="orange">#FF9800</color>
-  <color name="dark_orange">#F26522</color>
+  <color name="dark_orange">#F57C00</color>
+  <color name="deep_orange">#FF5722</color>
+  <color name="light_green">#8BC34A</color>
   <color name="green">#4CAF50</color>
+  <color name="yellow">#FFEB3B</color>
+  <color name="dakr_yellow">#FFC107</color>
+  <color name="blue">#2196F3</color>
+  <color name="light_blue">#03A9F4</color>
+  <color name="blue_grey">#607D8B</color>
 
   <color name="primary">@color/orange</color>
   <color name="primary_dark">@color/dark_orange</color>

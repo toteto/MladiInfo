@@ -12,7 +12,7 @@ import mk.ams.mladi.mladiinfo.ViewModels.OverviewSection
 class OverviewAdapter(context: Context) : EpoxyAdapter() {
   val scholarshipsSection = OverviewSection(context.getString(R.string.scholarships), R.color.orange)
   val internshipsSection = OverviewSection(context.getString(R.string.internships), R.color.green)
-  val employmentsSection = OverviewSection(context.getString(R.string.employments), R.color.dark_orange)
+  val employmentsSection = OverviewSection(context.getString(R.string.employments), R.color.deep_orange)
   val seminarsSection = OverviewSection(context.getString(R.string.seminars), R.color.orange)
   val conferencesSection = OverviewSection(context.getString(R.string.conferences), R.color.orange)
 

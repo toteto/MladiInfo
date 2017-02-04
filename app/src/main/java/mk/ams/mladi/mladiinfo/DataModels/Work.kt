@@ -26,7 +26,7 @@ data class Work(
 ) : ArticleInterface {
   enum class TYPE(val value: String, @ColorRes val dividerColor : Int) {
     INTERNSHIP("Internship", R.color.green),
-    EMPLOYMENT("Job", R.color.dark_orange)
+    EMPLOYMENT("Job", R.color.deep_orange)
   }
   override fun getDividerColor(): Int = when (workType) {
     TYPE.INTERNSHIP.value -> TYPE.INTERNSHIP.dividerColor
