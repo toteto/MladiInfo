@@ -8,7 +8,7 @@
   <string name="employments">Вработувања</string>
   <string name="internships">Пракси</string>
   <string name="organisations">Организации</string>
-  <string name="polls">Анкти</string>
+  <string name="polls">Анкети</string>
   <string name="scholarships">Стипендии</string>
   <string name="seminars">Семинари</string>
   <string name="social_networks">Социални мрежи</string>
@@ -17,4 +17,19 @@
   <string name="trainings">Обуки</string>
   <string name="work">Работа</string>
   <string name="ams">АМС</string>
+    <string name="call_phone">Јави се на телефонот</string>
+  <string name="high_schools">Средни училишта</string>
+  <string name="logo">Лого</string>
+  <string name="non_governmental_organization">Невладина организација</string>
+  <string name="not_yet_supported">Не е уште поддржано</string>
+  <string name="open_website">Отвори ја веб страната</string>
+  <string name="other_higher_education_institutions">Останати високообразовни институции</string>
+  <string name="private_universities">Приватни универзитети</string>
+  <string name="send_email">Прати електронска пошта</string>
+  <string name="show_location_on_map">Прикажи ја локацијата на мапа</string>
+  <string name="state_universities">Државни универзитети</string>
+  <string name="student_organizations">Студентски организации</string>
+  <string name="universities">Универзитети</string>
+  <string name="visit_fb_profile">Посети го facebook профилот</string>
+  <string name="visit_tw_profile">Посети го twitter профилот</string>
 </resources>
