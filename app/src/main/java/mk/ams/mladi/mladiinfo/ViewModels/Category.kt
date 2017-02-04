@@ -1,6 +1,7 @@
 package mk.ams.mladi.mladiinfo.ViewModels
 
 import android.content.Context
+import mk.ams.mladi.mladiinfo.DataModels.EducationalInstitution
 import mk.ams.mladi.mladiinfo.DataModels.Organization
 import mk.ams.mladi.mladiinfo.DataModels.Training
 import mk.ams.mladi.mladiinfo.DataModels.Work
@@ -53,5 +54,27 @@ class Category(val name: String) {
             dataPreprocessor = { it.filter { it.student == Organization.TYPE.NON_GOVERNMENTAL.value } },
             bindDataTo = { data, adapter -> adapter.bindContactItems(data) },
             color = Organization.TYPE.NON_GOVERNMENTAL.color))
+
+    fun getEducationalInstitutions(context: Context) = Category(context.getString(R.string.educational_institutions))
+        .addSubCategory(Subcategory(context.getString(R.string.state_universities),
+            call = { it.getUniversities() },
+            dataPreprocessor = { it.filter { it.typeId == EducationalInstitution.TYPE.STATE_UNIVERSITY.key } },
+            bindDataTo = { data, adapter -> adapter.bindContactItems(data) },
+            color = EducationalInstitution.TYPE.STATE_UNIVERSITY.color))
+        .addSubCategory(Subcategory(context.getString(R.string.private_universities),
+            call = { it.getUniversities() },
+            dataPreprocessor = { it.filter { it.typeId == EducationalInstitution.TYPE.PRIVATE_UNIVERSITY.key } },
+            bindDataTo = { data, adapter -> adapter.bindContactItems(data) },
+            color = EducationalInstitution.TYPE.PRIVATE_UNIVERSITY.color))
+        .addSubCategory(Subcategory(context.getString(R.string.other_higher_education_institutions),
+            call = { it.getUniversities() },
+            dataPreprocessor = { it.filter { it.typeId == EducationalInstitution.TYPE.OTHER_HIGHER_EDUCATION.key } },
+            bindDataTo = { data, adapter -> adapter.bindContactItems(data) },
+            color = EducationalInstitution.TYPE.OTHER_HIGHER_EDUCATION.color))
+        .addSubCategory(Subcategory(context.getString(R.string.high_schools),
+            call = { it.getUniversities() },
+            dataPreprocessor = { it.filter { it.typeId == EducationalInstitution.TYPE.HIGH_SCHOOL.key } },
+            bindDataTo = { data, adapter -> adapter.bindContactItems(data) },
+            color = EducationalInstitution.TYPE.HIGH_SCHOOL.color))
   }
 }

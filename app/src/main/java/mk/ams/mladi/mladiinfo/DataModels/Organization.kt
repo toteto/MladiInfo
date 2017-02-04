@@ -3,6 +3,7 @@ package mk.ams.mladi.mladiinfo.DataModels
 import android.support.annotation.ColorRes
 import com.google.gson.annotations.SerializedName
 import mk.ams.mladi.mladiinfo.R
+import mk.ams.mladi.mladiinfo.parseMladiInfoLatLong
 
 class Organization(
     @SerializedName("Address") val address: String?,
@@ -43,12 +44,7 @@ class Organization(
 
   override fun getContactAddress(): String? = address?.trim()
 
-  override fun getContactLatLong(): Pair<Double, Double>? {
-    if (!locationY.isNullOrEmpty() && !locationX.isNullOrEmpty()) {
-      return Pair(locationX?.replace(',', '.')?.toDouble() as Double, locationY?.replace(',', '.')?.toDouble() as Double)
-    }
-    return null
-  }
+  override fun getContactLatLong(): Pair<Double, Double>? = Pair(locationX, locationY).parseMladiInfoLatLong()
 
   override fun getContactSite(): String? = websiteUrl?.trim()
 

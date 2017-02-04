@@ -36,7 +36,13 @@ fun ViewPager.onPageChangeListener(pageChangeListener: (newPosition: Int) -> Uni
     override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
       // nothing
     }
-
-
   })
 }
+
+fun Pair<String?, String?>.parseMladiInfoLatLong(): Pair<Double, Double>? {
+  if (!first.isNullOrEmpty() && !second.isNullOrEmpty()) {
+    return Pair(first?.replace(',', '.')?.toDouble() as Double, second?.replace(',', '.')?.toDouble() as Double)
+  }
+  return null
+}
+

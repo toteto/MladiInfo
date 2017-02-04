@@ -26,7 +26,7 @@ interface MladiInfoApiInterface {
   fun getLibraries(@Header("Cache-Control") cacheControl: String? = MladiInfoApiClient.CACHE_CONTROL.MAYBE_CACHED.value): Call<List<Library>>
 
   @GET("GetUniversities")
-  fun getUniversities(@Header("Cache-Control") cacheControl: String? = MladiInfoApiClient.CACHE_CONTROL.MAYBE_CACHED.value): Call<List<School>>
+  fun getUniversities(@Header("Cache-Control") cacheControl: String? = MladiInfoApiClient.CACHE_CONTROL.MAYBE_CACHED.value): Call<List<EducationalInstitution>>
 
   @GET("GetFaculties/{universityId]")
   fun getFaculties(@Path("universityId") universityId: Int, @Header("Cache-Control") cacheControl: String? = MladiInfoApiClient.CACHE_CONTROL.MAYBE_CACHED.value): Call<Faculty>

@@ -96,7 +96,6 @@ class ContactModel(val contact: ContactInterface) : EpoxyModelWithHolder<Contact
 
     fun unbindContact() {
       this.contact = null
-      collapseView()
     }
 
     private val expandCollapseClickListener = View.OnClickListener {

@@ -34,6 +34,7 @@ class CategoryFragment : MVPFragment<CategoryFragment, CategoryPresenter>(), Cat
       MainContract.CATEGORY_ITEM.TRAININGS -> Category.Factory.getTrainingCategory(activity)
       MainContract.CATEGORY_ITEM.WORKS -> Category.Factory.getWorkCategory(activity)
       MainContract.CATEGORY_ITEM.ORGANIZATIONS -> Category.Factory.getOrganizations(activity)
+      MainContract.CATEGORY_ITEM.EDUCATIONAL_INSTITUTIONS -> Category.Factory.getEducationalInstitutions(activity)
       else -> throw NotImplementedError("only ${MainContract.CATEGORY_ITEM.TRAININGS} is supported.")
     }
   }

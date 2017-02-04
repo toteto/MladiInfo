@@ -29,4 +29,9 @@
   <string name="open_website">Open website</string>
   <string name="logo">Logo</string>
   <string name="not_yet_supported">Not yet supported</string>
+  <string name="universities">Universities</string>
+  <string name="state_universities">State universities</string>
+  <string name="private_universities">Private universities</string>
+  <string name="other_higher_education_institutions">Other higher education institutions</string>
+  <string name="high_schools">High schools</string>
 </resources>
