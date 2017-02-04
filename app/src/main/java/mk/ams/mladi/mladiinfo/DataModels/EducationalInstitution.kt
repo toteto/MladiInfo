@@ -62,4 +62,12 @@ data class EducationalInstitution(
     TYPE.STATE_UNIVERSITY.key, TYPE.PRIVATE_UNIVERSITY.key, TYPE.OTHER_HIGHER_EDUCATION.key -> "http://mladi.ams.mk/images/universities/$id.png"
     else -> null
   }
+
+  override fun getDividerColor(): Int = when (typeId) {
+    TYPE.HIGH_SCHOOL.key -> TYPE.HIGH_SCHOOL.color
+    TYPE.STATE_UNIVERSITY.key -> TYPE.STATE_UNIVERSITY.color
+    TYPE.PRIVATE_UNIVERSITY.key -> TYPE.PRIVATE_UNIVERSITY.color
+    TYPE.OTHER_HIGHER_EDUCATION.key -> TYPE.OTHER_HIGHER_EDUCATION.color
+    else -> super.getDividerColor()
+  }
 }
