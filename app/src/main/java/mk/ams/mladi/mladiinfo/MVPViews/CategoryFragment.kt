@@ -1,6 +1,7 @@
 package mk.ams.mladi.mladiinfo.MVPViews
 
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.view.View
 import kotlinx.android.synthetic.main.category_fragment_layout.*
 import mk.ams.mladi.mladiinfo.MVPContracts.CategoryContract
@@ -11,6 +12,7 @@ import mk.ams.mladi.mladiinfo.R
 import mk.ams.mladi.mladiinfo.SubcategoriesPagerAdapter
 import mk.ams.mladi.mladiinfo.ViewModels.Category
 import mk.ams.mladi.mladiinfo.ViewModels.Subcategory
+import mk.ams.mladi.mladiinfo.onPageChangeListener
 
 /** View that is used for displaying Category.*/
 class CategoryFragment : MVPFragment<CategoryFragment, CategoryPresenter>(), CategoryContract.View {
@@ -45,10 +47,17 @@ class CategoryFragment : MVPFragment<CategoryFragment, CategoryPresenter>(), Cat
     super.onViewCreated(view, savedInstanceState)
     viewPager.adapter = pagerAdapter
     tabLayout.setupWithViewPager(viewPager)
+    viewPager.onPageChangeListener { updateTabIndicatorColor(pagerAdapter.getSubcategory(it)) }
+  }
+
+  fun updateTabIndicatorColor(subcategory: Subcategory<*>) {
+    tabLayout.setSelectedTabIndicatorColor(
+        ContextCompat.getColor(activity, subcategory.color))
   }
 
   override fun setSubCategories(subcategories: List<Subcategory<Any>>) {
     pagerAdapter.subcategories = subcategories
+    updateTabIndicatorColor(subcategories.first())
   }
 
   override fun showSubCategory(subcategory: Subcategory<out Any>) {

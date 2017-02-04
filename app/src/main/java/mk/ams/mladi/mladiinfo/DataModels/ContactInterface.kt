@@ -1,6 +1,6 @@
 package mk.ams.mladi.mladiinfo.DataModels
 
-interface ContactInterface {
+interface ContactInterface : DividerColorInterface {
   fun getContactTitle(): String
   fun getContactDescription(): String?
   fun getContactPhone(): String?

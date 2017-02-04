@@ -65,6 +65,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:textColor="@color/secondary_text"
+        android:maxLines="20"
         tools:text="The Groningen Energy Summer School (GESS) 2017 takes an interdisciplinary approach to the societal and technological dimensions of the energy transition."/>
 
       <LinearLayout

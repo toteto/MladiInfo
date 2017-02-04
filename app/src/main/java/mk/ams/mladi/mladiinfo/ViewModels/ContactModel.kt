@@ -19,21 +19,12 @@ import mk.ams.mladi.mladiinfo.R
 class ContactModel(val contact: ContactInterface) : EpoxyModelWithHolder<ContactModel.ContactViewHolder>(contact.getContactId()) {
   override fun createNewHolder(): ContactViewHolder = ContactViewHolder()
 
-  @ColorRes
-  private var dividerColor = R.color.secondary_text
-
   override fun bind(holder: ContactViewHolder) {
     super.bind(holder)
     holder.bindContact(contact)
-    holder.view.itemDivider.setBackgroundColor(ContextCompat.getColor(holder.view.context, dividerColor))
   }
 
   override fun getDefaultLayout(): Int = R.layout.contact_item
-
-  fun withDividerColor(@ColorRes color: Int): ContactModel {
-    dividerColor = color
-    return this
-  }
 
   class ContactViewHolder : EpoxyHolder() {
     lateinit var view: View
@@ -95,6 +86,7 @@ class ContactModel(val contact: ContactInterface) : EpoxyModelWithHolder<Contact
       bindTitle()
       bindDescription()
       updateButtons()
+      view.itemDivider.setBackgroundColor(ContextCompat.getColor(view.context, contact.getDividerColor()))
     }
 
     private val expandCollapseClickListener = View.OnClickListener {

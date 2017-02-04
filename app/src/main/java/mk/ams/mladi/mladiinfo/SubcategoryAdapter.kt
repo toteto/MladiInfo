@@ -1,6 +1,5 @@
 package mk.ams.mladi.mladiinfo
 
-import android.support.annotation.ColorRes
 import com.airbnb.epoxy.EpoxyAdapter
 import mk.ams.mladi.mladiinfo.DataModels.ArticleInterface
 import mk.ams.mladi.mladiinfo.DataModels.ContactInterface
@@ -12,15 +11,15 @@ class SubcategoryAdapter : EpoxyAdapter(), SubcategoryAdapterInterface {
     enableDiffing()
   }
 
-  override fun bindArticleItems(items: List<ArticleInterface>, @ColorRes dividerColor: Int) {
+  override fun bindArticleItems(items: List<ArticleInterface>) {
     models.clear()
     models.addAll(items.flatMap { listOf(ArticleModel(it)) })
     notifyModelsChanged()
   }
 
-  override fun bindContactItems(items: List<ContactInterface>, @ColorRes dividerColor: Int) {
+  override fun bindContactItems(items: List<ContactInterface>) {
     models.clear()
-    models.addAll(items.flatMap { listOf(ContactModel(it).withDividerColor(dividerColor)) })
+    models.addAll(items.flatMap { listOf(ContactModel(it)) })
     notifyModelsChanged()
   }
 }

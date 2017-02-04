@@ -18,6 +18,8 @@ class SubcategoriesPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter
     return SubcategoryFragment.getInstance(subcategories[position])
   }
 
+  fun getSubcategory(position: Int) = subcategories[position]
+
   override fun getCount(): Int = subcategories.size
 
   override fun getPageTitle(position: Int): CharSequence = subcategories[position].name

@@ -46,10 +46,12 @@ class Category(val name: String) {
         .addSubCategory(Subcategory(context.getString(R.string.student_organizations),
             call = { it.getOrganizations() },
             dataPreprocessor = { it.filter { it.student == Organization.TYPE.STUDENT.value } },
-            bindDataTo = { data, adapter -> adapter.bindContactItems(data, R.color.green) }))
+            bindDataTo = { data, adapter -> adapter.bindContactItems(data) },
+            color = Organization.TYPE.STUDENT.color))
         .addSubCategory(Subcategory(context.getString(R.string.non_governmental_organization),
             call = { it.getOrganizations() },
             dataPreprocessor = { it.filter { it.student == Organization.TYPE.NON_GOVERNMENTAL.value } },
-            bindDataTo = { data, adapter -> adapter.bindContactItems(data, R.color.dark_orange) }))
+            bindDataTo = { data, adapter -> adapter.bindContactItems(data) },
+            color = Organization.TYPE.NON_GOVERNMENTAL.color))
   }
 }

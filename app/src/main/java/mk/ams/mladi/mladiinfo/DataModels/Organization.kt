@@ -1,6 +1,8 @@
 package mk.ams.mladi.mladiinfo.DataModels
 
+import android.support.annotation.ColorRes
 import com.google.gson.annotations.SerializedName
+import mk.ams.mladi.mladiinfo.R
 
 class Organization(
     @SerializedName("Address") val address: String?,
@@ -20,9 +22,15 @@ class Organization(
 ) : ContactInterface {
   override fun getContactId(): Long = id.toLong()
 
-  enum class TYPE(val value: String) {
-    STUDENT("Студентска организација"),
-    NON_GOVERNMENTAL("Организација")
+  enum class TYPE(val value: String, @ColorRes val color: Int) {
+    STUDENT("Студентска организација", R.color.blue),
+    NON_GOVERNMENTAL("Организација", R.color.blue_grey)
+  }
+
+  override fun getDividerColor(): Int = when (student) {
+    TYPE.STUDENT.value -> TYPE.STUDENT.color
+    TYPE.NON_GOVERNMENTAL.value -> TYPE.NON_GOVERNMENTAL.color
+    else -> R.color.secondary_text
   }
 
   override fun getContactTitle(): String = name.trim()
