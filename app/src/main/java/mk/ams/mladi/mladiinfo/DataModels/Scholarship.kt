@@ -1,6 +1,7 @@
 package mk.ams.mladi.mladiinfo.DataModels
 
 import com.google.gson.annotations.SerializedName
+import mk.ams.mladi.mladiinfo.R
 import mk.ams.mladi.mladiinfo.parseMladiInfoDate
 import mk.ams.mladi.mladiinfo.parseMladiInfoDescription
 import java.util.*
@@ -13,6 +14,8 @@ data class Scholarship(
     @SerializedName("Link") val websiteUrl: String,
     @SerializedName("Title") val title: String
 ) : ArticleInterface {
+  override fun getDividerColor(): Int = R.color.orange
+
   override fun getArticleTitle(): String = title
 
   override fun getArticleDescription(): String = description.parseMladiInfoDescription(websiteUrl)
@@ -27,5 +30,5 @@ data class Scholarship(
     throw UnsupportedOperationException("not implemented")
   }
 
-  override fun getArticleId(): String = id
+  override fun getArticleId(): Long = id.toLong()
 }

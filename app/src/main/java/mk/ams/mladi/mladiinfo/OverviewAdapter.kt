@@ -2,11 +2,11 @@ package mk.ams.mladi.mladiinfo
 
 import android.content.Context
 import com.airbnb.epoxy.EpoxyAdapter
-import com.airbnb.epoxy.EpoxyModel
 import mk.ams.mladi.mladiinfo.DataModels.Scholarship
 import mk.ams.mladi.mladiinfo.DataModels.Training
 import mk.ams.mladi.mladiinfo.DataModels.Work
 import mk.ams.mladi.mladiinfo.ViewModels.ArticleModel
+import mk.ams.mladi.mladiinfo.ViewModels.EpoxyModelWithDivider
 import mk.ams.mladi.mladiinfo.ViewModels.OverviewSection
 
 class OverviewAdapter(context: Context) : EpoxyAdapter() {
@@ -26,31 +26,32 @@ class OverviewAdapter(context: Context) : EpoxyAdapter() {
   }
 
   fun bindScholarships(scholarships: List<Scholarship>) {
-    bindCategory(scholarshipsSection, scholarships.flatMap { listOf(ArticleModel(it, scholarshipsSection.headerColor)) })
+    bindCategory(scholarshipsSection, scholarships.flatMap { listOf(ArticleModel(it)) })
   }
 
   fun bindInternships(internships: List<Work>) {
-    bindCategory(internshipsSection, internships.flatMap { listOf(ArticleModel(it, internshipsSection.headerColor)) })
+    bindCategory(internshipsSection, internships.flatMap { listOf(ArticleModel(it)) })
   }
 
   fun bindEmployments(employments: List<Work>) {
-    bindCategory(employmentsSection, employments.flatMap { listOf(ArticleModel(it, employmentsSection.headerColor)) })
+    bindCategory(employmentsSection, employments.flatMap { listOf(ArticleModel(it)) })
   }
 
   fun bindSeminars(seminars: List<Training>) {
-    bindCategory(seminarsSection, seminars.flatMap { listOf(ArticleModel(it, seminarsSection.headerColor)) })
+    bindCategory(seminarsSection, seminars.flatMap { listOf(ArticleModel(it)) })
   }
 
   fun bindConferences(conferences: List<Training>) {
-    bindCategory(conferencesSection, conferences.flatMap { listOf(ArticleModel(it, conferencesSection.headerColor)) })
+    bindCategory(conferencesSection, conferences.flatMap { listOf(ArticleModel(it)) })
   }
 
-  fun bindCategory(section: OverviewSection, newModels: List<EpoxyModel<*>>) {
+  fun bindCategory(section: OverviewSection, newModels: List<EpoxyModelWithDivider<*>>) {
     synchronized(models) {
       models.removeAll(section.models)
       section.models.clear()
       section.models.addAll(newModels)
       models.addAll(models.indexOf(section.header) + 1, newModels)
+      newModels.lastOrNull()?.withDivider(false)
       section.header.show(newModels.isNotEmpty())
       notifyModelsChanged()
     }

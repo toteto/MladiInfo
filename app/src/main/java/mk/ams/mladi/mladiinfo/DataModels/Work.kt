@@ -1,6 +1,8 @@
 package mk.ams.mladi.mladiinfo.DataModels
 
+import android.support.annotation.ColorRes
 import com.google.gson.annotations.SerializedName
+import mk.ams.mladi.mladiinfo.R
 import mk.ams.mladi.mladiinfo.parseMladiInfoDate
 import mk.ams.mladi.mladiinfo.parseMladiInfoDescription
 import java.util.*
@@ -22,12 +24,17 @@ data class Work(
     @SerializedName("Name") val name: String,
     @SerializedName("QualificationID") val qualificationId: String
 ) : ArticleInterface {
-  enum class TYPE(val value: String) {
-    INTERNSHIP("Internship"),
-    EMPLOYMENT("Job")
+  enum class TYPE(val value: String, @ColorRes val dividerColor : Int) {
+    INTERNSHIP("Internship", R.color.green),
+    EMPLOYMENT("Job", R.color.dark_orange)
+  }
+  override fun getDividerColor(): Int = when (workType) {
+    TYPE.INTERNSHIP.value -> TYPE.INTERNSHIP.dividerColor
+    TYPE.EMPLOYMENT.value -> TYPE.EMPLOYMENT.dividerColor
+    else -> R.color.orange
   }
 
-  override fun getArticleId(): String = id
+  override fun getArticleId(): Long = id.toLong()
 
   override fun getArticleTitle(): String = name
 
