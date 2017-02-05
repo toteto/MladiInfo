@@ -25,6 +25,7 @@ enum class NAV_ITEMS(@IdRes val id: Int) {
     ORGANIZATIONS -> Category.Factory.getOrganizations(context)
     EDUCATIONAL_INSTITUTIONS -> Category.Factory.getEducationalInstitutions(context)
     DORMITORIES -> Category.Factory.getDormitories(context)
+    LIBRARIES -> Category.Factory.getLibraries(context)
     else -> throw NotImplementedError("only ${NAV_ITEMS.TRAININGS} is supported.")
   }
 

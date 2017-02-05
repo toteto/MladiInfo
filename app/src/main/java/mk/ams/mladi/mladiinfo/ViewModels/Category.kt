@@ -81,5 +81,10 @@ class Category(val name: String) {
         .addSubCategory(Subcategory(context.getString(R.string.dormitories),
             call = { it.getDorms() },
             bindDataTo = { data, adapter -> adapter.bindContactItems(data) }))
+
+    fun getLibraries(context: Context) = Category(context.getString(R.string.libraries))
+        .addSubCategory(Subcategory(context.getString(R.string.libraries),
+            call = { it.getLibraries() },
+            bindDataTo = { data, adapter -> adapter.bindContactItems(data) }))
   }
 }
