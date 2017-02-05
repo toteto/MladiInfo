@@ -34,4 +34,6 @@
   <string name="private_universities">Private universities</string>
   <string name="other_higher_education_institutions">Other higher education institutions</string>
   <string name="high_schools">High schools</string>
+    <string name="dormitories">Dormitories</string>
+    <string name="libraries">Libraries</string>
 </resources>

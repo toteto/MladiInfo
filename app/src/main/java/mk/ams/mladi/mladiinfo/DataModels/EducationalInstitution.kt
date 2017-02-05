@@ -4,6 +4,7 @@ import android.support.annotation.ColorRes
 import com.google.gson.annotations.SerializedName
 import mk.ams.mladi.mladiinfo.R
 import mk.ams.mladi.mladiinfo.parseMladiInfoLatLong
+import mk.ams.mladi.mladiinfo.trimFirstImgTag
 
 data class EducationalInstitution(
     @SerializedName("Address") val address: String?,
@@ -33,14 +34,7 @@ data class EducationalInstitution(
 
   override fun getContactTitle(): String = name.trim()
 
-  override fun getContactDescription(): String? {
-    if (description != null && description.contains("<img")) {
-      val startIndex = description.indexOf("/>") + 2
-      return description.substring(startIndex).trim()
-    } else {
-      return description?.trim()
-    }
-  }
+  override fun getContactDescription(): String? = description?.trimFirstImgTag()?.trim()
 
   override fun getContactPhone(): String? = phoneNumber
 

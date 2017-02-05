@@ -76,5 +76,10 @@ class Category(val name: String) {
             dataPreprocessor = { it.filter { it.typeId == EducationalInstitution.TYPE.HIGH_SCHOOL.key } },
             bindDataTo = { data, adapter -> adapter.bindContactItems(data) },
             color = EducationalInstitution.TYPE.HIGH_SCHOOL.color))
+
+    fun getDormitories(context: Context) = Category(context.getString(R.string.dormitories))
+        .addSubCategory(Subcategory(context.getString(R.string.dormitories),
+            call = { it.getDorms() },
+            bindDataTo = { data, adapter -> adapter.bindContactItems(data) }))
   }
 }

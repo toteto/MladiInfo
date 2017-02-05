@@ -15,13 +15,16 @@ enum class NAV_ITEMS(@IdRes val id: Int) {
   SCHOLARSHIPS(R.id.scholarships),
   POLLS(R.id.polls),
   FACEBOOK(R.id.facebook),
-  YOUTUBE(R.id.youtube);
+  YOUTUBE(R.id.youtube),
+  DORMITORIES(R.id.dormitory),
+  LIBRARIES(R.id.library);
 
   fun getCategoryObject(context: Context): Category = when (this) {
-    NAV_ITEMS.TRAININGS -> Category.Factory.getTrainingCategory(context)
-    NAV_ITEMS.WORKS -> Category.Factory.getWorkCategory(context)
-    NAV_ITEMS.ORGANIZATIONS -> Category.Factory.getOrganizations(context)
-    NAV_ITEMS.EDUCATIONAL_INSTITUTIONS -> Category.Factory.getEducationalInstitutions(context)
+    TRAININGS -> Category.Factory.getTrainingCategory(context)
+    WORKS -> Category.Factory.getWorkCategory(context)
+    ORGANIZATIONS -> Category.Factory.getOrganizations(context)
+    EDUCATIONAL_INSTITUTIONS -> Category.Factory.getEducationalInstitutions(context)
+    DORMITORIES -> Category.Factory.getDormitories(context)
     else -> throw NotImplementedError("only ${NAV_ITEMS.TRAININGS} is supported.")
   }
 

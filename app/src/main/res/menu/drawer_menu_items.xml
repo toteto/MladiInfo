@@ -10,21 +10,34 @@
     <menu>
       <group android:checkableBehavior="single">
         <item
+            android:id="@+id/scholarships"
+            android:icon="@drawable/icon_hat"
+            android:title="@string/scholarships"/>
+        <item
           android:id="@+id/trainings"
           android:icon="@drawable/icon_book"
           android:title="@string/trainings"/>
         <item
-          android:id="@+id/educational_institutions"
-          android:icon="@drawable/icon_education_building"
-          android:title="@string/educational_institutions"/>
+            android:id="@+id/work"
+            android:icon="@drawable/icon_briefcase"
+            android:title="@string/work"/>
         <item
-          android:id="@+id/work"
-          android:icon="@drawable/icon_briefcase"
-          android:title="@string/work"/>
-        <item
-          android:id="@+id/student_discounts"
-          android:icon="@drawable/icon_shopping_cart"
-          android:title="@string/student_discounts"/>
+            android:id="@+id/educational_institutions"
+            android:icon="@drawable/icon_education_building"
+            android:title="@string/educational_institutions"/>
+          <item
+              android:id="@+id/dormitory"
+              android:icon="@drawable/icon_dormitory"
+              android:title="@string/dormitories"
+              />
+          <item
+              android:id="@+id/library"
+              android:icon="@drawable/icon_library"
+              android:title="@string/libraries"/>
+          <item
+              android:id="@+id/student_discounts"
+              android:icon="@drawable/icon_shopping_cart"
+              android:title="@string/student_discounts"/>
         <item
           android:id="@+id/organizations"
           android:icon="@drawable/icon_organization"
@@ -33,10 +46,6 @@
           android:id="@+id/info"
           android:icon="@drawable/icon_info"
           android:title="@string/ams"/>
-        <item
-          android:id="@+id/scholarships"
-          android:icon="@drawable/icon_hat"
-          android:title="@string/scholarships"/>
         <item
           android:id="@+id/polls"
           android:icon="@drawable/icon_chart"

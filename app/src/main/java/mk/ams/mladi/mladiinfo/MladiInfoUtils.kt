@@ -46,3 +46,12 @@ fun Pair<String?, String?>.parseMladiInfoLatLong(): Pair<Double, Double>? {
   return null
 }
 
+fun String.trimFirstImgTag(): String {
+  if (this.contains("<img")) {
+    val startIndex = this.indexOf("/>") + 2
+    return this.substring(startIndex)
+  } else {
+    return this
+  }
+}
+
