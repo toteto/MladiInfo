@@ -1,6 +1,8 @@
 package mk.ams.mladi.mladiinfo
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.support.v4.view.ViewPager
 import android.text.format.DateUtils
 import java.text.SimpleDateFormat
@@ -53,5 +55,11 @@ fun String.trimFirstImgTag(): String {
   } else {
     return this
   }
+}
+
+fun Context.openWebsite(url: String): Unit {
+  val intent = Intent(Intent.ACTION_VIEW)
+  intent.data = Uri.parse(url)
+  startActivity(intent)
 }
 

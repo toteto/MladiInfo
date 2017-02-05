@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.contact_item.view.*
 import mk.ams.mladi.mladiinfo.DataModels.ContactInterface
 import mk.ams.mladi.mladiinfo.R
+import mk.ams.mladi.mladiinfo.openWebsite
 
 
 class ContactModel(val contact: ContactInterface) : EpoxyModelWithHolder<ContactModel.ContactViewHolder>(contact.getContactId()) {
@@ -154,7 +155,7 @@ class ContactModel(val contact: ContactInterface) : EpoxyModelWithHolder<Contact
     private fun onVisitTwitterClicked() {
       val url = contact?.getContactTwitterProfile()
       if (url != null) {
-        visitWebsite(url)
+        view.context.openWebsite(url)
       }
     }
 
@@ -171,7 +172,7 @@ class ContactModel(val contact: ContactInterface) : EpoxyModelWithHolder<Contact
           facebookIntent.data = Uri.parse("fb://facewebmodal/f?href=$fbLink")
           view.context.startActivity(facebookIntent)
         } else {
-          visitWebsite(fbLink)
+          view.context.openWebsite(fbLink)
         }
       }
     }
@@ -179,14 +180,8 @@ class ContactModel(val contact: ContactInterface) : EpoxyModelWithHolder<Contact
     private fun onVisitWebsiteClicked() {
       val url = contact?.getContactSite()
       if (url != null) {
-        visitWebsite(url)
+        view.context.openWebsite(url)
       }
-    }
-
-    private fun visitWebsite(url: String) {
-      val intent = Intent(Intent.ACTION_VIEW)
-      intent.data = Uri.parse(url)
-      view.context.startActivity(intent)
     }
 
     private fun onCallPhoneClicked() {

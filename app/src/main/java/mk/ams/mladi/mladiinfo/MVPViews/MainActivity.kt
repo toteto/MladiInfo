@@ -32,6 +32,7 @@ class MainActivity : MVPActivity<MainContract.View, MainContract.Presenter>(), M
   override fun showCategory(category: NAV_ITEMS) {
     supportFragmentManager.beginTransaction().replace(R.id.mainActivity_fragmentContainer,
         CategoryFragment.newInstance(category), category.name).commit()
+    navigationView.setCheckedItem(category.id)
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,10 +43,14 @@ class MainActivity : MVPActivity<MainContract.View, MainContract.Presenter>(), M
     supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
     navigationView.setNavigationItemSelectedListener {
-      presenter.onCategoryItemSelected(NAV_ITEMS.getItemById(it.itemId) ?: NAV_ITEMS.STARTING_PAGE)
+      onCategorySelected(NAV_ITEMS.getItemById(it.itemId) ?: NAV_ITEMS.STARTING_PAGE)
       drawerLayout.closeDrawer(navigationView)
       true
     }
+  }
+
+  override fun onCategorySelected(category: NAV_ITEMS) {
+    presenter.onCategoryItemSelected(category)
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {

@@ -4,10 +4,10 @@ import android.support.v4.content.ContextCompat
 import android.view.View
 import android.widget.TextView
 import com.airbnb.epoxy.EpoxyHolder
-import com.airbnb.epoxy.EpoxyModelWithHolder
 import kotlinx.android.synthetic.main.article_item.view.*
 import mk.ams.mladi.mladiinfo.DataModels.ArticleInterface
 import mk.ams.mladi.mladiinfo.R
+import mk.ams.mladi.mladiinfo.openWebsite
 import mk.ams.mladi.mladiinfo.toRelativeTime
 
 class ArticleModel(val article: ArticleInterface) : EpoxyModelWithDivider<ArticleModel.ArticleItemVH>(article.getArticleId()) {
@@ -23,12 +23,19 @@ class ArticleModel(val article: ArticleInterface) : EpoxyModelWithDivider<Articl
   }
 
   class ArticleItemVH : EpoxyHolder() {
+    var article: ArticleInterface? = null
+      private set
     lateinit var itemView: View
     override fun bindView(itemView: View) {
       this.itemView = itemView
+      itemView.setOnClickListener {
+        val url = article?.getArticleUrl()
+        if (url != null) itemView.context.openWebsite(url)
+      }
     }
 
     fun bind(article: ArticleInterface) {
+      this.article = article
       itemView.tvArticleTitle.text = article.getArticleTitle()
       itemView.tvArticleDescription.setTextWithVisibility(article.getArticleDescription())
       itemView.tvArticleData.text = article.getArticlePublishDate().toRelativeTime(itemView.context)

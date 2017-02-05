@@ -6,6 +6,7 @@ interface MainContract {
   interface View : MVPContract.View {
     fun showOverview()
     fun showCategory(category: NAV_ITEMS)
+    fun onCategorySelected(category: NAV_ITEMS)
   }
 
   abstract class Presenter : MVPPresenter<View>() {

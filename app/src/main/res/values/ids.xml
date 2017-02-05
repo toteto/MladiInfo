@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="internships" type="id"/>
+    <item name="employments" type="id"/>
+    <item name="conferences" type="id"/>
+    <item name="seminars" type="id"/>
+    <item name="category_tag_key" type="id"/>
+</resources>

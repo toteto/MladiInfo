@@ -11,7 +11,6 @@ class MainPresenter(val client: MladiInfoApiInterface) : MainContract.Presenter(
       currentCategory = item
       updateViewCategory()
     }
-
   }
 
   private fun updateViewCategory() {
@@ -20,7 +19,7 @@ class MainPresenter(val client: MladiInfoApiInterface) : MainContract.Presenter(
       if (currentCategory == NAV_ITEMS.STARTING_PAGE) {
         view.showOverview()
       } else {
-        view.showCategory(currentCategory)
+        view.showCategory(currentCategory.parentCategory ?: currentCategory)
       }
     }
   }

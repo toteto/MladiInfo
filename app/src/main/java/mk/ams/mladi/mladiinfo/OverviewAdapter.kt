@@ -1,28 +1,40 @@
 package mk.ams.mladi.mladiinfo
 
 import android.content.Context
+import android.view.View
 import com.airbnb.epoxy.EpoxyAdapter
 import mk.ams.mladi.mladiinfo.DataModels.Scholarship
 import mk.ams.mladi.mladiinfo.DataModels.Training
 import mk.ams.mladi.mladiinfo.DataModels.Work
 import mk.ams.mladi.mladiinfo.ViewModels.ArticleModel
+import mk.ams.mladi.mladiinfo.ViewModels.CategoryHeaderModel
 import mk.ams.mladi.mladiinfo.ViewModels.EpoxyModelWithDivider
 import mk.ams.mladi.mladiinfo.ViewModels.OverviewSection
 
 class OverviewAdapter(context: Context) : EpoxyAdapter() {
-  val scholarshipsSection = OverviewSection(context.getString(R.string.scholarships), R.color.orange)
-  val internshipsSection = OverviewSection(context.getString(R.string.internships), R.color.green)
-  val employmentsSection = OverviewSection(context.getString(R.string.employments), R.color.deep_orange)
-  val seminarsSection = OverviewSection(context.getString(R.string.seminars), R.color.orange)
-  val conferencesSection = OverviewSection(context.getString(R.string.conferences), R.color.orange)
+  var onCategoryHeaderClickListener: OnCategoryHeaderClickListener? = null
+
+  val scholarshipsSection = OverviewSection(NAV_ITEMS.SCHOLARSHIPS, R.color.orange)
+  val internshipsSection = OverviewSection(NAV_ITEMS.INTERNSHIPS, R.color.green)
+  val employmentsSection = OverviewSection(NAV_ITEMS.EMPLOYMENTS, R.color.deep_orange)
+  val seminarsSection = OverviewSection(NAV_ITEMS.SEMINARS, R.color.orange)
+  val conferencesSection = OverviewSection(NAV_ITEMS.CONFERENCES, R.color.orange)
+
+  val headerViewClickListener = View.OnClickListener {
+    val category = it.getTag(CategoryHeaderModel.CATEGORY_TAG_KEY) as NAV_ITEMS?
+    val listener = onCategoryHeaderClickListener
+    if (category != null && listener != null) {
+      listener.onCategoryClicked(category)
+    }
+  }
 
   init {
     enableDiffing()
-    addModel(scholarshipsSection.header.hide())
-    addModel(internshipsSection.header.hide())
-    addModel(employmentsSection.header.hide())
-    addModel(seminarsSection.header.hide())
-    addModel(conferencesSection.header.hide())
+    addModel(scholarshipsSection.header.withOnClickListener(headerViewClickListener).hide())
+    addModel(internshipsSection.header.withOnClickListener(headerViewClickListener).hide())
+    addModel(employmentsSection.header.withOnClickListener(headerViewClickListener).hide())
+    addModel(seminarsSection.header.withOnClickListener(headerViewClickListener).hide())
+    addModel(conferencesSection.header.withOnClickListener(headerViewClickListener).hide())
   }
 
   fun bindScholarships(scholarships: List<Scholarship>) {
@@ -55,5 +67,9 @@ class OverviewAdapter(context: Context) : EpoxyAdapter() {
       section.header.show(newModels.isNotEmpty())
       notifyModelsChanged()
     }
+  }
+
+  interface OnCategoryHeaderClickListener {
+    fun onCategoryClicked(navItem: NAV_ITEMS)
   }
 }

@@ -12,6 +12,7 @@ import mk.ams.mladi.mladiinfo.DataProviders.MladiInfoApiClient
 import mk.ams.mladi.mladiinfo.MVPContracts.MVPFragment
 import mk.ams.mladi.mladiinfo.MVPContracts.OverviewContract
 import mk.ams.mladi.mladiinfo.MVPPresenters.OverviewPresenter
+import mk.ams.mladi.mladiinfo.NAV_ITEMS
 import mk.ams.mladi.mladiinfo.OverviewAdapter
 import mk.ams.mladi.mladiinfo.R
 
@@ -24,6 +25,11 @@ class OverviewFragment : MVPFragment<OverviewContract.View, OverviewContract.Pre
   override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     if (view != null) {
+      itemsAdapter.onCategoryHeaderClickListener = object : OverviewAdapter.OnCategoryHeaderClickListener {
+        override fun onCategoryClicked(navItem: NAV_ITEMS) {
+          (activity as MainActivity).onCategorySelected(navItem)
+        }
+      }
       view.srlRefresh.setOnRefreshListener { presenter.loadData(true) }
       view.rvItems.layoutManager = LinearLayoutManager(activity)
       view.rvItems.adapter = itemsAdapter
