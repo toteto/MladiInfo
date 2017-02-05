@@ -1,0 +1,42 @@
+[
+  {
+    "name" : "Влада на Република Македонија",
+    "url": "http://www.vlada.mk/"
+  },
+  {
+    "name" : "Агенција за млади и спорт",
+    "url": "http://www.ams.gov.mk/"
+  },
+  {
+    "name" : "Министерство за образование и наука",
+    "url": "http://mon.gov.mk/"
+  },
+  {
+    "name": "Министерство за Информатичко Општество",
+    "url" : "http://www.mio.gov.mk/"
+  },
+  {
+    "name": "Биро за развој на образованиет",
+    "url" : "http://bro.gov.mk/"
+  },
+  {
+    "name": "Државен испитен центар",
+    "url" : "http://www.dic.edu.mk/"
+  },
+  {
+    "name": "Државна матура",
+    "url" : "http://matura.gov.mk/"
+  },
+  {
+    "name": "Плагијати",
+    "url" : "http://plagijati.mon.gov.mk/"
+  },
+  {
+    "name": "Конкурси",
+    "url" : "http://konkursi.mon.gov.mk/"
+  },
+  {
+    "name": "Сместување во домови",
+    "url" : "http://www.smestuvanje.mon.gov.mk/apliciraj/"
+  }
+]
