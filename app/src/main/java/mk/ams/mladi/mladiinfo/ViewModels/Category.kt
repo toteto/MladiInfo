@@ -80,11 +80,19 @@ class Category(val name: String) {
     fun getDormitories(context: Context) = Category(context.getString(R.string.dormitories))
         .addSubCategory(Subcategory(context.getString(R.string.dormitories),
             call = { it.getDorms() },
-            bindDataTo = { data, adapter -> adapter.bindContactItems(data) }))
+            bindDataTo = { data, adapter -> adapter.bindContactItems(data) },
+            color = R.color.dark_yellow))
 
     fun getLibraries(context: Context) = Category(context.getString(R.string.libraries))
         .addSubCategory(Subcategory(context.getString(R.string.libraries),
             call = { it.getLibraries() },
-            bindDataTo = { data, adapter -> adapter.bindContactItems(data) }))
+            bindDataTo = { data, adapter -> adapter.bindContactItems(data) },
+            color = R.color.light_green))
+
+    fun getScholarships(context: Context) = Category(context.getString(R.string.scholarships))
+        .addSubCategory(Subcategory(context.getString(R.string.scholarships),
+            call = { it.getScholarships() },
+            bindDataTo = { data, adapter -> adapter.bindArticleItems(data) },
+            color = R.color.orange))
   }
 }

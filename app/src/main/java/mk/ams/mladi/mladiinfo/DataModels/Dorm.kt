@@ -1,6 +1,7 @@
 package mk.ams.mladi.mladiinfo.DataModels
 
 import com.google.gson.annotations.SerializedName
+import mk.ams.mladi.mladiinfo.R
 import mk.ams.mladi.mladiinfo.parseMladiInfoLatLong
 import mk.ams.mladi.mladiinfo.trimFirstImgTag
 
@@ -39,4 +40,6 @@ data class Dorm(
   override fun getContactId(): Long = id.toLong()
 
   override fun getContactLogoUrl(): String? = null
+
+  override fun getDividerColor(): Int = R.color.dark_yellow
 }
