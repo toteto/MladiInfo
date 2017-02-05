@@ -51,6 +51,7 @@ class CategoryFragment : MVPFragment<CategoryFragment, CategoryPresenter>(), Cat
   override fun setSubCategories(subcategories: List<Subcategory<Any>>) {
     pagerAdapter.subcategories = subcategories
     updateTabIndicatorColor(subcategories.first())
+    tabLayout.visibility = if (subcategories.size > 1) View.VISIBLE else View.GONE
   }
 
   override fun showSubCategory(subcategory: Subcategory<out Any>) {
