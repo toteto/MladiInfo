@@ -6,8 +6,8 @@ import android.view.View
 import kotlinx.android.synthetic.main.category_fragment_layout.*
 import mk.ams.mladi.mladiinfo.MVPContracts.CategoryContract
 import mk.ams.mladi.mladiinfo.MVPContracts.MVPFragment
-import mk.ams.mladi.mladiinfo.MVPContracts.MainContract
 import mk.ams.mladi.mladiinfo.MVPPresenters.CategoryPresenter
+import mk.ams.mladi.mladiinfo.NAV_ITEMS
 import mk.ams.mladi.mladiinfo.R
 import mk.ams.mladi.mladiinfo.SubcategoriesPagerAdapter
 import mk.ams.mladi.mladiinfo.ViewModels.Category
@@ -19,7 +19,7 @@ class CategoryFragment : MVPFragment<CategoryFragment, CategoryPresenter>(), Cat
   companion object {
     val CATEGORY_KEY = "category"
 
-    fun newInstance(category: MainContract.CATEGORY_ITEM): CategoryFragment {
+    fun newInstance(category: NAV_ITEMS): CategoryFragment {
       val fragment = CategoryFragment()
       val bundle = Bundle()
       bundle.putSerializable(CATEGORY_KEY, category)
@@ -29,15 +29,7 @@ class CategoryFragment : MVPFragment<CategoryFragment, CategoryPresenter>(), Cat
     }
   }
 
-  val category: Category by lazy {
-    when (arguments.get(CATEGORY_KEY) as MainContract.CATEGORY_ITEM) {
-      MainContract.CATEGORY_ITEM.TRAININGS -> Category.Factory.getTrainingCategory(activity)
-      MainContract.CATEGORY_ITEM.WORKS -> Category.Factory.getWorkCategory(activity)
-      MainContract.CATEGORY_ITEM.ORGANIZATIONS -> Category.Factory.getOrganizations(activity)
-      MainContract.CATEGORY_ITEM.EDUCATIONAL_INSTITUTIONS -> Category.Factory.getEducationalInstitutions(activity)
-      else -> throw NotImplementedError("only ${MainContract.CATEGORY_ITEM.TRAININGS} is supported.")
-    }
-  }
+  val category: Category by lazy { (arguments.get(CATEGORY_KEY) as NAV_ITEMS).getCategoryObject(activity) }
   val pagerAdapter: SubcategoriesPagerAdapter by lazy { SubcategoriesPagerAdapter(childFragmentManager) }
 
   override fun getLayoutId(): Int = R.layout.category_fragment_layout

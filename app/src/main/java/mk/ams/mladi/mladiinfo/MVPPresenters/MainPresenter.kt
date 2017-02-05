@@ -2,11 +2,11 @@ package mk.ams.mladi.mladiinfo.MVPPresenters
 
 import mk.ams.mladi.mladiinfo.DataProviders.MladiInfoApiInterface
 import mk.ams.mladi.mladiinfo.MVPContracts.MainContract
-import mk.ams.mladi.mladiinfo.MVPContracts.MainContract.CATEGORY_ITEM
+import mk.ams.mladi.mladiinfo.NAV_ITEMS
 
 class MainPresenter(val client: MladiInfoApiInterface) : MainContract.Presenter() {
-  var currentCategory: CATEGORY_ITEM = CATEGORY_ITEM.STARTING_PAGE
-  override fun onCategoryItemSelected(item: CATEGORY_ITEM) {
+  var currentCategory: NAV_ITEMS = NAV_ITEMS.STARTING_PAGE
+  override fun onCategoryItemSelected(item: NAV_ITEMS) {
     if (item != currentCategory) {
       currentCategory = item
       updateViewCategory()
@@ -17,7 +17,7 @@ class MainPresenter(val client: MladiInfoApiInterface) : MainContract.Presenter(
   private fun updateViewCategory() {
     val view = getView()
     if (view != null) {
-      if (currentCategory == CATEGORY_ITEM.STARTING_PAGE) {
+      if (currentCategory == NAV_ITEMS.STARTING_PAGE) {
         view.showOverview()
       } else {
         view.showCategory(currentCategory)

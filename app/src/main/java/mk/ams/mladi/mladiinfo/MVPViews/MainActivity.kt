@@ -7,8 +7,8 @@ import kotlinx.android.synthetic.main.main_activity_layout.*
 import mk.ams.mladi.mladiinfo.DataProviders.MladiInfoApiClient
 import mk.ams.mladi.mladiinfo.MVPContracts.MVPActivity
 import mk.ams.mladi.mladiinfo.MVPContracts.MainContract
-import mk.ams.mladi.mladiinfo.MVPContracts.MainContract.CATEGORY_ITEM
 import mk.ams.mladi.mladiinfo.MVPPresenters.MainPresenter
+import mk.ams.mladi.mladiinfo.NAV_ITEMS
 import mk.ams.mladi.mladiinfo.R
 
 class MainActivity : MVPActivity<MainContract.View, MainContract.Presenter>(), MainContract.View {
@@ -18,12 +18,6 @@ class MainActivity : MVPActivity<MainContract.View, MainContract.Presenter>(), M
 
   companion object {
     private val OVERVIEW_FRAGMENT_TAG = "overview"
-    val CATEGORY_MAPPING = mapOf(
-        R.id.trainings to CATEGORY_ITEM.TRAININGS,
-        R.id.educational_institutions to CATEGORY_ITEM.EDUCATIONAL_INSTITUTIONS,
-        R.id.work to CATEGORY_ITEM.WORKS,
-        R.id.student_discounts to CATEGORY_ITEM.STUDENT_DISCOUNTS,
-        R.id.organizations to CATEGORY_ITEM.ORGANIZATIONS)
   }
 
   override fun createPresenter(): MainContract.Presenter = MainPresenter(MladiInfoApiClient(this).client)
@@ -35,7 +29,7 @@ class MainActivity : MVPActivity<MainContract.View, MainContract.Presenter>(), M
     }
   }
 
-  override fun showCategory(category: CATEGORY_ITEM) {
+  override fun showCategory(category: NAV_ITEMS) {
     supportFragmentManager.beginTransaction().replace(R.id.mainActivity_fragmentContainer,
         CategoryFragment.newInstance(category), category.name).commit()
   }
@@ -48,7 +42,7 @@ class MainActivity : MVPActivity<MainContract.View, MainContract.Presenter>(), M
     supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
     navigationView.setNavigationItemSelectedListener {
-      presenter.onCategoryItemSelected(CATEGORY_MAPPING[it.itemId] ?: CATEGORY_ITEM.STARTING_PAGE)
+      presenter.onCategoryItemSelected(NAV_ITEMS.getItemById(it.itemId) ?: NAV_ITEMS.STARTING_PAGE)
       drawerLayout.closeDrawer(navigationView)
       true
     }
