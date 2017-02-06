@@ -33,6 +33,8 @@ class OverviewFragment : MVPFragment<OverviewContract.View, OverviewContract.Pre
       view.srlRefresh.setOnRefreshListener { presenter.loadData(true) }
       view.rvItems.layoutManager = LinearLayoutManager(activity)
       view.rvItems.adapter = itemsAdapter
+
+      activity.title = getString(R.string.app_name)
     }
   }
 

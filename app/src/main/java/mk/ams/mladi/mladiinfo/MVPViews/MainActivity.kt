@@ -26,6 +26,7 @@ class MainActivity : MVPActivity<MainContract.View, MainContract.Presenter>(), M
     if (overviewFragment.isAdded.not()) {
       supportFragmentManager.beginTransaction().replace(R.id.mainActivity_fragmentContainer, overviewFragment,
           OVERVIEW_FRAGMENT_TAG).commit()
+      navigationView?.setCheckedItem(R.id.starting_page)
     }
   }
 
