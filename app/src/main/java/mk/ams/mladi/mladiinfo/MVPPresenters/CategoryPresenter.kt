@@ -7,7 +7,11 @@ import mk.ams.mladi.mladiinfo.ViewModels.Category
 class CategoryPresenter(category: Category) : CategoryContract.Presenter<CategoryFragment>(category) {
   override fun attachView(view: CategoryFragment) {
     super.attachView(view)
-    getView()?.setSubCategories(category.getSubcategories())
-    getView()?.setTitle(category.name)
+    view.setSubCategories(category.getSubcategories())
+    view.setTitle(category.name)
+    val selectedSubcategory = category.selectedSubcategory
+    if (selectedSubcategory != null) {
+      view.showSubCategory(selectedSubcategory)
+    }
   }
 }

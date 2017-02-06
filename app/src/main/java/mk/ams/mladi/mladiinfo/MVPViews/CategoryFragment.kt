@@ -30,7 +30,8 @@ class CategoryFragment : MVPFragment<CategoryFragment, CategoryPresenter>(), Cat
   }
 
   val category: Category by lazy { (arguments.get(CATEGORY_KEY) as NAV_ITEMS).getCategoryObject(activity) }
-  val pagerAdapter: SubcategoriesPagerAdapter by lazy { SubcategoriesPagerAdapter(childFragmentManager) }
+
+  val pagerAdapter: SubcategoriesPagerAdapter by lazy { SubcategoriesPagerAdapter(activity, childFragmentManager) }
 
   override fun getLayoutId(): Int = R.layout.category_fragment_layout
 
@@ -55,7 +56,7 @@ class CategoryFragment : MVPFragment<CategoryFragment, CategoryPresenter>(), Cat
   }
 
   override fun showSubCategory(subcategory: Subcategory<out Any>) {
-    throw UnsupportedOperationException("not implemented")
+    viewPager.post { viewPager.setCurrentItem(pagerAdapter.subcategories.indexOf(subcategory), false) }
   }
 
   override fun setTitle(title: String) {

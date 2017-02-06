@@ -5,4 +5,10 @@
     <item name="conferences" type="id"/>
     <item name="seminars" type="id"/>
     <item name="category_tag_key" type="id"/>
+    <item name="student_organizations" type="id"/>
+    <item name="non_government_organizations" type="id"/>
+    <item name="state_universities" type="id"/>
+    <item name="private_universities" type="id"/>
+    <item name="other_higher_education_institutions" type="id"/>
+    <item name="high_schools" type="id"/>
 </resources>

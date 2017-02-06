@@ -1,5 +1,6 @@
 package mk.ams.mladi.mladiinfo
 
+import android.content.Context
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
@@ -7,7 +8,7 @@ import mk.ams.mladi.mladiinfo.MVPViews.SubcategoryFragment
 import mk.ams.mladi.mladiinfo.ViewModels.Subcategory
 import java.util.*
 
-class SubcategoriesPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
+class SubcategoriesPagerAdapter(val context: Context, fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
   var subcategories: List<Subcategory<Any>> = ArrayList()
     set(value) {
       field = value
@@ -22,5 +23,5 @@ class SubcategoriesPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter
 
   override fun getCount(): Int = subcategories.size
 
-  override fun getPageTitle(position: Int): CharSequence = subcategories[position].name
+  override fun getPageTitle(position: Int): CharSequence = context.getString(subcategories[position].navItem.title)
 }

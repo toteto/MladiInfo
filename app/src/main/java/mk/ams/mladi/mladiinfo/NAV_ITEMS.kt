@@ -22,13 +22,28 @@ enum class NAV_ITEMS(@IdRes val id: Int, @StringRes val title: Int, val parentCa
   INTERNSHIPS(R.id.internships, R.string.internships, WORKS),
   EMPLOYMENTS(R.id.employments, R.string.employments, WORKS),
   CONFERENCES(R.id.conferences, R.string.conferences, TRAININGS),
-  SEMINARS(R.id.seminars, R.string.seminars, TRAININGS);
+  STUDENT_ORGANIZATIONS(R.id.student_organizations, R.string.student_organizations, ORGANIZATIONS),
+  NON_GOVERNMENT_ORGANIZATIONS(R.id.non_government_organizations, R.string.non_governmental_organization, ORGANIZATIONS),
+  SEMINARS(R.id.seminars, R.string.seminars, TRAININGS),
+  STATE_UNIVERSITIES(R.id.state_universities, R.string.state_universities, EDUCATIONAL_INSTITUTIONS),
+  PRIVATE_UNIVERSITIES(R.id.private_universities, R.string.private_universities, EDUCATIONAL_INSTITUTIONS),
+  OTHER_HIGH_EDU_INSTITUTIONS(R.id.other_higher_education_institutions, R.string.other_higher_education_institutions, EDUCATIONAL_INSTITUTIONS),
+  HIGH_SCHOOLS(R.id.high_schools, R.string.high_schools, EDUCATIONAL_INSTITUTIONS);
 
-  fun getCategoryObject(context: Context): Category = when (this) {
-    TRAININGS -> Category.Factory.getTrainingCategory(context)
-    WORKS -> Category.Factory.getWorkCategory(context)
-    ORGANIZATIONS -> Category.Factory.getOrganizations(context)
-    EDUCATIONAL_INSTITUTIONS -> Category.Factory.getEducationalInstitutions(context)
+  /** Gets a category object with proper check if the item is a subcategory.*/
+  fun getCategoryObject(context: Context): Category {
+    if (parentCategory != null)
+      return parentCategory.getCategoryObject(context, this)
+    else
+      return getCategoryObject(context, null)
+  }
+
+  /** Gets a category object with the provided selected subcategory.*/
+  fun getCategoryObject(context: Context, selectedSubcategory: NAV_ITEMS?): Category = when (this) {
+    TRAININGS -> Category.Factory.getTrainingCategory(context, selectedSubcategory)
+    WORKS -> Category.Factory.getWorkCategory(context, selectedSubcategory)
+    ORGANIZATIONS -> Category.Factory.getOrganizations(context, selectedSubcategory)
+    EDUCATIONAL_INSTITUTIONS -> Category.Factory.getEducationalInstitutions(context, selectedSubcategory)
     DORMITORIES -> Category.Factory.getDormitories(context)
     LIBRARIES -> Category.Factory.getLibraries(context)
     SCHOLARSHIPS -> Category.Factory.getScholarships(context)

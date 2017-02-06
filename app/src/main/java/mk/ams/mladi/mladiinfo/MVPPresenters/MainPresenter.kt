@@ -19,7 +19,7 @@ class MainPresenter(val client: MladiInfoApiInterface) : MainContract.Presenter(
       if (currentCategory == NAV_ITEMS.STARTING_PAGE) {
         view.showOverview()
       } else {
-        view.showCategory(currentCategory.parentCategory ?: currentCategory)
+        view.showCategory(currentCategory)
       }
     }
   }

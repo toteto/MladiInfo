@@ -30,9 +30,10 @@ class MainActivity : MVPActivity<MainContract.View, MainContract.Presenter>(), M
   }
 
   override fun showCategory(category: NAV_ITEMS) {
+    // Elvis (?:) operator is used to ge the parent category if the selected "category" is in fact a subcategory.
     supportFragmentManager.beginTransaction().replace(R.id.mainActivity_fragmentContainer,
-        CategoryFragment.newInstance(category), category.name).commit()
-    navigationView.setCheckedItem(category.id)
+        CategoryFragment.newInstance(category), category.parentCategory?.name ?: category.name).commit()
+    navigationView.setCheckedItem(category.parentCategory?.id ?: category.id)
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
