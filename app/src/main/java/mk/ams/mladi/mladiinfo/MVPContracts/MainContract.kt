@@ -11,5 +11,8 @@ interface MainContract {
 
   abstract class Presenter : MVPPresenter<View>() {
     abstract fun onCategoryItemSelected(item: NAV_ITEMS)
+    /** Activated when the user click the back button.
+     * @return true if the action was handled by this presenter. False otherwise.*/
+    abstract fun onBackPressed(): Boolean
   }
 }

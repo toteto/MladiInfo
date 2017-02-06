@@ -29,4 +29,12 @@ class MainPresenter(val client: MladiInfoApiInterface) : MainContract.Presenter(
     updateViewCategory()
   }
 
+  override fun onBackPressed(): Boolean {
+    if (currentCategory == NAV_ITEMS.STARTING_PAGE) {
+      return false
+    } else {
+      onCategoryItemSelected(NAV_ITEMS.STARTING_PAGE)
+      return true
+    }
+  }
 }

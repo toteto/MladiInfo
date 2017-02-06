@@ -61,6 +61,13 @@ class MainActivity : MVPActivity<MainContract.View, MainContract.Presenter>(), M
     }
     return super.onOptionsItemSelected(item)
   }
+
+  override fun onBackPressed() {
+    val handledByPresenter = presenter.onBackPressed()
+    if (!handledByPresenter) {
+      super.onBackPressed()
+    }
+  }
 }
 
 
