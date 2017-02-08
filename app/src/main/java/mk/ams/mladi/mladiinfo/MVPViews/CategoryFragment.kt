@@ -61,7 +61,7 @@ class CategoryFragment : MVPFragment<CategoryFragment, CategoryPresenter>(), Cat
     tabLayout.visibility = if (subcategories.size > 1) View.VISIBLE else View.GONE
   }
 
-  override fun showSubCategory(subcategory: Subcategory<Any>) {
+  override fun showSubcategory(subcategory: Subcategory<Any>) {
     viewPager.post {
       viewPager.setCurrentItem(pagerAdapter.subcategories.indexOf(subcategory), false)
     }

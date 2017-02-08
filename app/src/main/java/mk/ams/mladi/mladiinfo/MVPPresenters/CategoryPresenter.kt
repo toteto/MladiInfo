@@ -11,11 +11,15 @@ class CategoryPresenter(val client: MladiInfoApiInterface, category: Category) :
     super.attachView(view)
     view.setTitle(category.name)
 
-    view.setSubCategories(category.subcategoryBundles.flatMap { it.subcategories })
-    category.subcategoryBundles.forEach {
-      it.subcategories.forEach {
-        it.setRequestDataUpdateHandler { loadData() }
+    // Attach the subcategories to the view
+    val allSubcategories = category.subcategoryBundles.flatMap { it.subcategories }
+    view.setSubCategories(allSubcategories)
+
+    allSubcategories.forEach {
+      if (it.navItem.id == category.selectedSubcategory?.id) {
+        view.showSubcategory(it)
       }
+      it.setRequestDataUpdateHandler { loadData() }
     }
     loadData()
   }

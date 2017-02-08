@@ -9,7 +9,7 @@ interface CategoryContract {
     fun setSubCategories(subcategories: List<Subcategory<Any>>)
 
     /** Make the provided subcategory as active. */
-    fun showSubCategory(subcategory: Subcategory<Any>)
+    fun showSubcategory(subcategory: Subcategory<Any>)
 
     /** Set the title of the view. */
     fun setTitle(title: String)
