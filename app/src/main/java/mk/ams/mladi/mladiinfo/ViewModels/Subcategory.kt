@@ -19,6 +19,8 @@ open class Subcategory<T>(
     val dataPreprocessor: (data: List<T>) -> List<T> = { it },
     val bindDataTo: (data: List<T>, adapter: SubcategoryAdapterInterface) -> Unit,
     @ColorRes val color: Int = R.color.secondary_text) {
+  var requestUpdateDataHandler: (() -> Unit)? = null
+    private set
   private val observers: MutableList<(List<T>) -> Unit> = ArrayList()
   var data: List<T> = emptyList()
     set
@@ -36,5 +38,9 @@ open class Subcategory<T>(
   /** Register an observer on the data of this subcategory. */
   fun addDataObserver(observer: (newValues: List<T>) -> Unit) {
     observers.add(observer)
+  }
+
+  fun setRequestDataUpdateHandler(handler: () -> Unit) {
+    requestUpdateDataHandler = handler
   }
 }

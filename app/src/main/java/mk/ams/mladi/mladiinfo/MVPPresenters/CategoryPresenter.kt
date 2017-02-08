@@ -10,7 +10,13 @@ class CategoryPresenter(val client: MladiInfoApiInterface, category: Category) :
   override fun attachView(view: CategoryFragment) {
     super.attachView(view)
     view.setTitle(category.name)
+
     view.setSubCategories(category.subcategoryBundles.flatMap { it.subcategories })
+    category.subcategoryBundles.forEach {
+      it.subcategories.forEach {
+        it.setRequestDataUpdateHandler { loadData() }
+      }
+    }
     loadData()
   }
 

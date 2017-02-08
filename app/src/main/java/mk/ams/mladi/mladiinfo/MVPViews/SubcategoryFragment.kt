@@ -27,7 +27,10 @@ class SubcategoryFragment : Fragment() {
     // Bind the existing data from the subcategory
     subcategory.bindDataTo(subcategory.data, subcategoryAdapter)
     // Register observer for further updates of the data
-    subcategory.addDataObserver { subcategory.bindDataTo(it, subcategoryAdapter) }
+    subcategory.addDataObserver {
+      subcategory.bindDataTo(it, subcategoryAdapter)
+      showLoading(false)
+    }
     return inflater?.inflate(R.layout.overview_fragment_layout, container, false)
   }
 
@@ -35,7 +38,9 @@ class SubcategoryFragment : Fragment() {
     super.onViewCreated(view, savedInstanceState)
     rvItems.adapter = subcategoryAdapter
     rvItems.layoutManager = LinearLayoutManager(activity)
-    srlRefresh.setOnRefreshListener { TODO("Implement pull refreshing for the subcategory data") }
+    srlRefresh.setOnRefreshListener {
+      subcategory.requestUpdateDataHandler?.invoke() ?: showLoading(false)
+    }
   }
 
   fun showLoading(show: Boolean) {
