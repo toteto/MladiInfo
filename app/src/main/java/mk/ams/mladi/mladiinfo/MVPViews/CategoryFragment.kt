@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.view.View
 import kotlinx.android.synthetic.main.category_fragment_layout.*
+import mk.ams.mladi.mladiinfo.DataProviders.MladiInfoApiClient
 import mk.ams.mladi.mladiinfo.MVPContracts.CategoryContract
 import mk.ams.mladi.mladiinfo.MVPContracts.MVPFragment
 import mk.ams.mladi.mladiinfo.MVPPresenters.CategoryPresenter
@@ -29,13 +30,18 @@ class CategoryFragment : MVPFragment<CategoryFragment, CategoryPresenter>(), Cat
     }
   }
 
-  val category: Category by lazy { (arguments.get(CATEGORY_KEY) as NAV_ITEMS).getCategoryObject(activity) }
+  val category: Category by lazy {
+    (arguments.get(CATEGORY_KEY) as NAV_ITEMS).getCategoryObject(activity)
+  }
 
-  val pagerAdapter: SubcategoriesPagerAdapter by lazy { SubcategoriesPagerAdapter(activity, childFragmentManager) }
+  val pagerAdapter: SubcategoriesPagerAdapter by lazy {
+    SubcategoriesPagerAdapter(activity, childFragmentManager)
+  }
 
   override fun getLayoutId(): Int = R.layout.category_fragment_layout
 
-  override fun createPresenter(): CategoryPresenter = CategoryPresenter(category)
+  override fun createPresenter(): CategoryPresenter =
+      CategoryPresenter(MladiInfoApiClient(activity).client, category)
 
   override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -55,8 +61,10 @@ class CategoryFragment : MVPFragment<CategoryFragment, CategoryPresenter>(), Cat
     tabLayout.visibility = if (subcategories.size > 1) View.VISIBLE else View.GONE
   }
 
-  override fun showSubCategory(subcategory: Subcategory<out Any>) {
-    viewPager.post { viewPager.setCurrentItem(pagerAdapter.subcategories.indexOf(subcategory), false) }
+  override fun showSubCategory(subcategory: Subcategory<Any>) {
+    viewPager.post {
+      viewPager.setCurrentItem(pagerAdapter.subcategories.indexOf(subcategory), false)
+    }
   }
 
   override fun setTitle(title: String) {
