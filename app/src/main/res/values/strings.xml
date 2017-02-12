@@ -34,6 +34,10 @@
   <string name="private_universities">Private universities</string>
   <string name="other_higher_education_institutions">Other higher education institutions</string>
   <string name="high_schools">High schools</string>
-    <string name="dormitories">Dormitories</string>
-    <string name="libraries">Libraries</string>
+  <string name="dormitories">Dormitories</string>
+  <string name="libraries">Libraries</string>
+  <string name="eyca">EYCA</string>
+  <string name="spukim_edu_card">SPUKIM educard</string>
+  <string name="edu_card">Edu card</string>
+    <string name="more_info">More info</string>
 </resources>

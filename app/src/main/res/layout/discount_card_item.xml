@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp">
+
+        <ImageView
+            android:id="@+id/discountCardImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:maxHeight="300dp"
+            tools:src="@drawable/discount_card_placeholder"/>
+
+        <TextView
+            android:id="@+id/discountCardMoreInfoButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:background="@color/semitransparent_black"
+            android:clickable="true"
+            android:drawableRight="@drawable/ic_open_in_browser"
+            android:foreground="?selectableItemBackground"
+            android:gravity="center_vertical|right"
+            android:padding="5dp"
+            android:text="@string/more_info"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
+            android:textColor="@android:color/white"/>
+    </FrameLayout>
+
+
+    <TextView
+        android:id="@+id/discountCardDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="5dp"
+        tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam malesuada id nisi eu venenatis. Nam vel leo tortor. Duis ac maximus ligula. Nulla aliquam sem nec mollis lobortis. Mauris pellentesque volutpat nunc a feugiat. Cras maximus nibh non diam tincidunt egestas. Nam eget libero sed ipsum condimentum viverra. Ut non erat a lacus fringilla convallis. Curabitur et blandit purus. Nulla facilisi. Cras sed lacus quis leo fringilla sollicitudin eget in ante. Donec euismod lacus in urna fermentum posuere. Curabitur pellentesque rutrum ornare. Proin urna nulla, consectetur aliquet feugiat at, ullamcorper sed neque. Donec cursus ipsum sit amet erat feugiat mattis."/>
+</LinearLayout>

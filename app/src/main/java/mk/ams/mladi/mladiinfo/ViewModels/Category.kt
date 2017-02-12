@@ -111,5 +111,18 @@ class Category(val name: String) {
                 bindDataTo = { data, adapter -> adapter.bindArticleItems(data) },
                 color = R.color.orange)
         )))
+
+    fun getStudentDiscounts(context: Context) = Category(context.getString(R.string.student_discounts))
+        .addSubcategoryBundle(SubcategoryBundle(call = { it.getEduCards() }, subcategories = listOf(
+            Subcategory(NAV_ITEMS.STUDENT_DISCOUNT_EDU_CARD,
+                dataPreprocessor = { it.filter { it.name == "ЕДУ КАРТИЧКА" } },
+                bindDataTo = { card, adapter -> adapter.bindDiscountCards(card) }),
+            Subcategory(NAV_ITEMS.STUDENT_DISCOUNT_SPUKIM,
+                dataPreprocessor = { it.filter { it.name == "КАРТИЧКА НА СПУКИМ" } },
+                bindDataTo = { card, adapter -> adapter.bindDiscountCards(card) }),
+            Subcategory(NAV_ITEMS.STUDENT_DISCOUNT_EYCA,
+                dataPreprocessor = { it.filter { it.name == "EYCA" } },
+                bindDataTo = { card, adapter -> adapter.bindDiscountCards(card) })
+        )))
   }
 }

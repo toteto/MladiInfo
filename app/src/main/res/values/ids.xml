@@ -11,4 +11,7 @@
     <item name="private_universities" type="id"/>
     <item name="other_higher_education_institutions" type="id"/>
     <item name="high_schools" type="id"/>
+    <item name="eyca" type="id"/>
+    <item name="spukim" type="id"/>
+    <item name="edu_card" type="id"/>
 </resources>

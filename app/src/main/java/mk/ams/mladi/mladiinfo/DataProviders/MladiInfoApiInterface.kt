@@ -33,4 +33,13 @@ interface MladiInfoApiInterface {
 
   @GET("GetArticles")
   fun getArticles(@Header("Cache-Control") cacheControl: String? = MladiInfoApiClient.CACHE_CONTROL.MAYBE_CACHED.value): Call<List<Article>>
+
+  @GET("https://raw.githubusercontent.com/toteto/MladiInfo/master/static_data/documents.json")
+  fun getDocuments(): Call<List<MladiInfoLink>>
+
+  @GET("https://raw.githubusercontent.com/toteto/MladiInfo/master/static_data/eduCards.json")
+  fun getEduCards(): Call<List<DiscountCard>>
+
+  @GET("https://raw.githubusercontent.com/toteto/MladiInfo/master/static_data/usefulLinks.json")
+  fun getUsefulLinks(): Call<List<MladiInfoLink>>
 }
