@@ -1,14 +1,8 @@
 package mk.ams.mladi.mladiinfo
 
 import com.airbnb.epoxy.EpoxyAdapter
-import mk.ams.mladi.mladiinfo.DataModels.ArticleInterface
-import mk.ams.mladi.mladiinfo.DataModels.ContactInterface
-import mk.ams.mladi.mladiinfo.DataModels.DiscountCard
-import mk.ams.mladi.mladiinfo.DataModels.LinkItemInterface
-import mk.ams.mladi.mladiinfo.ViewModels.ArticleModel
-import mk.ams.mladi.mladiinfo.ViewModels.ContactModel
-import mk.ams.mladi.mladiinfo.ViewModels.DiscountCardModel
-import mk.ams.mladi.mladiinfo.ViewModels.LinkItemModel
+import mk.ams.mladi.mladiinfo.DataModels.*
+import mk.ams.mladi.mladiinfo.ViewModels.*
 
 class SubcategoryAdapter : EpoxyAdapter(), SubcategoryAdapterInterface {
   init {
@@ -36,6 +30,12 @@ class SubcategoryAdapter : EpoxyAdapter(), SubcategoryAdapterInterface {
   override fun bindLinkItems(items: List<LinkItemInterface>) {
     models.clear()
     models.addAll(items.map(::LinkItemModel))
+    notifyModelsChanged()
+  }
+
+  override fun bindArticleItemsWithImage(items: List<Article>) {
+    models.clear()
+    models.addAll(items.map(::ArticleWithImageModel))
     notifyModelsChanged()
   }
 }

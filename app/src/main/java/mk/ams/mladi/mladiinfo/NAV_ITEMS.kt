@@ -35,7 +35,9 @@ enum class NAV_ITEMS(@IdRes val id: Int, @StringRes val title: Int, val parentCa
   HIGH_SCHOOLS(R.id.high_schools, R.string.high_schools, EDUCATIONAL_INSTITUTIONS),
   CALL_AMS(R.id.call_ams, R.string.call_ams),
   VISIT_AMS_WEBSITE(R.id.visit_ams_website, R.string.visit_ams_website),
-  TRENDING(R.id.trending, R.string.trending);
+  AMS_NEWS(R.id.ams_news, R.string.ams_news),
+  TRENDING(R.id.trending, R.string.trending, AMS_NEWS),
+  PROJECTS(R.id.projects, R.string.projects, AMS_NEWS);
 
   /** Gets a category object with proper check if the item is a subcategory.*/
   fun getCategoryObject(context: Context): Category {
@@ -56,6 +58,7 @@ enum class NAV_ITEMS(@IdRes val id: Int, @StringRes val title: Int, val parentCa
     SCHOLARSHIPS -> Category.Factory.getScholarships(context)
     STUDENT_DISCOUNTS -> Category.Factory.getStudentDiscounts(context)
     INFO -> Category.Factory.getAMSInfo(context, selectedSubcategory)
+    AMS_NEWS -> Category.Factory.getAMSNews(context)
     else -> throw NotImplementedError("only ${NAV_ITEMS.TRAININGS} is supported.")
   }
 

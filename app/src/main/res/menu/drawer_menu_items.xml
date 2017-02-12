@@ -22,6 +22,10 @@
             android:icon="@drawable/icon_briefcase"
             android:title="@string/work"/>
         <item
+          android:id="@+id/ams_news"
+          android:icon="@drawable/icon_trending"
+          android:title="@string/ams_news"/>
+        <item
             android:id="@+id/educational_institutions"
             android:icon="@drawable/icon_education_building"
             android:title="@string/educational_institutions"/>

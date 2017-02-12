@@ -137,5 +137,19 @@ class Category(val name: String) {
                 color = R.color.dark_yellow)
         )))
         .withSelectedSubcategory(selectedSubcategory ?: NAV_ITEMS.DOCUMENTS)
+
+    fun getAMSNews(context: Context) = Category(context.getString(R.string.ams_news))
+        .addSubcategoryBundle(SubcategoryBundle(call = { it.getArticles() }, subcategories = listOf(
+            Subcategory(NAV_ITEMS.TRENDING,
+                dataPreprocessor = { it.filter { it.isTrendingArticle() } },
+                bindDataTo = { data, adapter -> adapter.bindArticleItemsWithImage(data) },
+                color = R.color.orange)
+        )))
+        .addSubcategoryBundle(SubcategoryBundle(call = { it.getArticles() }, subcategories = listOf(
+            Subcategory(NAV_ITEMS.PROJECTS,
+                dataPreprocessor = { it.filter { it.isProject() } },
+                bindDataTo = { data, adapter -> adapter.bindArticleItemsWithImage(data) },
+                color = R.color.blue_grey)
+        )))
   }
 }

@@ -14,5 +14,6 @@
     <item name="eyca" type="id"/>
     <item name="spukim" type="id"/>
     <item name="edu_card" type="id"/>
+    <item name="projects" type="id"/>
     <item name="trending" type="id"/>
 </resources>

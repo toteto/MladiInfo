@@ -48,6 +48,7 @@
   <string name="ams_phone_number" translatable="false">02/3126–270</string>
   <string name="visit_ams_website">Visit AMS website</string>
   <string name="abs_website_url" translatable="false">http://ams.gov.mk/</string>
+  <string name="ams_news">AMS news</string>
   <string name="trending">Trending</string>
   <string name="projects">Projects</string>
 </resources>
