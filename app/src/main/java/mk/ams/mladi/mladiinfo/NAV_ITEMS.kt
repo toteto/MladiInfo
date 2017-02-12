@@ -34,7 +34,8 @@ enum class NAV_ITEMS(@IdRes val id: Int, @StringRes val title: Int, val parentCa
   OTHER_HIGH_EDU_INSTITUTIONS(R.id.other_higher_education_institutions, R.string.other_higher_education_institutions, EDUCATIONAL_INSTITUTIONS),
   HIGH_SCHOOLS(R.id.high_schools, R.string.high_schools, EDUCATIONAL_INSTITUTIONS),
   CALL_AMS(R.id.call_ams, R.string.call_ams),
-  VISIT_AMS_WEBSITE(R.id.visit_ams_website, R.string.visit_ams_website);
+  VISIT_AMS_WEBSITE(R.id.visit_ams_website, R.string.visit_ams_website),
+  TRENDING(R.id.trending, R.string.trending);
 
   /** Gets a category object with proper check if the item is a subcategory.*/
   fun getCategoryObject(context: Context): Category {

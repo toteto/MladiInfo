@@ -1,6 +1,7 @@
 package mk.ams.mladi.mladiinfo.MVPContracts
 
 import android.support.annotation.IntRange
+import mk.ams.mladi.mladiinfo.DataModels.Article
 import mk.ams.mladi.mladiinfo.DataModels.Scholarship
 import mk.ams.mladi.mladiinfo.DataModels.Training
 import mk.ams.mladi.mladiinfo.DataModels.Work
@@ -12,6 +13,7 @@ interface OverviewContract {
     fun showEmployments(list: List<Work>)
     fun showConferences(list: List<Training>)
     fun showSeminars(list: List<Training>)
+    fun  showTrendingArticles(it: List<Article>)
     fun setNumberOfItemsToShow(@IntRange(from = 0) n: Int)
 
     /** Returns the first N elements of the list. Of the list is smaller than N, the whole list is limited. */

@@ -8,6 +8,7 @@ import kotlinx.android.synthetic.main.article_item.view.*
 import mk.ams.mladi.mladiinfo.DataModels.ArticleInterface
 import mk.ams.mladi.mladiinfo.R
 import mk.ams.mladi.mladiinfo.openWebsite
+import mk.ams.mladi.mladiinfo.setTextWithVisibility
 import mk.ams.mladi.mladiinfo.toRelativeTime
 
 class ArticleModel(val article: ArticleInterface) : EpoxyModelWithDivider<ArticleModel.ArticleItemVH>(article.getArticleId()) {
@@ -41,15 +42,6 @@ class ArticleModel(val article: ArticleInterface) : EpoxyModelWithDivider<Articl
       itemView.tvArticleData.text = article.getArticlePublishDate().toRelativeTime(itemView.context)
       itemView.tvArticleSource.text = article.getArticleSiteName()
       itemView.itemDivider.setBackgroundColor(ContextCompat.getColor(itemView.context, article.getDividerColor()))
-    }
-
-    fun TextView.setTextWithVisibility(content: CharSequence) {
-      if (content.isNotEmpty()) {
-        text = content
-        visibility = View.VISIBLE
-      } else {
-        visibility = View.GONE
-      }
     }
   }
 }

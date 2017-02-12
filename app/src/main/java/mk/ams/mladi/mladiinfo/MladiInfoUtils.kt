@@ -6,6 +6,8 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.support.v4.view.ViewPager
 import android.text.format.DateUtils
+import android.view.View
+import android.widget.TextView
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.regex.Pattern
@@ -83,5 +85,14 @@ fun Context.dialPhone(phone: String) {
   val intent = Intent(Intent.ACTION_DIAL)
   intent.data = Uri.parse("tel:$phone")
   startActivity(intent)
+}
+
+fun TextView.setTextWithVisibility(content: CharSequence?) {
+  if (content.isNullOrEmpty()) {
+    visibility = View.GONE
+  } else {
+    text = content
+    visibility = View.VISIBLE
+  }
 }
 

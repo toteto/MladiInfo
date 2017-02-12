@@ -18,7 +18,7 @@ class Training(
 ) : ArticleInterface {
 
   enum class TYPE(val value: String, @ColorRes val dividerColor: Int) {
-    SEMINAR("Seminar", R.color.orange),
+    SEMINAR("Seminar", R.color.dark_yellow),
     CONFERENCE("Conference", R.color.orange)
   }
 

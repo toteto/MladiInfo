@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import kotlinx.android.synthetic.main.overview_fragment_layout.*
 import kotlinx.android.synthetic.main.overview_fragment_layout.view.*
+import mk.ams.mladi.mladiinfo.DataModels.Article
 import mk.ams.mladi.mladiinfo.DataModels.Scholarship
 import mk.ams.mladi.mladiinfo.DataModels.Training
 import mk.ams.mladi.mladiinfo.DataModels.Work
@@ -64,6 +65,10 @@ class OverviewFragment : MVPFragment<OverviewContract.View, OverviewContract.Pre
 
   override fun showConferences(list: List<Training>) {
     itemsAdapter.bindConferences(list.getFirstN(numOfItems))
+  }
+
+  override fun showTrendingArticles(it: List<Article>) {
+    itemsAdapter.bindTrendingArticles(it.getFirstN(10))
   }
 
   override fun createPresenter(): OverviewContract.Presenter = OverviewPresenter(MladiInfoApiClient(activity).client)

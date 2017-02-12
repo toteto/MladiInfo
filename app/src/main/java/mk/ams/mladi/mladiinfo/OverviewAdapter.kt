@@ -3,21 +3,22 @@ package mk.ams.mladi.mladiinfo
 import android.content.Context
 import android.view.View
 import com.airbnb.epoxy.EpoxyAdapter
+import mk.ams.mladi.mladiinfo.DataModels.Article
 import mk.ams.mladi.mladiinfo.DataModels.Scholarship
 import mk.ams.mladi.mladiinfo.DataModels.Training
 import mk.ams.mladi.mladiinfo.DataModels.Work
-import mk.ams.mladi.mladiinfo.ViewModels.ArticleModel
-import mk.ams.mladi.mladiinfo.ViewModels.CategoryHeaderModel
-import mk.ams.mladi.mladiinfo.ViewModels.EpoxyModelWithDivider
-import mk.ams.mladi.mladiinfo.ViewModels.OverviewSection
+import mk.ams.mladi.mladiinfo.ViewModels.*
 
 class OverviewAdapter(context: Context) : EpoxyAdapter() {
   var onCategoryHeaderClickListener: OnCategoryHeaderClickListener? = null
 
-  val scholarshipsSection = OverviewSection(NAV_ITEMS.SCHOLARSHIPS, R.color.orange)
+  val trendingHeader = CategoryHeaderModel(NAV_ITEMS.TRENDING, R.color.orange)
+  val trendingModels = HorizontalScrollArticlesModel()
+
+  val scholarshipsSection = OverviewSection(NAV_ITEMS.SCHOLARSHIPS, R.color.dark_orange)
   val internshipsSection = OverviewSection(NAV_ITEMS.INTERNSHIPS, R.color.green)
   val employmentsSection = OverviewSection(NAV_ITEMS.EMPLOYMENTS, R.color.deep_orange)
-  val seminarsSection = OverviewSection(NAV_ITEMS.SEMINARS, R.color.orange)
+  val seminarsSection = OverviewSection(NAV_ITEMS.SEMINARS, R.color.dark_yellow)
   val conferencesSection = OverviewSection(NAV_ITEMS.CONFERENCES, R.color.orange)
 
   val headerViewClickListener = View.OnClickListener {
@@ -30,11 +31,19 @@ class OverviewAdapter(context: Context) : EpoxyAdapter() {
 
   init {
     enableDiffing()
+    addModel(trendingHeader.withOnClickListener(headerViewClickListener).hide())
+    addModel(trendingModels.hide())
     addModel(scholarshipsSection.header.withOnClickListener(headerViewClickListener).hide())
     addModel(internshipsSection.header.withOnClickListener(headerViewClickListener).hide())
     addModel(employmentsSection.header.withOnClickListener(headerViewClickListener).hide())
     addModel(seminarsSection.header.withOnClickListener(headerViewClickListener).hide())
     addModel(conferencesSection.header.withOnClickListener(headerViewClickListener).hide())
+  }
+
+  fun bindTrendingArticles(articles: List<Article>) {
+    trendingHeader.show(articles.isNotEmpty())
+    trendingModels.show(articles.isNotEmpty())
+    trendingModels.bindArticles(articles)
   }
 
   fun bindScholarships(scholarships: List<Scholarship>) {

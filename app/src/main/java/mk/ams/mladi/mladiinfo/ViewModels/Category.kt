@@ -33,7 +33,7 @@ class Category(val name: String) {
                 Subcategory(NAV_ITEMS.SEMINARS,
                     dataPreprocessor = { it.filter { it.type == Training.TYPE.SEMINAR.value } },
                     bindDataTo = { data, adapter -> adapter.bindArticleItems(data) },
-                    color = R.color.orange),
+                    color = R.color.dark_yellow),
                 Subcategory(NAV_ITEMS.CONFERENCES,
                     dataPreprocessor = { it.filter { it.type == Training.TYPE.CONFERENCE.value } },
                     bindDataTo = { data, adapter -> adapter.bindArticleItems(data) },

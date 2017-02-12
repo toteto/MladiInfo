@@ -14,7 +14,7 @@ data class Scholarship(
     @SerializedName("Link") val websiteUrl: String,
     @SerializedName("Title") val title: String
 ) : ArticleInterface {
-  override fun getDividerColor(): Int = R.color.orange
+  override fun getDividerColor(): Int = R.color.dark_orange
 
   override fun getArticleTitle(): String = title
 
