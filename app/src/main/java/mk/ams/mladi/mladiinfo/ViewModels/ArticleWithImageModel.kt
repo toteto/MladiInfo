@@ -1,7 +1,10 @@
 package mk.ams.mladi.mladiinfo.ViewModels
 
+import android.content.Context
+import android.support.v7.app.AlertDialog
 import android.text.Html
 import android.view.View
+import android.webkit.WebView
 import com.airbnb.epoxy.EpoxyModel
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.article_item_with_image.view.*
@@ -11,6 +14,7 @@ import mk.ams.mladi.mladiinfo.parseMladiInfoDate
 import mk.ams.mladi.mladiinfo.setTextWithVisibility
 import mk.ams.mladi.mladiinfo.toRelativeTime
 import java.net.URL
+
 
 class ArticleWithImageModel(val article: Article) : EpoxyModel<View>(article.id.toLong()) {
   override fun getDefaultLayout(): Int = R.layout.article_item_with_image
@@ -31,12 +35,23 @@ class ArticleWithImageModel(val article: Article) : EpoxyModel<View>(article.id.
     view.tvArticleTitle.text = article.title.trim()
 
     // Description
-    val description = Html.fromHtml(article.description)?.toString()
-    view.tvArticleDescription.setTextWithVisibility(description)
+    view.tvArticleDescription.setTextWithVisibility(article.description?.trim())
 
     // Date
     view.tvArticleData.text = article.date.parseMladiInfoDate().toRelativeTime(view.context)
 
+    view.ivArticleImage.setOnClickListener { openPopupWithContent(view.context) }
+  }
 
+  fun openPopupWithContent(context: Context?) {
+    if (context != null) {
+      val webView = WebView(context)
+      webView.setPadding(5, 5, 5, 0)
+      webView.loadData(article.text, "text/html; charset=UTF-8", "utf-8")
+      AlertDialog.Builder(context)
+          .setTitle(article.title)
+          .setView(webView)
+          .show()
+    }
   }
 }
