@@ -14,7 +14,6 @@ class HorizontalScrollArticlesModel : EpoxyModel<View>() {
   private val adapter = ArticlesWithImageAdapter()
   private val snapHelper = MyLinearSnapHelper()
   private var layoutManager: LinearLayoutManager? = null
-  private var currScrollPosition = 0
 
   override fun getDefaultLayout(): Int = R.layout.horizontal_scroll_recycler_view_item
 
@@ -24,7 +23,6 @@ class HorizontalScrollArticlesModel : EpoxyModel<View>() {
     view.recyclerView.setItemViewCacheSize(5)
     view.recyclerView.layoutManager = layoutManager
     view.recyclerView.adapter = adapter
-    view.recyclerView.scrollToPosition(Math.min(currScrollPosition, adapter.itemCount))
     snapHelper.attachToRecyclerView(view.recyclerView)
 
     view.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -41,7 +39,7 @@ class HorizontalScrollArticlesModel : EpoxyModel<View>() {
 
     view.goLeftArrow.setOnClickListener { navigateToPreviousItem(view.recyclerView, layoutManager) }
     view.goRightArrow.setOnClickListener { navigateToNextItem(view.recyclerView, layoutManager) }
-    updateNavigationSate(view, layoutManager, true)
+    updateNavigationSate(view, layoutManager)
   }
 
   fun bindArticles(items: List<Article>) {
@@ -50,12 +48,13 @@ class HorizontalScrollArticlesModel : EpoxyModel<View>() {
 
   override fun unbind(view: View?) {
     super.unbind(view)
-    currScrollPosition = layoutManager?.findFirstCompletelyVisibleItemPosition() ?: 0
     view?.recyclerView?.clearOnScrollListeners()
   }
 
-  fun updateNavigationSate(view: View?, layoutManager: LinearLayoutManager?, initial: Boolean = false) {
-    val currPosition = if (initial) currScrollPosition else layoutManager?.findFirstCompletelyVisibleItemPosition()
+  override fun shouldSaveViewState(): Boolean = true
+
+  fun updateNavigationSate(view: View?, layoutManager: LinearLayoutManager?) {
+    val currPosition = layoutManager?.findFirstCompletelyVisibleItemPosition()
     if (currPosition != null) {
       view?.goLeftArrow?.visibility = if (currPosition > 0)
         View.VISIBLE else View.GONE

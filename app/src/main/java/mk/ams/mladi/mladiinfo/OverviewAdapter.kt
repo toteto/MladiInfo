@@ -44,6 +44,7 @@ class OverviewAdapter(context: Context) : EpoxyAdapter() {
     trendingHeader.show(articles.isNotEmpty())
     trendingModels.show(articles.isNotEmpty())
     trendingModels.bindArticles(articles)
+    notifyModelsChanged()
   }
 
   fun bindScholarships(scholarships: List<Scholarship>) {
