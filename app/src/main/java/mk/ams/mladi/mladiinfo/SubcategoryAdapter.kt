@@ -4,9 +4,11 @@ import com.airbnb.epoxy.EpoxyAdapter
 import mk.ams.mladi.mladiinfo.DataModels.ArticleInterface
 import mk.ams.mladi.mladiinfo.DataModels.ContactInterface
 import mk.ams.mladi.mladiinfo.DataModels.DiscountCard
+import mk.ams.mladi.mladiinfo.DataModels.LinkItemInterface
 import mk.ams.mladi.mladiinfo.ViewModels.ArticleModel
 import mk.ams.mladi.mladiinfo.ViewModels.ContactModel
 import mk.ams.mladi.mladiinfo.ViewModels.DiscountCardModel
+import mk.ams.mladi.mladiinfo.ViewModels.LinkItemModel
 
 class SubcategoryAdapter : EpoxyAdapter(), SubcategoryAdapterInterface {
   init {
@@ -28,6 +30,12 @@ class SubcategoryAdapter : EpoxyAdapter(), SubcategoryAdapterInterface {
   override fun bindDiscountCards(cards: List<DiscountCard>) {
     models.clear()
     models.addAll(cards.map(::DiscountCardModel))
+    notifyModelsChanged()
+  }
+
+  override fun bindLinkItems(items: List<LinkItemInterface>) {
+    models.clear()
+    models.addAll(items.map(::LinkItemModel))
     notifyModelsChanged()
   }
 }

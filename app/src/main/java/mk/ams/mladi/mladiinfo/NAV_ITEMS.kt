@@ -16,8 +16,9 @@ enum class NAV_ITEMS(@IdRes val id: Int, @StringRes val title: Int, val parentCa
   STUDENT_DISCOUNT_EDU_CARD(R.id.edu_card, R.string.edu_card),
   ORGANIZATIONS(R.id.organizations, R.string.organisations),
   INFO(R.id.info, R.string.ams),
+  DOCUMENTS(R.id.documents, R.string.documents, INFO),
+  USEFUL_LINKS(R.id.useful_links, R.string.useful_links, INFO),
   SCHOLARSHIPS(R.id.scholarships, R.string.scholarships),
-  POLLS(R.id.polls, R.string.polls),
   FACEBOOK(R.id.facebook, R.string.facebook),
   YOUTUBE(R.id.youtube, R.string.you_tube),
   DORMITORIES(R.id.dormitory, R.string.dormitories),
@@ -51,6 +52,7 @@ enum class NAV_ITEMS(@IdRes val id: Int, @StringRes val title: Int, val parentCa
     LIBRARIES -> Category.Factory.getLibraries(context)
     SCHOLARSHIPS -> Category.Factory.getScholarships(context)
     STUDENT_DISCOUNTS -> Category.Factory.getStudentDiscounts(context)
+    INFO -> Category.Factory.getAMSInfo(context, selectedSubcategory)
     else -> throw NotImplementedError("only ${NAV_ITEMS.TRAININGS} is supported.")
   }
 

@@ -124,5 +124,18 @@ class Category(val name: String) {
                 dataPreprocessor = { it.filter { it.name == "EYCA" } },
                 bindDataTo = { card, adapter -> adapter.bindDiscountCards(card) })
         )))
+
+    fun getAMSInfo(context: Context, selectedSubcategory: NAV_ITEMS?) = Category(context.getString(R.string.ams))
+        .addSubcategoryBundle(SubcategoryBundle(call = { it.getDocuments() }, subcategories = listOf(
+            Subcategory(NAV_ITEMS.DOCUMENTS,
+                bindDataTo = { data, adapter -> adapter.bindLinkItems(data) },
+                color = R.color.dark_yellow)
+        )))
+        .addSubcategoryBundle(SubcategoryBundle(call = { it.getUsefulLinks() }, subcategories = listOf(
+            Subcategory(NAV_ITEMS.USEFUL_LINKS,
+                bindDataTo = { data, adapter -> adapter.bindLinkItems(data) },
+                color = R.color.dark_yellow)
+        )))
+        .withSelectedSubcategory(selectedSubcategory ?: NAV_ITEMS.DOCUMENTS)
   }
 }
