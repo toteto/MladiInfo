@@ -79,3 +79,9 @@ fun Context.tryOpenFacebook(url: String): Unit {
   }
 }
 
+fun Context.dialPhone(phone: String) {
+  val intent = Intent(Intent.ACTION_DIAL)
+  intent.data = Uri.parse("tel:$phone")
+  startActivity(intent)
+}
+

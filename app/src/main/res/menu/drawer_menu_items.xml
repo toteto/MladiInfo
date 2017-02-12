@@ -54,13 +54,23 @@
     <menu>
       <group android:checkableBehavior="single">
         <item
-            android:title="@string/documents"
-            android:id="@+id/documents"
-            android:icon="@drawable/icon_documents"/>
+          android:title="@string/documents"
+          android:id="@+id/documents"
+          android:icon="@drawable/icon_documents"/>
         <item
-            android:title="@string/useful_links"
-            android:id="@+id/useful_links"
-            android:icon="@drawable/icon_link"/>
+          android:title="@string/useful_links"
+          android:id="@+id/useful_links"
+          android:icon="@drawable/icon_link"/>
+        <item
+          android:id="@+id/call_ams"
+          android:checkable="false"
+          android:icon="@drawable/ic_call"
+          android:title="@string/call_ams"/>
+        <item
+          android:checkable="false"
+          android:id="@+id/visit_ams_website"
+          android:title="@string/visit_ams_website"
+          android:icon="@drawable/ic_open_in_browser"/>
       </group>
     </menu>
   </item>
@@ -68,16 +78,14 @@
 
   <item android:title="@string/social_networks">
     <menu>
-      <group android:checkableBehavior="single">
-        <item
-          android:id="@+id/facebook"
-          android:icon="@drawable/icon_fb"
-          android:title="@string/facebook"/>
-        <item
-          android:id="@+id/youtube"
-          android:icon="@drawable/icon_youtube"
-          android:title="@string/you_tube"/>
-      </group>
+      <item
+        android:id="@+id/facebook"
+        android:icon="@drawable/icon_fb"
+        android:title="@string/facebook"/>
+      <item
+        android:id="@+id/youtube"
+        android:icon="@drawable/icon_youtube"
+        android:title="@string/you_tube"/>
     </menu>
   </item>
 </menu>

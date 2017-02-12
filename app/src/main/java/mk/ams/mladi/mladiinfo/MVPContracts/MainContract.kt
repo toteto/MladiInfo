@@ -7,6 +7,10 @@ interface MainContract {
     fun showOverview()
     fun showCategory(category: NAV_ITEMS)
     fun onCategorySelected(category: NAV_ITEMS)
+    fun openMladiInfoFacebook()
+    fun openMladiInfoYoutube()
+    fun callAms()
+    fun visitAmsWebsite()
   }
 
   abstract class Presenter : MVPPresenter<View>() {

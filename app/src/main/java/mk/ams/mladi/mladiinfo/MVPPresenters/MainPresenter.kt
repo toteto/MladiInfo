@@ -7,9 +7,16 @@ import mk.ams.mladi.mladiinfo.NAV_ITEMS
 class MainPresenter(val client: MladiInfoApiInterface) : MainContract.Presenter() {
   var currentCategory: NAV_ITEMS = NAV_ITEMS.STARTING_PAGE
   override fun onCategoryItemSelected(item: NAV_ITEMS) {
-    if (item != currentCategory) {
-      currentCategory = item
-      updateViewCategory()
+    when (item) {
+      NAV_ITEMS.FACEBOOK -> getView()?.openMladiInfoFacebook()
+      NAV_ITEMS.YOUTUBE -> getView()?.openMladiInfoYoutube()
+      NAV_ITEMS.CALL_AMS -> getView()?.callAms()
+      NAV_ITEMS.VISIT_AMS_WEBSITE -> getView()?.visitAmsWebsite()
+      else ->
+        if (item != currentCategory) {
+          currentCategory = item
+          updateViewCategory()
+        }
     }
   }
 

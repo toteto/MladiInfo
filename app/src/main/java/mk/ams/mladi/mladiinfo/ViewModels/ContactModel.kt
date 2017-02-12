@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.contact_item.view.*
 import mk.ams.mladi.mladiinfo.DataModels.ContactInterface
 import mk.ams.mladi.mladiinfo.R
+import mk.ams.mladi.mladiinfo.dialPhone
 import mk.ams.mladi.mladiinfo.openWebsite
 import mk.ams.mladi.mladiinfo.tryOpenFacebook
 
@@ -175,9 +176,7 @@ class ContactModel(val contact: ContactInterface) : EpoxyModelWithHolder<Contact
     private fun onCallPhoneClicked() {
       val phoneNumber = contact?.getContactPhone()
       if (phoneNumber != null) {
-        val intent = Intent(Intent.ACTION_DIAL)
-        intent.data = Uri.parse("tel:$phoneNumber")
-        view.context.startActivity(intent)
+        view.context.dialPhone(phoneNumber)
       }
     }
 

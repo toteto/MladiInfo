@@ -4,14 +4,14 @@ import android.os.Bundle
 import android.view.Gravity
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.main_activity_layout.*
+import mk.ams.mladi.mladiinfo.*
 import mk.ams.mladi.mladiinfo.DataProviders.MladiInfoApiClient
 import mk.ams.mladi.mladiinfo.MVPContracts.MVPActivity
 import mk.ams.mladi.mladiinfo.MVPContracts.MainContract
 import mk.ams.mladi.mladiinfo.MVPPresenters.MainPresenter
-import mk.ams.mladi.mladiinfo.NAV_ITEMS
-import mk.ams.mladi.mladiinfo.R
 
 class MainActivity : MVPActivity<MainContract.View, MainContract.Presenter>(), MainContract.View {
+
   val overviewFragment: OverviewFragment by lazy {
     supportFragmentManager.findFragmentByTag(OVERVIEW_FRAGMENT_TAG) as OverviewFragment? ?: OverviewFragment()
   }
@@ -69,6 +69,14 @@ class MainActivity : MVPActivity<MainContract.View, MainContract.Presenter>(), M
       super.onBackPressed()
     }
   }
+
+  override fun openMladiInfoFacebook() = tryOpenFacebook(getString(R.string.facebook_link))
+
+  override fun openMladiInfoYoutube() = openWebsite(getString(R.string.youtube_link))
+
+  override fun callAms() = dialPhone(getString(R.string.ams_phone_number))
+
+  override fun visitAmsWebsite() = openWebsite(getString(R.string.abs_website_url))
 }
 
 
