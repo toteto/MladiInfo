@@ -36,17 +36,18 @@
   <string name="high_schools">High schools</string>
   <string name="dormitories">Dormitories</string>
   <string name="libraries">Libraries</string>
-  <string name="eyca">EYCA</string>
+  <string name="eyca" translatable="false">EYCA</string>
   <string name="spukim_edu_card">SPUKIM educard</string>
   <string name="edu_card">Edu card</string>
   <string name="more_info">More info</string>
   <string name="documents">Documents</string>
   <string name="useful_links">Useful links</string>
-  <string name="facebook_link">https://www.facebook.com/mladi.ams.mk/</string>
-  <string name="youtube_link">https://www.youtube.com/channel/UCo5rT9N_h65BSDn4ImeP-Pw</string>
+  <string name="facebook_link" translatable="false">https://www.facebook.com/mladi.ams.mk/</string>
+  <string name="youtube_link" translatable="false">https://www.youtube.com/channel/UCo5rT9N_h65BSDn4ImeP-Pw</string>
   <string name="call_ams">Call AMS</string>
-  <string name="ams_phone_number">02/3126–270</string>
+  <string name="ams_phone_number" translatable="false">02/3126–270</string>
   <string name="visit_ams_website">Visit AMS website</string>
-  <string name="abs_website_url">http://ams.gov.mk/</string>
+  <string name="abs_website_url" translatable="false">http://ams.gov.mk/</string>
   <string name="trending">Trending</string>
+  <string name="projects">Projects</string>
 </resources>

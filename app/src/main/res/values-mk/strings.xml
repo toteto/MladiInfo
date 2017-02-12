@@ -34,4 +34,13 @@
   <string name="visit_tw_profile">Посети го twitter профилот</string>
   <string name="libraries">Библиотеки</string>
   <string name="dormitories">Студентски домови</string>
+    <string name="call_ams">Контактирај АМС</string>
+  <string name="documents">Документи</string>
+  <string name="edu_card">Еду картичка</string>
+  <string name="more_info">Повеќе информации</string>
+  <string name="spukim_edu_card">СПУКИМ едукартичка</string>
+  <string name="trending">Актуелно</string>
+  <string name="useful_links">Корисни линкови</string>
+  <string name="visit_ams_website">Посети АМС вебсајт</string>
+    <string name="projects">Проекти</string>
 </resources>
