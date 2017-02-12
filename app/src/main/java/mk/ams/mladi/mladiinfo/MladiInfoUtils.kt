@@ -2,6 +2,7 @@ package mk.ams.mladi.mladiinfo
 
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.support.v4.view.ViewPager
 import android.text.format.DateUtils
@@ -61,5 +62,20 @@ fun Context.openWebsite(url: String): Unit {
   val intent = Intent(Intent.ACTION_VIEW)
   intent.data = Uri.parse(url)
   startActivity(intent)
+}
+
+fun Context.tryOpenFacebook(url: String): Unit {
+  val fbInstalled = try {
+    packageManager.getPackageInfo("com.facebook.katana", 0) != null
+  } catch (e: PackageManager.NameNotFoundException) {
+    false
+  }
+  if (fbInstalled) {
+    val facebookIntent = Intent(Intent.ACTION_VIEW)
+    facebookIntent.data = Uri.parse("fb://facewebmodal/f?href=$url")
+    startActivity(facebookIntent)
+  } else {
+    openWebsite(url)
+  }
 }
 

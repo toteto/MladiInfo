@@ -1,9 +1,7 @@
 package mk.ams.mladi.mladiinfo.ViewModels
 
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
-import android.support.annotation.ColorRes
 import android.support.v4.content.ContextCompat
 import android.text.Html
 import android.view.View
@@ -15,6 +13,7 @@ import kotlinx.android.synthetic.main.contact_item.view.*
 import mk.ams.mladi.mladiinfo.DataModels.ContactInterface
 import mk.ams.mladi.mladiinfo.R
 import mk.ams.mladi.mladiinfo.openWebsite
+import mk.ams.mladi.mladiinfo.tryOpenFacebook
 
 
 class ContactModel(val contact: ContactInterface) : EpoxyModelWithHolder<ContactModel.ContactViewHolder>(contact.getContactId()) {
@@ -162,18 +161,7 @@ class ContactModel(val contact: ContactInterface) : EpoxyModelWithHolder<Contact
     private fun onVisitFacebookClicked() {
       val fbLink = contact?.getContactFacebookProfile()
       if (fbLink != null) {
-        val fbInstalled = try {
-          view.context.packageManager.getPackageInfo("com.facebook.katana", 0) != null
-        } catch (e: PackageManager.NameNotFoundException) {
-          false
-        }
-        if (fbInstalled) {
-          val facebookIntent = Intent(Intent.ACTION_VIEW)
-          facebookIntent.data = Uri.parse("fb://facewebmodal/f?href=$fbLink")
-          view.context.startActivity(facebookIntent)
-        } else {
-          view.context.openWebsite(fbLink)
-        }
+        view.context.tryOpenFacebook(fbLink)
       }
     }
 
