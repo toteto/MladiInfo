@@ -4,6 +4,7 @@ import android.support.annotation.ColorRes
 import mk.ams.mladi.mladiinfo.NAV_ITEMS
 import mk.ams.mladi.mladiinfo.R
 import mk.ams.mladi.mladiinfo.SubcategoryAdapterInterface
+import mk.ams.mladi.mladiinfo.notifications.NotificationPreferences
 import java.util.*
 
 /** Simple subcategory item that has knowledge how to filter it's data and how to bind that data to
@@ -43,4 +44,6 @@ open class Subcategory<T>(
   fun setRequestDataUpdateHandler(handler: () -> Unit) {
     requestUpdateDataHandler = handler
   }
+
+  fun supportsNotifications() = NotificationPreferences.areNotificationsForListingSupported(navItem.id)
 }

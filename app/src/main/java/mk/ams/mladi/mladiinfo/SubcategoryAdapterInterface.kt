@@ -8,4 +8,5 @@ interface SubcategoryAdapterInterface {
   fun bindContactItems(items: List<ContactInterface>)
   fun bindDiscountCards(cards: List<DiscountCard>)
   fun bindLinkItems(items: List<LinkItemInterface>)
+  fun withNotificationSwitch(id: Int)
 }

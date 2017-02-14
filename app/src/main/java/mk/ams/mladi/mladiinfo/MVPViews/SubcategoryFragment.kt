@@ -10,6 +10,7 @@ import kotlinx.android.synthetic.main.overview_fragment_layout.*
 import mk.ams.mladi.mladiinfo.R
 import mk.ams.mladi.mladiinfo.SubcategoryAdapter
 import mk.ams.mladi.mladiinfo.ViewModels.Subcategory
+import mk.ams.mladi.mladiinfo.notifications.getNotificationPreferences
 
 class SubcategoryFragment : Fragment() {
   lateinit var subcategory: Subcategory<Any>
@@ -31,6 +32,13 @@ class SubcategoryFragment : Fragment() {
       subcategory.bindDataTo(it, subcategoryAdapter)
       showLoading(false)
     }
+    val shouldShowNotificationSwitch =
+        activity.getNotificationPreferences().areNotificationsEnabled() &&
+        subcategory.supportsNotifications()
+    if (shouldShowNotificationSwitch) {
+      subcategoryAdapter.withNotificationSwitch(subcategory.navItem.id)
+    }
+
     return inflater?.inflate(R.layout.overview_fragment_layout, container, false)
   }
 

@@ -1,41 +1,37 @@
 package mk.ams.mladi.mladiinfo
 
 import com.airbnb.epoxy.EpoxyAdapter
+import com.airbnb.epoxy.EpoxyModel
 import mk.ams.mladi.mladiinfo.DataModels.*
 import mk.ams.mladi.mladiinfo.ViewModels.*
 
 class SubcategoryAdapter : EpoxyAdapter(), SubcategoryAdapterInterface {
+  var notificationModel: NotificationModel? = null
+
   init {
     enableDiffing()
   }
 
-  override fun bindArticleItems(items: List<ArticleInterface>) {
-    models.clear()
-    models.addAll(items.flatMap { listOf(ArticleModel(it)) })
-    notifyModelsChanged()
+  override fun withNotificationSwitch(id: Int) {
+    notificationModel = NotificationModel(id)
   }
 
-  override fun bindContactItems(items: List<ContactInterface>) {
-    models.clear()
-    models.addAll(items.flatMap { listOf(ContactModel(it)) })
-    notifyModelsChanged()
-  }
+  override fun bindArticleItems(items: List<ArticleInterface>) = bindModels(items.map(::ArticleModel))
 
-  override fun bindDiscountCards(cards: List<DiscountCard>) {
-    models.clear()
-    models.addAll(cards.map(::DiscountCardModel))
-    notifyModelsChanged()
-  }
+  override fun bindContactItems(items: List<ContactInterface>) = bindModels(items.map(::ContactModel))
 
-  override fun bindLinkItems(items: List<LinkItemInterface>) {
-    models.clear()
-    models.addAll(items.map(::LinkItemModel))
-    notifyModelsChanged()
-  }
+  override fun bindDiscountCards(cards: List<DiscountCard>) = bindModels(cards.map(::DiscountCardModel))
 
-  override fun bindArticleItemsWithImage(items: List<Article>) {
+  override fun bindLinkItems(items: List<LinkItemInterface>) = bindModels(items.map(::LinkItemModel))
+
+  override fun bindArticleItemsWithImage(items: List<Article>) = bindModels(items.map(::ArticleWithImageModel))
+
+  private fun bindModels(newModels: List<EpoxyModel<*>>) {
     models.clear()
-    models.addAll(items.map(::ArticleWithImageModel))
+    if (notificationModel != null) {
+      models.add(notificationModel)
+    }
+    models.addAll(newModels)
     notifyModelsChanged()
   }
 }
