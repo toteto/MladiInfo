@@ -36,7 +36,7 @@ class Training(
 
   override fun getArticleSiteName(): String = siteName
 
-  override fun getArticlePublishDate(): Date = crawlDate.parseMladiInfoDate()
+  override fun getParsedDate(): Date = crawlDate.parseMladiInfoDate()
 
   override fun getArticleUrl(): String = link
 

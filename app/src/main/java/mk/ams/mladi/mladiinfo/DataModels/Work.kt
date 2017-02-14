@@ -42,7 +42,7 @@ data class Work(
 
   override fun getArticleSiteName(): String = websiteID
 
-  override fun getArticlePublishDate(): Date = inserted.parseMladiInfoDate()
+  override fun getParsedDate(): Date = inserted.parseMladiInfoDate()
 
   override fun getArticleUrl(): String = moreInfoUrl
 
