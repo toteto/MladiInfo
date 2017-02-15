@@ -1,8 +1,8 @@
 package mk.ams.mladi.mladiinfo.notifications
 
+import android.content.Context
 import android.util.Log
-import com.firebase.jobdispatcher.JobParameters
-import com.firebase.jobdispatcher.JobService
+import com.firebase.jobdispatcher.*
 import mk.ams.mladi.mladiinfo.DataModels.DateInterface
 import mk.ams.mladi.mladiinfo.DataModels.Training
 import mk.ams.mladi.mladiinfo.DataModels.Work
@@ -16,7 +16,32 @@ import java.util.*
 /** Service that is responsible for retrieving and processing data from the services that will be used
  * to build notifications for the user.  */
 class NotificationJobService : JobService() {
-  val LOG_TAG: String = NotificationJobService::class.java.simpleName
+  companion object {
+    val SERVICE_TAG = "MLADI_INFO_NOTIFICATION_SERVICE"
+    private val LOG_TAG: String = NotificationJobService::class.java.simpleName
+
+    fun buildJob(dispatcher: FirebaseJobDispatcher): Job = dispatcher.newJobBuilder()
+        .setService(NotificationJobService::class.java)
+        .setTag(NotificationJobService.SERVICE_TAG)
+        .setRecurring(true)
+        .setLifetime(Lifetime.FOREVER)
+        .setTrigger(Trigger.executionWindow(5, 10))
+        .setReplaceCurrent(false)
+        .setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL)
+        .setConstraints(Constraint.ON_ANY_NETWORK)
+        .build()
+
+    fun selfCancel(dispatcher: FirebaseJobDispatcher) = dispatcher.cancel(SERVICE_TAG)
+
+    fun managedBasedOnPreferences(context: Context) {
+      if (context.getNotificationPreferences().shouldEnableNotificationService()) {
+        context.scheduleNotificationService()
+      } else {
+        context.cancelNotificationService()
+      }
+    }
+  }
+
   override fun onStartJob(job: JobParameters): Boolean {
     Thread {
       val subcategoriesWithNotificationsEnabled = getNotificationPreferences().getSupportedSubcategories()
@@ -85,4 +110,17 @@ class NotificationJobService : JobService() {
       }
     }
   }
+}
+
+fun Context.scheduleNotificationService(dispatcher: FirebaseJobDispatcher = FirebaseJobDispatcher(GooglePlayDriver(this))) {
+  val notificationJob = NotificationJobService.buildJob(dispatcher)
+  try {
+    dispatcher.mustSchedule(notificationJob)
+  } catch (e: FirebaseJobDispatcher.ScheduleFailedException) {
+    Log.e(javaClass.simpleName, e.message)
+  }
+}
+
+fun Context.cancelNotificationService(dispatcher: FirebaseJobDispatcher = FirebaseJobDispatcher(GooglePlayDriver(this))) {
+  NotificationJobService.selfCancel(dispatcher)
 }

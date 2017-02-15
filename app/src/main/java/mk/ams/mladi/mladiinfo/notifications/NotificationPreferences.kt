@@ -20,6 +20,8 @@ class NotificationPreferences(context: Context) {
 
   fun areNotificationsEnabled() = sharedPreferences.getBoolean(NOTIFICATION_PREFERENCES_KEY, true)
 
+  fun setNotificationsEnabled(enabled: Boolean) = sharedPreferences.edit().putBoolean(NOTIFICATION_PREFERENCES_KEY, enabled).apply()
+
   fun areNotificationsEnabledForListing(id: Int) = sharedPreferences.getBoolean(id.toString(), false)
 
   fun setNotificationsEnabledForListing(id: Int, enabled: Boolean = true) = sharedPreferences.edit().putBoolean(id.toString(), enabled).apply()
@@ -27,6 +29,8 @@ class NotificationPreferences(context: Context) {
   fun getSupportedSubcategories(): List<Int> =
       if (areNotificationsEnabled()) supportedListings.filter { areNotificationsEnabledForListing(it) }
       else emptyList()
+
+  fun shouldEnableNotificationService(): Boolean = areNotificationsEnabled() && getSupportedSubcategories().isNotEmpty()
 }
 
 fun Context.getNotificationPreferences(): NotificationPreferences = NotificationPreferences(this)
