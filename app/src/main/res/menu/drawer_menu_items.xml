@@ -1,47 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
   <item
+    android:id="@+id/starting_page"
     android:checkable="true"
     android:checked="true"
-    android:id="@+id/starting_page"
     android:icon="@drawable/icon_home"
     android:title="@string/starting_page"/>
   <item android:title="@string/categories">
     <menu>
       <group android:checkableBehavior="single">
         <item
-            android:id="@+id/scholarships"
-            android:icon="@drawable/icon_hat"
-            android:title="@string/scholarships"/>
+          android:id="@+id/scholarships"
+          android:icon="@drawable/icon_hat"
+          android:title="@string/scholarships"/>
         <item
           android:id="@+id/trainings"
           android:icon="@drawable/icon_book"
           android:title="@string/trainings"/>
         <item
-            android:id="@+id/work"
-            android:icon="@drawable/icon_briefcase"
-            android:title="@string/work"/>
+          android:id="@+id/work"
+          android:icon="@drawable/icon_briefcase"
+          android:title="@string/work"/>
         <item
           android:id="@+id/ams_news"
           android:icon="@drawable/icon_trending"
           android:title="@string/ams_news"/>
         <item
-            android:id="@+id/educational_institutions"
-            android:icon="@drawable/icon_education_building"
-            android:title="@string/educational_institutions"/>
-          <item
-              android:id="@+id/dormitory"
-              android:icon="@drawable/icon_dormitory"
-              android:title="@string/dormitories"
-              />
-          <item
-              android:id="@+id/library"
-              android:icon="@drawable/icon_library"
-              android:title="@string/libraries"/>
-          <item
-              android:id="@+id/student_discounts"
-              android:icon="@drawable/icon_shopping_cart"
-              android:title="@string/student_discounts"/>
+          android:id="@+id/educational_institutions"
+          android:icon="@drawable/icon_education_building"
+          android:title="@string/educational_institutions"/>
+        <item
+          android:id="@+id/dormitory"
+          android:icon="@drawable/icon_dormitory"
+          android:title="@string/dormitories"
+          />
+        <item
+          android:id="@+id/library"
+          android:icon="@drawable/icon_library"
+          android:title="@string/libraries"/>
+        <item
+          android:id="@+id/student_discounts"
+          android:icon="@drawable/icon_shopping_cart"
+          android:title="@string/student_discounts"/>
         <item
           android:id="@+id/organizations"
           android:icon="@drawable/icon_organization"
@@ -52,33 +53,32 @@
   </item>
 
   <item
-      android:id="@+id/info"
-      android:icon="@drawable/icon_info"
-      android:title="@string/ams">
+    android:id="@+id/info"
+    android:icon="@drawable/icon_info"
+    android:title="@string/ams">
     <menu>
       <group android:checkableBehavior="single">
         <item
-          android:title="@string/documents"
           android:id="@+id/documents"
-          android:icon="@drawable/icon_documents"/>
+          android:icon="@drawable/icon_documents"
+          android:title="@string/documents"/>
         <item
-          android:title="@string/useful_links"
           android:id="@+id/useful_links"
-          android:icon="@drawable/icon_link"/>
+          android:icon="@drawable/icon_link"
+          android:title="@string/useful_links"/>
         <item
           android:id="@+id/call_ams"
           android:checkable="false"
           android:icon="@drawable/ic_call"
           android:title="@string/call_ams"/>
         <item
-          android:checkable="false"
           android:id="@+id/visit_ams_website"
-          android:title="@string/visit_ams_website"
-          android:icon="@drawable/ic_open_in_browser"/>
+          android:checkable="false"
+          android:icon="@drawable/ic_open_in_browser"
+          android:title="@string/visit_ams_website"/>
       </group>
     </menu>
   </item>
-
 
   <item android:title="@string/social_networks">
     <menu>
@@ -90,6 +90,15 @@
         android:id="@+id/youtube"
         android:icon="@drawable/icon_youtube"
         android:title="@string/you_tube"/>
+    </menu>
+  </item>
+
+  <item android:title="@string/other">
+    <menu>
+      <item
+          android:id="@+id/switch_enable_navigation"
+          android:title="@string/enable_notifications"
+          app:actionLayout="@layout/navigation_drawer_switch"/>
     </menu>
   </item>
 </menu>

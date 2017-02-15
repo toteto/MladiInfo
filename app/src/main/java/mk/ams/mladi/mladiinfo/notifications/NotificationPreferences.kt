@@ -22,7 +22,7 @@ class NotificationPreferences(context: Context) {
 
   fun setNotificationsEnabled(enabled: Boolean) = sharedPreferences.edit().putBoolean(NOTIFICATION_PREFERENCES_KEY, enabled).apply()
 
-  fun areNotificationsEnabledForListing(id: Int) = sharedPreferences.getBoolean(id.toString(), false)
+  fun areNotificationsEnabledForListing(id: Int) = sharedPreferences.getBoolean(id.toString(), true)
 
   fun setNotificationsEnabledForListing(id: Int, enabled: Boolean = true) = sharedPreferences.edit().putBoolean(id.toString(), enabled).apply()
 

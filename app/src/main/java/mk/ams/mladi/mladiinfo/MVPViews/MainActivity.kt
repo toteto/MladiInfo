@@ -1,6 +1,7 @@
 package mk.ams.mladi.mladiinfo.MVPViews
 
 import android.os.Bundle
+import android.support.v7.widget.SwitchCompat
 import android.view.Gravity
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.main_activity_layout.*
@@ -9,6 +10,9 @@ import mk.ams.mladi.mladiinfo.DataProviders.MladiInfoApiClient
 import mk.ams.mladi.mladiinfo.MVPContracts.MVPActivity
 import mk.ams.mladi.mladiinfo.MVPContracts.MainContract
 import mk.ams.mladi.mladiinfo.MVPPresenters.MainPresenter
+import mk.ams.mladi.mladiinfo.notifications.NotificationJobService
+import mk.ams.mladi.mladiinfo.notifications.getNotificationPreferences
+
 
 class MainActivity : MVPActivity<MainContract.View, MainContract.Presenter>(), MainContract.View {
 
@@ -44,6 +48,9 @@ class MainActivity : MVPActivity<MainContract.View, MainContract.Presenter>(), M
     supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_menu)
     supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+    val notificationSwitch = navigationView.menu.findItem(R.id.switch_enable_navigation)?.actionView as SwitchCompat
+    notificationSwitch.isChecked = getNotificationPreferences().areNotificationsEnabled()
+    notificationSwitch.setOnCheckedChangeListener { btn, b -> NotificationJobService.enableNotifications(this, b) }
     navigationView.setNavigationItemSelectedListener {
       onCategorySelected(NAV_ITEMS.getItemById(it.itemId) ?: NAV_ITEMS.STARTING_PAGE)
       drawerLayout.closeDrawer(navigationView)

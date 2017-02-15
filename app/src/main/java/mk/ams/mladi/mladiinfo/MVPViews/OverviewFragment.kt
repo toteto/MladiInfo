@@ -16,6 +16,7 @@ import mk.ams.mladi.mladiinfo.MVPPresenters.OverviewPresenter
 import mk.ams.mladi.mladiinfo.NAV_ITEMS
 import mk.ams.mladi.mladiinfo.OverviewAdapter
 import mk.ams.mladi.mladiinfo.R
+import mk.ams.mladi.mladiinfo.notifications.LastArticleReadStore
 
 class OverviewFragment : MVPFragment<OverviewContract.View, OverviewContract.Presenter>(), OverviewContract.View {
   private var numOfItems = 3
@@ -71,7 +72,8 @@ class OverviewFragment : MVPFragment<OverviewContract.View, OverviewContract.Pre
     itemsAdapter.bindTrendingArticles(it.getFirstN(10))
   }
 
-  override fun createPresenter(): OverviewContract.Presenter = OverviewPresenter(MladiInfoApiClient(activity).client)
+  override fun createPresenter(): OverviewContract.Presenter =
+      OverviewPresenter(MladiInfoApiClient(activity).client, LastArticleReadStore(activity))
 
   override fun setNumberOfItemsToShow(n: Int) {
     numOfItems = n

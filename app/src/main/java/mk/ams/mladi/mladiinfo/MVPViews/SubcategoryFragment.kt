@@ -7,13 +7,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.overview_fragment_layout.*
+import mk.ams.mladi.mladiinfo.DataModels.DateInterface
 import mk.ams.mladi.mladiinfo.R
 import mk.ams.mladi.mladiinfo.SubcategoryAdapter
 import mk.ams.mladi.mladiinfo.ViewModels.Subcategory
+import mk.ams.mladi.mladiinfo.notifications.LastArticleReadStore
 import mk.ams.mladi.mladiinfo.notifications.getNotificationPreferences
 
 class SubcategoryFragment : Fragment() {
   lateinit var subcategory: Subcategory<Any>
+  val articlesStore by lazy { LastArticleReadStore(activity) }
   private val subcategoryAdapter = SubcategoryAdapter()
 
   companion object {
@@ -26,20 +29,28 @@ class SubcategoryFragment : Fragment() {
 
   override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
     // Bind the existing data from the subcategory
-    subcategory.bindDataTo(subcategory.data, subcategoryAdapter)
+    bindData()
     // Register observer for further updates of the data
     subcategory.addDataObserver {
-      subcategory.bindDataTo(it, subcategoryAdapter)
+      bindData()
       showLoading(false)
     }
     val shouldShowNotificationSwitch =
         activity.getNotificationPreferences().areNotificationsEnabled() &&
-        subcategory.supportsNotifications()
+            subcategory.supportsNotifications()
     if (shouldShowNotificationSwitch) {
       subcategoryAdapter.withNotificationSwitch(subcategory.navItem.id)
     }
 
     return inflater?.inflate(R.layout.overview_fragment_layout, container, false)
+  }
+
+  private fun bindData() {
+    subcategory.bindDataTo(subcategory.data, subcategoryAdapter)
+    val lastArticle = subcategory.data.firstOrNull()
+    if (lastArticle is DateInterface) {
+      articlesStore.storeLastArticleDate(subcategory.navItem.id, lastArticle.getParsedDate())
+    }
   }
 
   override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {

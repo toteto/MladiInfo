@@ -40,6 +40,11 @@ class NotificationJobService : JobService() {
         context.cancelNotificationService()
       }
     }
+
+    fun enableNotifications(context: Context, toEnable: Boolean = true) {
+      context.getNotificationPreferences().setNotificationsEnabled(toEnable)
+      managedBasedOnPreferences(context)
+    }
   }
 
   override fun onStartJob(job: JobParameters): Boolean {
@@ -106,7 +111,9 @@ class NotificationJobService : JobService() {
       val articles = call.execute()?.body()
       if (articles != null) {
         val lastReadDate = store.getLastArticleReadDate(id)
-        result = articles.filter { filterCondition(it) && it.getParsedDate().after(lastReadDate) }.size
+        result = articles.filter {
+          filterCondition(it) && it.getParsedDate().after(lastReadDate)
+        }.size
       }
     }
   }
