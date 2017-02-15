@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import mk.ams.mladi.mladiinfo.R
 
+/** Persistent storage of notification preferences of the user and the developer. */
 class NotificationPreferences(context: Context) {
   companion object {
     private val NOTIFICATION_PREFERENCES_KEY = "NotificationPreferences"
@@ -15,13 +16,17 @@ class NotificationPreferences(context: Context) {
     fun areNotificationsForListingSupported(id: Int) = supportedListings.contains(id)
   }
 
-  val sharedPreferences: SharedPreferences = context.getSharedPreferences(NOTIFICATION_PREFERENCES_KEY, Context.MODE_PRIVATE)
+  private val sharedPreferences: SharedPreferences = context.getSharedPreferences(NOTIFICATION_PREFERENCES_KEY, Context.MODE_PRIVATE)
 
   fun areNotificationsEnabled() = sharedPreferences.getBoolean(NOTIFICATION_PREFERENCES_KEY, true)
 
   fun areNotificationsEnabledForListing(id: Int) = sharedPreferences.getBoolean(id.toString(), false)
 
   fun setNotificationsEnabledForListing(id: Int, enabled: Boolean = true) = sharedPreferences.edit().putBoolean(id.toString(), enabled).apply()
+
+  fun getSupportedSubcategories(): List<Int> =
+      if (areNotificationsEnabled()) supportedListings.filter { areNotificationsEnabledForListing(it) }
+      else emptyList()
 }
 
 fun Context.getNotificationPreferences(): NotificationPreferences = NotificationPreferences(this)
