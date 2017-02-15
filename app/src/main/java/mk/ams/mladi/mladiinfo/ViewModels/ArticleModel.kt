@@ -39,7 +39,7 @@ class ArticleModel(val article: ArticleInterface) : EpoxyModelWithDivider<Articl
       this.article = article
       itemView.tvArticleTitle.text = article.getArticleTitle()
       itemView.tvArticleDescription.setTextWithVisibility(article.getArticleDescription())
-      itemView.tvArticleData.text = article.getArticlePublishDate().toRelativeTime(itemView.context)
+      itemView.tvArticleData.text = article.getParsedDate().toRelativeTime(itemView.context)
       itemView.tvArticleSource.text = article.getArticleSiteName()
       itemView.itemDivider.setBackgroundColor(ContextCompat.getColor(itemView.context, article.getDividerColor()))
     }

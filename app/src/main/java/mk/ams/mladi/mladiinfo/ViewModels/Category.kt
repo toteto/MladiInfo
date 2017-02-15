@@ -31,11 +31,11 @@ class Category(val name: String) {
             call = { it.getTraining() },
             subcategories = listOf(
                 Subcategory(NAV_ITEMS.SEMINARS,
-                    dataPreprocessor = { it.filter { it.type == Training.TYPE.SEMINAR.value } },
+                    dataPreprocessor = { it.filter(Training::isSeminar) },
                     bindDataTo = { data, adapter -> adapter.bindArticleItems(data) },
                     color = R.color.dark_yellow),
                 Subcategory(NAV_ITEMS.CONFERENCES,
-                    dataPreprocessor = { it.filter { it.type == Training.TYPE.CONFERENCE.value } },
+                    dataPreprocessor = { it.filter(Training::isConference) },
                     bindDataTo = { data, adapter -> adapter.bindArticleItems(data) },
                     color = R.color.dark_orange))))
         .withSelectedSubcategory(selectedSubcategory ?: NAV_ITEMS.SEMINARS)
@@ -45,11 +45,11 @@ class Category(val name: String) {
             call = { it.getWorkPostings() },
             subcategories = listOf(
                 Subcategory(NAV_ITEMS.INTERNSHIPS,
-                    dataPreprocessor = { it.filter { it.workType == Work.TYPE.INTERNSHIP.value } },
+                    dataPreprocessor = { it.filter(Work::isInternship) },
                     bindDataTo = { data, adapter -> adapter.bindArticleItems(data) },
                     color = R.color.green),
                 Subcategory(NAV_ITEMS.EMPLOYMENTS,
-                    dataPreprocessor = { it.filter { it.workType == Work.TYPE.EMPLOYMENT.value } },
+                    dataPreprocessor = { it.filter(Work::isEmployment) },
                     bindDataTo = { data, adapter -> adapter.bindArticleItems(data) },
                     color = R.color.deep_orange)
             )))

@@ -24,7 +24,7 @@ data class Work(
     @SerializedName("Name") val name: String,
     @SerializedName("QualificationID") val qualificationId: String
 ) : ArticleInterface {
-  enum class TYPE(val value: String, @ColorRes val dividerColor : Int) {
+  enum class TYPE(val value: String, @ColorRes val dividerColor: Int) {
     INTERNSHIP("Internship", R.color.green),
     EMPLOYMENT("Job", R.color.deep_orange)
   }
@@ -49,4 +49,8 @@ data class Work(
   override fun searchArticle(query: String): Boolean {
     throw UnsupportedOperationException("not implemented")
   }
+
+  fun isInternship(): Boolean = workType == TYPE.INTERNSHIP.value
+
+  fun isEmployment(): Boolean = workType == TYPE.EMPLOYMENT.value
 }

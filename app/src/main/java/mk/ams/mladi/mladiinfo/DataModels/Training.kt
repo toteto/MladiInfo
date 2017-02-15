@@ -44,5 +44,8 @@ class Training(
     throw UnsupportedOperationException("not implemented")
   }
 
+  fun isSeminar(): Boolean = type == TYPE.SEMINAR.value
+
+  fun isConference(): Boolean = type == TYPE.CONFERENCE.value
 }
 
