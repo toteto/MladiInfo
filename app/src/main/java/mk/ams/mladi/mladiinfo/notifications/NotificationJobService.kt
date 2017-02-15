@@ -1,6 +1,9 @@
 package mk.ams.mladi.mladiinfo.notifications
 
+import android.app.Notification
+import android.app.NotificationManager
 import android.content.Context
+import android.support.v4.app.NotificationCompat
 import android.util.Log
 import com.firebase.jobdispatcher.*
 import mk.ams.mladi.mladiinfo.DataModels.DateInterface
@@ -17,6 +20,7 @@ import java.util.*
  * to build notifications for the user.  */
 class NotificationJobService : JobService() {
   companion object {
+    val NOTIFICATION_ID = 1
     val SERVICE_TAG = "MLADI_INFO_NOTIFICATION_SERVICE"
     private val LOG_TAG: String = NotificationJobService::class.java.simpleName
 
@@ -25,9 +29,9 @@ class NotificationJobService : JobService() {
         .setTag(NotificationJobService.SERVICE_TAG)
         .setRecurring(true)
         .setLifetime(Lifetime.FOREVER)
-        .setTrigger(Trigger.executionWindow(5, 10))
+        .setTrigger(Trigger.executionWindow(/* fixme */1, 1))
         .setReplaceCurrent(false)
-        .setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL)
+        .setRetryStrategy(RetryStrategy.DEFAULT_LINEAR)
         .setConstraints(Constraint.ON_ANY_NETWORK)
         .build()
 
@@ -45,6 +49,24 @@ class NotificationJobService : JobService() {
       context.getNotificationPreferences().setNotificationsEnabled(toEnable)
       managedBasedOnPreferences(context)
     }
+
+    fun buildNotification(context: Context, results: List<Pair<Int, Int>>): Notification {
+      val sb = StringBuilder()
+      results.forEach {
+        if (it.second > 0) {
+          val title = context.getString(NAV_ITEMS.getItemById(it.first)?.title ?: throw RuntimeException("invalid id for notification"))
+          sb.append("${it.second} unread articles for $title\n")
+        }
+      }
+
+      val notification = NotificationCompat.Builder(context)
+          .setSmallIcon(R.drawable.icon_trending)
+          .setContentTitle("MladiInfo Notification")
+          .setContentText(sb.toString().trim())
+          .build()
+
+      return notification
+    }
   }
 
   override fun onStartJob(job: JobParameters): Boolean {
@@ -55,15 +77,19 @@ class NotificationJobService : JobService() {
       } else {
         val threads = buildSyncThreads(subcategoriesWithNotificationsEnabled)
         threads.forEach { it.start() }
-        val sb = StringBuilder()
-        threads.forEach {
+        // wait for the threads to finish, map and filter then to be non-null and greater then 0 unread
+        val results = threads.mapNotNull {
           it.join()
-          if (it.result != null) {
-            val title = getString(NAV_ITEMS.getItemById(it.id)?.title ?: R.string.restart /*fixme*/)
-            sb.append("${it.result} unread articles for $title\n")
+          if (it.result == null || (it.result!!) <= (0)) {
+            null
+          } else {
+            Pair(it.id, it.result as Int)
           }
         }
-        Log.d(LOG_TAG, sb.toString())
+        if (results.isNotEmpty()) {
+          val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+          notificationManager.notify(NOTIFICATION_ID, buildNotification(this, results))
+        }
         jobFinished(job, true)
       }
     }.start()

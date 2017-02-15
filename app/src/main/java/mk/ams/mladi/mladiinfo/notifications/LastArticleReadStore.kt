@@ -24,7 +24,8 @@ class LastArticleReadStore(context: Context) {
   }
 
   fun storeLastArticleDate(id: Int, date: Date) {
-    sharedPreferences.edit().putLong(id.toString(), date.time).apply()
+    /* fixme */
+    sharedPreferences.edit().putLong(id.toString(), date.time - TimeUnit.DAYS.toMillis(2)).apply()
   }
 
   fun storeLastMladiInfoDate(id: Int, mladiInfoDate: String) {
