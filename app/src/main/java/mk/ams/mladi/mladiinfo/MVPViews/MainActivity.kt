@@ -37,9 +37,13 @@ class MainActivity : MVPActivity<MainContract.View, MainContract.Presenter>(), M
 
   override fun showCategory(category: NAV_ITEMS) {
     // Elvis (?:) operator is used to ge the parent category if the selected "category" is in fact a subcategory.
-    supportFragmentManager.beginTransaction().replace(R.id.mainActivity_fragmentContainer,
-        CategoryFragment.newInstance(category), category.parentCategory?.name ?: category.name).commit()
-    navigationView.setCheckedItem(category.parentCategory?.id ?: category.id)
+    val tag = category.parentCategory?.name ?: category.name
+    // Check if there is already fragment in place for this category
+    if (supportFragmentManager.findFragmentByTag(tag) == null) {
+      supportFragmentManager.beginTransaction().replace(R.id.mainActivity_fragmentContainer,
+          CategoryFragment.newInstance(category), tag).commit()
+    }
+    navigationView?.setCheckedItem(category.parentCategory?.id ?: category.id)
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -80,6 +84,10 @@ class MainActivity : MVPActivity<MainContract.View, MainContract.Presenter>(), M
     if (!handledByPresenter) {
       super.onBackPressed()
     }
+  }
+
+  override fun onSaveInstanceState(outState: Bundle) {
+    super.onSaveInstanceState(presenter.saveState(outState))
   }
 
   override fun openMladiInfoFacebook() = tryOpenFacebook(getString(R.string.facebook_link))

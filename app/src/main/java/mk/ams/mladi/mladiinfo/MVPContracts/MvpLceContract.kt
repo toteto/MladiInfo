@@ -1,5 +1,6 @@
 package mk.ams.mladi.mladiinfo.MVPContracts
 
+import android.os.Bundle
 import mk.ams.mladi.mladiinfo.DataProviders.enqueueTrueSuccess
 import retrofit2.Call
 import java.util.*
@@ -13,8 +14,8 @@ interface MvpLceContract {
   abstract class LCEPresenter<V : LCEView> : MVPPresenter<V>() {
     val enqueuedCalls = ArrayList<Call<*>>()
 
-    override fun attachView(view: V) {
-      super.attachView(view)
+    override fun attachView(view: V, savedInstanceState: Bundle?) {
+      super.attachView(view, savedInstanceState)
       loadData(false)
     }
 

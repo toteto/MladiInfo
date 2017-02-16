@@ -1,5 +1,6 @@
 package mk.ams.mladi.mladiinfo.MVPContracts
 
+import android.os.Bundle
 import java.lang.ref.WeakReference
 
 abstract class MVPPresenter<V : MVPContract.View> : MVPContract.Presenter<V> {
@@ -7,7 +8,7 @@ abstract class MVPPresenter<V : MVPContract.View> : MVPContract.Presenter<V> {
 
   override fun getView(): V? = if (viewRef == null) null else viewRef?.get()
 
-  override fun attachView(view: V) {
+  override fun attachView(view: V, savedInstanceState: Bundle?) {
     viewRef = WeakReference(view)
   }
 

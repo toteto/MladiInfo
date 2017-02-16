@@ -10,13 +10,20 @@ import java.util.*
 
 class SubcategoriesPagerAdapter(val context: Context, fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
   var subcategories: List<Subcategory<Any>> = ArrayList()
-    set(value) {
-      field = value
-      notifyDataSetChanged()
-    }
+    private set
 
   override fun getItem(position: Int): Fragment {
     return SubcategoryFragment.getInstance(subcategories[position])
+  }
+
+  /** @return true if the subcategories have been changed. */
+  fun setSubcategories(newSubcategories: List<Subcategory<Any>>): Boolean {
+    val diffSubcategories = subcategories != newSubcategories
+    if (diffSubcategories) {
+      subcategories = newSubcategories
+      notifyDataSetChanged()
+    }
+    return diffSubcategories
   }
 
   fun getSubcategory(position: Int) = subcategories[position]

@@ -10,7 +10,7 @@ abstract class MVPActivity<V : MVPContract.View, P : MVPContract.Presenter<V>> :
   @Suppress("UNCHECKED_CAST")
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    presenter.attachView(this as V)
+    presenter.attachView(this as V, savedInstanceState)
   }
 
   override fun onDestroy() {

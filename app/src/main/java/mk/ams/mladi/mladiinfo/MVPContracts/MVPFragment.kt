@@ -24,7 +24,7 @@ abstract class MVPFragment<V : MVPContract.View, P : MVPContract.Presenter<V>> :
   @Suppress("UNCHECKED_CAST")
   override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    presenter.attachView(this as V)
+    presenter.attachView(this as V, savedInstanceState)
   }
 
   override fun onDetach() {

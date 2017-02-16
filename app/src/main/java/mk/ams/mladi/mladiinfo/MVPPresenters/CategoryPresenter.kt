@@ -1,5 +1,6 @@
 package mk.ams.mladi.mladiinfo.MVPPresenters
 
+import android.os.Bundle
 import mk.ams.mladi.mladiinfo.DataProviders.MladiInfoApiInterface
 import mk.ams.mladi.mladiinfo.DataProviders.enqueueTrueSuccess
 import mk.ams.mladi.mladiinfo.MVPContracts.CategoryContract
@@ -7,21 +8,25 @@ import mk.ams.mladi.mladiinfo.MVPViews.CategoryFragment
 import mk.ams.mladi.mladiinfo.ViewModels.Category
 
 class CategoryPresenter(val client: MladiInfoApiInterface, category: Category) : CategoryContract.Presenter<CategoryFragment>(category) {
-  override fun attachView(view: CategoryFragment) {
-    super.attachView(view)
+  override fun attachView(view: CategoryFragment, savedInstanceState: Bundle?) {
+    super.attachView(view, savedInstanceState)
     view.setTitle(category.name)
 
     // Attach the subcategories to the view
     val allSubcategories = category.subcategoryBundles.flatMap { it.subcategories }
-    view.setSubCategories(allSubcategories)
+    val changed = view.setSubCategories(allSubcategories)
 
-    allSubcategories.forEach {
-      if (it.navItem.id == category.selectedSubcategory?.id) {
-        view.showSubcategory(it)
+    // Update the categories views only if they have changed
+    if (changed) {
+      allSubcategories.forEach {
+        if (it.navItem.id == category.selectedSubcategory?.id) {
+          view.showSubcategory(it)
+        }
+        /** Set the handler for updating the date. This will be called by the subcategory fragment*/
+        it.setRequestDataUpdateHandler { loadData() }
       }
-      it.setRequestDataUpdateHandler { loadData() }
+      loadData()
     }
-    loadData()
   }
 
   /** Go through each of the subcategory bundles and get the data that is relevant to that bundle.

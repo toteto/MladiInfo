@@ -1,5 +1,6 @@
 package mk.ams.mladi.mladiinfo.MVPPresenters
 
+import android.os.Bundle
 import mk.ams.mladi.mladiinfo.DataProviders.MladiInfoApiInterface
 import mk.ams.mladi.mladiinfo.MVPContracts.MainContract
 import mk.ams.mladi.mladiinfo.NAV_ITEMS
@@ -31,9 +32,28 @@ class MainPresenter(val client: MladiInfoApiInterface) : MainContract.Presenter(
     }
   }
 
-  override fun attachView(view: MainContract.View) {
-    super.attachView(view)
+  override fun attachView(view: MainContract.View, savedInstanceState: Bundle?) {
+    super.attachView(view, savedInstanceState)
+    if (savedInstanceState != null) {
+      loadState(savedInstanceState)
+    }
     updateViewCategory()
+  }
+
+  override fun saveState(outState: Bundle): Bundle {
+    outState.putInt(CURRENT_SUBCATEGORY, currentCategory.id)
+    return outState
+  }
+
+  override fun loadState(state: Bundle) {
+    val subcategory = NAV_ITEMS.getItemById(state.getInt(CURRENT_SUBCATEGORY))
+    if (subcategory != null) {
+      currentCategory = subcategory
+    }
+  }
+
+  override fun detachView() {
+    super.detachView()
   }
 
   override fun onBackPressed(): Boolean {
