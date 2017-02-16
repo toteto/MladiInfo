@@ -120,6 +120,10 @@ class MainActivity : MVPActivity<MainContract.View, MainContract.Presenter>(), M
   override fun callAms() = dialPhone(getString(R.string.ams_phone_number))
 
   override fun visitAmsWebsite() = openWebsite(getString(R.string.abs_website_url))
+
+  override fun contactDeveloper() = openMailClient(getString(R.string.developer_mail))
+
+  override fun openGitHubPage() = openWebsite(getString(R.string.github_link))
 }
 
 

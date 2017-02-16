@@ -66,6 +66,14 @@ fun Context.openWebsite(url: String): Unit {
   startActivity(intent)
 }
 
+fun Context.openMailClient(vararg emails: String) {
+  val intent = Intent(Intent.ACTION_SEND)
+  intent.data = Uri.parse("mailto:")
+  intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(emails))
+  intent.type = "message/rfc822"
+  startActivity(intent)
+}
+
 fun Context.tryOpenFacebook(url: String): Unit {
   val fbInstalled = try {
     packageManager.getPackageInfo("com.facebook.katana", 0) != null

@@ -13,6 +13,8 @@ class MainPresenter(val client: MladiInfoApiInterface) : MainContract.Presenter(
       NAV_ITEMS.YOUTUBE -> getView()?.openMladiInfoYoutube()
       NAV_ITEMS.CALL_AMS -> getView()?.callAms()
       NAV_ITEMS.VISIT_AMS_WEBSITE -> getView()?.visitAmsWebsite()
+      NAV_ITEMS.CONTACT_DEVELOPER -> getView()?.contactDeveloper()
+      NAV_ITEMS.OPEN_GITHUB_PAGE -> getView()?.openGitHubPage()
       else ->
         if (item != currentCategory) {
           currentCategory = item

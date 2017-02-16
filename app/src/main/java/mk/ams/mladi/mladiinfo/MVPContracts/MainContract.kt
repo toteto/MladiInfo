@@ -12,6 +12,8 @@ interface MainContract {
     fun openMladiInfoYoutube()
     fun callAms()
     fun visitAmsWebsite()
+    fun contactDeveloper()
+    fun openGitHubPage()
   }
 
   abstract class Presenter : MVPPresenter<View>() {

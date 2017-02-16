@@ -10,11 +10,8 @@ import com.airbnb.epoxy.EpoxyHolder
 import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.contact_item.view.*
+import mk.ams.mladi.mladiinfo.*
 import mk.ams.mladi.mladiinfo.DataModels.ContactInterface
-import mk.ams.mladi.mladiinfo.R
-import mk.ams.mladi.mladiinfo.dialPhone
-import mk.ams.mladi.mladiinfo.openWebsite
-import mk.ams.mladi.mladiinfo.tryOpenFacebook
 
 
 class ContactModel(val contact: ContactInterface) : EpoxyModelWithHolder<ContactModel.ContactViewHolder>(contact.getContactId()) {
@@ -183,11 +180,7 @@ class ContactModel(val contact: ContactInterface) : EpoxyModelWithHolder<Contact
     private fun onSendMailClicked() {
       val mail = contact?.getContactMail()
       if (mail != null) {
-        val intent = Intent(Intent.ACTION_SEND)
-        intent.data = Uri.parse("mailto:")
-        intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(mail))
-        intent.type = "message/rfc822"
-        view.context.startActivity(intent)
+        view.context.openMailClient(mail)
       }
     }
 

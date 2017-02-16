@@ -7,6 +7,10 @@
     android:checked="true"
     android:icon="@drawable/icon_home"
     android:title="@string/starting_page"/>
+  <item
+    android:id="@+id/switch_enable_navigation"
+    android:title="@string/notifications"
+    app:actionLayout="@layout/navigation_drawer_switch"/>
   <item android:title="@string/categories">
     <menu>
       <group android:checkableBehavior="single">
@@ -93,12 +97,16 @@
     </menu>
   </item>
 
-  <item android:title="@string/other">
+  <item android:title="@string/about_application">
     <menu>
       <item
-          android:id="@+id/switch_enable_navigation"
-          android:title="@string/enable_notifications"
-          app:actionLayout="@layout/navigation_drawer_switch"/>
+        android:id="@+id/contact_developer"
+        android:icon="@drawable/icon_code"
+        android:title="@string/contact_the_developer"/>
+      <item
+        android:id="@+id/open_github_page"
+        android:icon="@drawable/icon_github"
+        android:title="@string/open_on_github"/>
     </menu>
   </item>
 </menu>

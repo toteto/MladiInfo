@@ -46,8 +46,12 @@
   <string name="ams_news">АМС вести</string>
   <string name="enable_notifications_for_this_list">Нотификации за оваа листа</string>
   <string name="enable_notifications">Овозможи нотификации</string>
-  <string name="other">Останато</string>
+  <string name="about_application">За апликацијата</string>
   <string name="new_mladiinfo_articles">Нови МладиИнфо вести</string>
   <string name="no_internet_connection_available">Не е достапна интернет конекција</string>
   <string name="server_fail_offline_fail">Конекцијата со сервер е неуспешна и нема достапни офлајн податоци</string>
+  <string name="contact_the_developer">Контактирај креаторот</string>
+  <string name="mark_as_read">Маркирај како прочитано</string>
+  <string name="notifications">Нотификации</string>
+  <string name="open_on_github">Отвори на GitHub</string>
 </resources>

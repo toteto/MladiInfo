@@ -52,9 +52,15 @@
   <string name="trending">Trending</string>
   <string name="projects">Projects</string>
   <string name="enable_notifications_for_this_list">Notifications for this listing</string>
-  <string name="other">Other</string>
+  <string name="about_application">About this app</string>
   <string name="enable_notifications">Enable notifications</string>
   <string name="new_mladiinfo_articles">New MladiInfo articles</string>
   <string name="no_internet_connection_available">No internet connection available</string>
   <string name="server_fail_offline_fail">Connection to server has failed and no available offline data is available</string>
+  <string name="mark_as_read">Mark as read</string>
+  <string name="open_on_github">Open on GitHub</string>
+  <string name="github_link" translatable="false">https://github.com/toteto/MladiInfo</string>
+  <string name="developer_mail" translatable="false">antonioivanovski@gmail.com</string>
+  <string name="notifications">Notifications</string>
+  <string name="contact_the_developer">Contact developer</string>
 </resources>
