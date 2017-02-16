@@ -1,6 +1,7 @@
 package mk.ams.mladi.mladiinfo.MVPViews
 
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import kotlinx.android.synthetic.main.overview_fragment_layout.*
@@ -44,8 +45,11 @@ class OverviewFragment : MVPFragment<OverviewContract.View, OverviewContract.Pre
     srlRefresh.isRefreshing = show
   }
 
-  override fun showError(message: String) {
-    throw UnsupportedOperationException("not implemented")
+  override fun showError(strID: Int) {
+    val container = view
+    if (container != null) {
+      Snackbar.make(container, getString(strID), Snackbar.LENGTH_LONG).show()
+    }
   }
 
   override fun showScholarships(list: List<Scholarship>) {

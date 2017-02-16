@@ -1,14 +1,16 @@
 package mk.ams.mladi.mladiinfo.MVPContracts
 
 import android.os.Bundle
+import android.support.annotation.StringRes
 import mk.ams.mladi.mladiinfo.DataProviders.enqueueTrueSuccess
+import mk.ams.mladi.mladiinfo.R
 import retrofit2.Call
 import java.util.*
 
 interface MvpLceContract {
   interface LCEView : MVPContract.View {
     fun showLoading(show: Boolean)
-    fun showError(message: String)
+    fun showError(@StringRes strID: Int)
   }
 
   abstract class LCEPresenter<V : LCEView> : MVPPresenter<V>() {
@@ -32,6 +34,7 @@ interface MvpLceContract {
         handleSuccess(result)
         onCallFinished(call)
       }, { call ->
+        getView()?.showError(R.string.server_fail_offline_fail)
         handleFailure(call)
         onCallFinished(call)
       }).let {

@@ -70,9 +70,4 @@ class SubcategoryFragment : Fragment() {
   fun showLoading(show: Boolean) {
     srlRefresh?.isRefreshing = show
   }
-
-  fun showError(message: String) {
-    throw UnsupportedOperationException("not implemented")
-  }
-
 }

@@ -56,4 +56,5 @@
   <string name="enable_notifications">Enable notifications</string>
   <string name="new_mladiinfo_articles">New MladiInfo articles</string>
   <string name="no_internet_connection_available">No internet connection available</string>
+  <string name="server_fail_offline_fail">Connection to server has failed and no available offline data is available</string>
 </resources>

@@ -5,6 +5,7 @@ import mk.ams.mladi.mladiinfo.DataProviders.MladiInfoApiInterface
 import mk.ams.mladi.mladiinfo.DataProviders.enqueueTrueSuccess
 import mk.ams.mladi.mladiinfo.MVPContracts.CategoryContract
 import mk.ams.mladi.mladiinfo.MVPViews.CategoryFragment
+import mk.ams.mladi.mladiinfo.R
 import mk.ams.mladi.mladiinfo.ViewModels.Category
 
 class CategoryPresenter(val client: MladiInfoApiInterface, category: Category) : CategoryContract.Presenter<CategoryFragment>(category) {
@@ -41,7 +42,8 @@ class CategoryPresenter(val client: MladiInfoApiInterface, category: Category) :
           bundle.setNewDataToSubcategories(data)
         }
       }, blockOnFailure = {
-        TODO("Implement on failure when loading data for subcategories.")
+        bundle.setNewDataToSubcategories(emptyList())
+        getView()?.showError(R.string.server_fail_offline_fail)
       })
     }
   }

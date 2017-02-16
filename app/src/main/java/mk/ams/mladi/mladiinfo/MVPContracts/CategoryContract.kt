@@ -1,5 +1,6 @@
 package mk.ams.mladi.mladiinfo.MVPContracts
 
+import android.support.annotation.StringRes
 import mk.ams.mladi.mladiinfo.ViewModels.Category
 import mk.ams.mladi.mladiinfo.ViewModels.Subcategory
 
@@ -14,6 +15,8 @@ interface CategoryContract {
 
     /** Set the title of the view. */
     fun setTitle(title: String)
+
+    fun showError(@StringRes strId: Int)
   }
 
   abstract class Presenter<V : View>(val category: Category) : MVPPresenter<V>() {

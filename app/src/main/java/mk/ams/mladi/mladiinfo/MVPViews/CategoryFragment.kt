@@ -1,6 +1,7 @@
 package mk.ams.mladi.mladiinfo.MVPViews
 
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.content.ContextCompat
 import android.view.View
 import kotlinx.android.synthetic.main.category_fragment_layout.*
@@ -70,5 +71,12 @@ class CategoryFragment : MVPFragment<CategoryFragment, CategoryPresenter>(), Cat
 
   override fun setTitle(title: String) {
     activity?.title = title
+  }
+
+  override fun showError(strId: Int) {
+    val container = view
+    if (container != null) {
+      Snackbar.make(container, getString(strId), Snackbar.LENGTH_LONG).show()
+    }
   }
 }

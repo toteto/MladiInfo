@@ -49,4 +49,5 @@
   <string name="other">Останато</string>
   <string name="new_mladiinfo_articles">Нови МладиИнфо вести</string>
   <string name="no_internet_connection_available">Не е достапна интернет конекција</string>
+  <string name="server_fail_offline_fail">Конекцијата со сервер е неуспешна и нема достапни офлајн податоци</string>
 </resources>
