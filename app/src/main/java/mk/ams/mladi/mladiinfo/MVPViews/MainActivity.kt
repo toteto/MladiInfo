@@ -2,6 +2,7 @@ package mk.ams.mladi.mladiinfo.MVPViews
 
 import android.content.Context
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v7.widget.SwitchCompat
 import android.view.Gravity
 import android.view.MenuItem
@@ -16,33 +17,38 @@ import mk.ams.mladi.mladiinfo.notifications.getNotificationPreferences
 
 
 class MainActivity : MVPActivity<MainContract.View, MainContract.Presenter>(), MainContract.View {
-
-  val overviewFragment: OverviewFragment by lazy {
-    supportFragmentManager.findFragmentByTag(OVERVIEW_FRAGMENT_TAG) as OverviewFragment? ?: OverviewFragment()
-  }
-
-  companion object {
-    private val OVERVIEW_FRAGMENT_TAG = "overview"
-  }
+  private val overviewFragment: Fragment?
+    get() = supportFragmentManager.findFragmentById(R.id.overviewFragment)
+  private var categoryFragment: Fragment? = null
+    get() = supportFragmentManager.findFragmentById(R.id.mainActivity_fragmentContainer)
 
   override fun createPresenter(): MainContract.Presenter = MainPresenter(MladiInfoApiClient(this).client)
 
   override fun showOverview() {
-    if (overviewFragment.isAdded.not()) {
-      supportFragmentManager.beginTransaction().replace(R.id.mainActivity_fragmentContainer, overviewFragment,
-          OVERVIEW_FRAGMENT_TAG).commit()
+    if (overviewFragment != null) {
+      val transaction = supportFragmentManager.beginTransaction()
+      transaction.show(overviewFragment)
+      if (categoryFragment != null && categoryFragment!!.isAdded) {
+        transaction.remove(categoryFragment)
+      }
+      categoryFragment = null
+      transaction.commit()
       navigationView?.setCheckedItem(R.id.starting_page)
     }
   }
 
   override fun showCategory(category: NAV_ITEMS) {
     // Elvis (?:) operator is used to ge the parent category if the selected "category" is in fact a subcategory.
-    val tag = category.parentCategory?.name ?: category.name
-    // Check if there is already fragment in place for this category
-    if (supportFragmentManager.findFragmentByTag(tag) == null) {
-      supportFragmentManager.beginTransaction().replace(R.id.mainActivity_fragmentContainer,
-          CategoryFragment.newInstance(category), tag).commit()
+    val tag = (category.parentCategory?.id ?: category.id).toString()
+    val transaction = supportFragmentManager.beginTransaction()
+        .hide(overviewFragment)
+    if (categoryFragment?.tag != tag) {
+      // if the request fragment is different from the one on screen
+      val newCategoryFragment = CategoryFragment.newInstance(category)
+      transaction.replace(R.id.mainActivity_fragmentContainer, newCategoryFragment, tag)
     }
+    transaction.commit()
+    // Check if there is already fragment in place for this category
     navigationView?.setCheckedItem(category.parentCategory?.id ?: category.id)
   }
 

@@ -9,6 +9,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <fragment
+      android:name="mk.ams.mladi.mladiinfo.MVPViews.OverviewFragment"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:id="@+id/overviewFragment"
+      app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
     <FrameLayout
       android:id="@+id/mainActivity_fragmentContainer"
       android:layout_width="match_parent"
@@ -29,7 +36,7 @@
         app:layout_scrollFlags="scroll|enterAlways"
         app:theme="@style/AppTheme.ActionBar"/>
 
-      </android.support.design.widget.AppBarLayout>
+    </android.support.design.widget.AppBarLayout>
   </android.support.design.widget.CoordinatorLayout>
 
   <android.support.design.widget.NavigationView
@@ -38,6 +45,6 @@
     android:layout_height="match_parent"
     android:layout_gravity="start"
     android:background="@android:color/white"
-    app:menu="@menu/drawer_menu_items"
-    app:itemBackground="@android:color/transparent"/>
+    app:itemBackground="@android:color/transparent"
+    app:menu="@menu/drawer_menu_items"/>
 </android.support.v4.widget.DrawerLayout>

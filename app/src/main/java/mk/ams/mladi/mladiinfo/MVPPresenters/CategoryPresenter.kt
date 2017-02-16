@@ -8,8 +8,10 @@ import mk.ams.mladi.mladiinfo.MVPViews.CategoryFragment
 import mk.ams.mladi.mladiinfo.ViewModels.Category
 
 class CategoryPresenter(val client: MladiInfoApiInterface, category: Category) : CategoryContract.Presenter<CategoryFragment>(category) {
+  private var viewDetached = false
   override fun attachView(view: CategoryFragment, savedInstanceState: Bundle?) {
     super.attachView(view, savedInstanceState)
+    viewDetached = false
     view.setTitle(category.name)
 
     // Attach the subcategories to the view
@@ -35,10 +37,17 @@ class CategoryPresenter(val client: MladiInfoApiInterface, category: Category) :
     val bundles = category.subcategoryBundles
     bundles.forEach { bundle ->
       bundle.call(client).enqueueTrueSuccess(blockOnSuccess = { data, call ->
-        bundle.setNewDataToSubcategories(data)
+        if (viewDetached.not()) {
+          bundle.setNewDataToSubcategories(data)
+        }
       }, blockOnFailure = {
         TODO("Implement on failure when loading data for subcategories.")
       })
     }
+  }
+
+  override fun detachView() {
+    super.detachView()
+    viewDetached = true
   }
 }
