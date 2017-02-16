@@ -55,4 +55,5 @@
   <string name="other">Other</string>
   <string name="enable_notifications">Enable notifications</string>
   <string name="new_mladiinfo_articles">New MladiInfo articles</string>
+  <string name="no_internet_connection_available">No internet connection available</string>
 </resources>

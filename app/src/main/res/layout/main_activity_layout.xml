@@ -1,8 +1,8 @@
 <android.support.v4.widget.DrawerLayout
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawerLayout"
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/drawerLayout"
   android:layout_width="match_parent"
   android:layout_height="match_parent">
 
@@ -11,12 +11,12 @@
     android:layout_height="match_parent">
 
     <fragment
-        android:name="mk.ams.mladi.mladiinfo.MVPViews.OverviewFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/overviewFragment"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:layout="@layout/overview_fragment_layout"/>
+      android:id="@+id/overviewFragment"
+      android:name="mk.ams.mladi.mladiinfo.MVPViews.OverviewFragment"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      app:layout_behavior="@string/appbar_scrolling_view_behavior"
+      tools:layout="@layout/overview_fragment_layout"/>
 
     <FrameLayout
       android:id="@+id/mainActivity_fragmentContainer"
@@ -37,6 +37,18 @@
         android:minHeight="?attr/actionBarSize"
         app:layout_scrollFlags="scroll|enterAlways"
         app:theme="@style/AppTheme.ActionBar"/>
+
+      <TextView
+        android:id="@+id/noInternetConnectionView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/red"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="@string/no_internet_connection_available"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
+        android:visibility="gone"
+        tools:visibility="visible"/>
 
     </android.support.design.widget.AppBarLayout>
   </android.support.design.widget.CoordinatorLayout>

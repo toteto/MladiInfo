@@ -1,6 +1,8 @@
 package mk.ams.mladi.mladiinfo.MVPViews
 
 import android.content.Context
+import android.content.IntentFilter
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.SwitchCompat
@@ -11,6 +13,7 @@ import mk.ams.mladi.mladiinfo.*
 import mk.ams.mladi.mladiinfo.DataProviders.MladiInfoApiClient
 import mk.ams.mladi.mladiinfo.MVPContracts.MVPActivity
 import mk.ams.mladi.mladiinfo.MVPContracts.MainContract
+import mk.ams.mladi.mladiinfo.MVPPresenters.InternetConnectionViewHandler
 import mk.ams.mladi.mladiinfo.MVPPresenters.MainPresenter
 import mk.ams.mladi.mladiinfo.notifications.NotificationJobService
 import mk.ams.mladi.mladiinfo.notifications.getNotificationPreferences
@@ -21,6 +24,7 @@ class MainActivity : MVPActivity<MainContract.View, MainContract.Presenter>(), M
     get() = supportFragmentManager.findFragmentById(R.id.overviewFragment)
   private var categoryFragment: Fragment? = null
     get() = supportFragmentManager.findFragmentById(R.id.mainActivity_fragmentContainer)
+  private var internetConnectionViewHandler: InternetConnectionViewHandler? = null
 
   override fun createPresenter(): MainContract.Presenter = MainPresenter(MladiInfoApiClient(this).client)
 
@@ -94,6 +98,19 @@ class MainActivity : MVPActivity<MainContract.View, MainContract.Presenter>(), M
 
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(presenter.saveState(outState))
+  }
+
+  override fun onResume() {
+    super.onResume()
+    internetConnectionViewHandler = InternetConnectionViewHandler(noInternetConnectionView)
+    registerReceiver(internetConnectionViewHandler, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
+  }
+
+  override fun onDestroy() {
+    super.onDestroy()
+    if (internetConnectionViewHandler != null) {
+      unregisterReceiver(internetConnectionViewHandler)
+    }
   }
 
   override fun openMladiInfoFacebook() = tryOpenFacebook(getString(R.string.facebook_link))

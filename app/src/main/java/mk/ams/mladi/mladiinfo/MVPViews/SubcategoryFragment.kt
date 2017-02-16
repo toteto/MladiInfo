@@ -68,7 +68,7 @@ class SubcategoryFragment : Fragment() {
   }
 
   fun showLoading(show: Boolean) {
-    srlRefresh.isRefreshing = show
+    srlRefresh?.isRefreshing = show
   }
 
   fun showError(message: String) {
