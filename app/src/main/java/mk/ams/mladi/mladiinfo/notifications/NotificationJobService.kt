@@ -88,7 +88,7 @@ class NotificationJobService : JobService() {
 
     val openAppIntent = PendingIntent.getActivity(this, 0, Intent(this, MainActivity::class.java),
         PendingIntent.FLAG_ONE_SHOT)
-    val markAsReadIntent = PendingIntent.getService(this, 0, MarkAsReadService.getIntent(this, results.map { it.first }),
+    val markAsReadIntent = PendingIntent.getService(this, 0, MarkAsReadService.getIntent(this, results.map { it.first }, NOTIFICATION_ID),
         PendingIntent.FLAG_ONE_SHOT)
 
     val notification = NotificationCompat.Builder(this)
