@@ -38,6 +38,7 @@ class MainActivity : MVPActivity<MainContract.View, MainContract.Presenter>(), M
       categoryFragment = null
       transaction.commit()
       navigationView?.setCheckedItem(R.id.starting_page)
+      setTitle(R.string.app_name)
     }
   }
 
