@@ -4,6 +4,7 @@ import android.app.Notification
 import android.app.NotificationManager
 import android.content.Context
 import android.support.v4.app.NotificationCompat
+import android.support.v4.content.ContextCompat
 import android.util.Log
 import com.firebase.jobdispatcher.*
 import mk.ams.mladi.mladiinfo.DataModels.DateInterface
@@ -49,24 +50,6 @@ class NotificationJobService : JobService() {
       context.getNotificationPreferences().setNotificationsEnabled(toEnable)
       managedBasedOnPreferences(context)
     }
-
-    fun buildNotification(context: Context, results: List<Pair<Int, Int>>): Notification {
-      val sb = StringBuilder()
-      results.forEach {
-        if (it.second > 0) {
-          val title = context.getString(NAV_ITEMS.getItemById(it.first)?.title ?: throw RuntimeException("invalid id for notification"))
-          sb.append("${it.second} unread articles for $title\n")
-        }
-      }
-
-      val notification = NotificationCompat.Builder(context)
-          .setSmallIcon(R.drawable.icon_trending)
-          .setContentTitle("MladiInfo Notification")
-          .setContentText(sb.toString().trim())
-          .build()
-
-      return notification
-    }
   }
 
   override fun onStartJob(job: JobParameters): Boolean {
@@ -88,12 +71,44 @@ class NotificationJobService : JobService() {
         }
         if (results.isNotEmpty()) {
           val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-          notificationManager.notify(NOTIFICATION_ID, buildNotification(this, results))
+          notificationManager.notify(NOTIFICATION_ID, buildNotification(results))
         }
         jobFinished(job, true)
       }
     }.start()
     return true // Answers the question: "Is there still work going on?"
+  }
+
+  private fun buildNotification(results: List<Pair<Int, Int>>): Notification {
+    val notificationContent = buildNotificationContent(results)
+    val totalUnread = results.sumBy { it.second }
+
+    val notification = NotificationCompat.Builder(this)
+        .setSmallIcon(R.drawable.notification_icon)
+        .setColor(ContextCompat.getColor(this, R.color.orange))
+        .setContentTitle(this.getString(R.string.new_mladiinfo_articles))
+        .setContentText(this.resources.getQuantityString(R.plurals.number_of_unread_articles, totalUnread, totalUnread))
+        .setVibrate(longArrayOf(500, 500))
+        .setStyle(NotificationCompat.BigTextStyle()
+            .bigText(notificationContent))
+        .build()
+    return notification
+  }
+
+  private fun buildNotificationContent(results:List<Pair<Int, Int>>) : String {
+    val sb = StringBuilder()
+    val res = resources
+    results.forEach {
+      if (it.second > 0) {
+        val titleId = NAV_ITEMS.getItemById(it.first)?.title
+        if (titleId != null) {
+          val title = getString(titleId)
+          sb.append(res.getQuantityString(R.plurals.number_unread_articles_per_category, it.second, it.second, title.toLowerCase()))
+          sb.append("\n")
+        }
+      }
+    }
+    return sb.toString().trim()
   }
 
   /** @param ids the id of each subcategory that supports and has notifications enabled. */

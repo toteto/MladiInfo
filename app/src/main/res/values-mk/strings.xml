@@ -17,7 +17,7 @@
   <string name="trainings">Обуки</string>
   <string name="work">Работа</string>
   <string name="ams">АМС</string>
-    <string name="call_phone">Јави се на телефонот</string>
+  <string name="call_phone">Јави се на телефонот</string>
   <string name="high_schools">Средни училишта</string>
   <string name="logo">Лого</string>
   <string name="non_governmental_organization">Невладина организација</string>
@@ -34,7 +34,7 @@
   <string name="visit_tw_profile">Посети го twitter профилот</string>
   <string name="libraries">Библиотеки</string>
   <string name="dormitories">Студентски домови</string>
-    <string name="call_ams">Контактирај АМС</string>
+  <string name="call_ams">Контактирај АМС</string>
   <string name="documents">Документи</string>
   <string name="edu_card">Еду картичка</string>
   <string name="more_info">Повеќе информации</string>
@@ -42,5 +42,10 @@
   <string name="trending">Актуелно</string>
   <string name="useful_links">Корисни линкови</string>
   <string name="visit_ams_website">Посети АМС вебсајт</string>
-    <string name="projects">Проекти</string>
+  <string name="projects">Проекти</string>
+  <string name="ams_news">АМС вести</string>
+  <string name="enable_notifications_for_this_list">Нотификации за оваа листа</string>
+  <string name="enable_notifications">Овозможи нотификации</string>
+  <string name="other">Останато</string>
+  <string name="new_mladiinfo_articles">Нови МладиИнфо вести</string>
 </resources>

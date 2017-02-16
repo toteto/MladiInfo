@@ -54,11 +54,6 @@ class MainActivity : MVPActivity<MainContract.View, MainContract.Presenter>(), M
     notificationSwitch.isChecked = getNotificationPreferences().areNotificationsEnabled()
     notificationSwitch.setOnCheckedChangeListener { btn, b -> NotificationJobService.enableNotifications(this, b) }
     navigationView.setNavigationItemSelectedListener {
-      if (it.itemId == R.id.switch_enable_navigation) {
-        /* fixme */
-        val n = NotificationJobService.buildNotification(this, listOf(Pair(R.id.scholarships, 1), Pair(R.id.trainings, 2)))
-        (getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager).notify(123, n)
-      }
       onCategorySelected(NAV_ITEMS.getItemById(it.itemId) ?: NAV_ITEMS.STARTING_PAGE)
       drawerLayout.closeDrawer(navigationView)
       true

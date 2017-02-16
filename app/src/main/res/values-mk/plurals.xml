@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <plurals name="number_unread_articles_per_category">
+    <item quantity="one">%1$d непрочитана вест од %2$s</item>
+    <item quantity="other">%1$d непрочитани вести од %2$s</item>
+  </plurals>
+  <plurals name="number_of_unread_articles">
+    <item quantity="one">Имате %1$d непрочина вест.</item>
+    <item quantity="other">Имате %1$d непрочитани вести.</item>
+  </plurals>
+</resources>
