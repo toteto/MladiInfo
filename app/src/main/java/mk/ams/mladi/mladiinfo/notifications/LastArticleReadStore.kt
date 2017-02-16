@@ -16,19 +16,16 @@ class LastArticleReadStore(context: Context) {
 
   /** Returns the date of the last stored article with the provided category id.*/
   fun getLastArticleReadDate(id: Int): Date {
+    val fallbackDate = Date().time - TimeUnit.DAYS.toMillis(1)
     if (sharedPreferences.contains(id.toString())) {
-      return Date(sharedPreferences.getLong(id.toString(), Long.MAX_VALUE))
+      return Date(sharedPreferences.getLong(id.toString(), fallbackDate))
     } else {
-      return Date(Long.MAX_VALUE)
+      storeLastArticleDate(id, Date(fallbackDate))
+      return Date(fallbackDate)
     }
   }
 
   fun storeLastArticleDate(id: Int, date: Date) {
-    /* fixme */
-    sharedPreferences.edit().putLong(id.toString(), date.time - TimeUnit.DAYS.toMillis(2)).apply()
-  }
-
-  fun storeLastMladiInfoDate(id: Int, mladiInfoDate: String) {
-    storeLastArticleDate(id, mladiInfoDate.parseMladiInfoDate())
+    sharedPreferences.edit().putLong(id.toString(), date.time).apply()
   }
 }

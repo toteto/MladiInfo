@@ -2,7 +2,9 @@ package mk.ams.mladi.mladiinfo.notifications
 
 import android.app.Notification
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.support.v4.app.NotificationCompat
 import android.support.v4.content.ContextCompat
 import android.util.Log
@@ -12,6 +14,7 @@ import mk.ams.mladi.mladiinfo.DataModels.Training
 import mk.ams.mladi.mladiinfo.DataModels.Work
 import mk.ams.mladi.mladiinfo.DataProviders.MladiInfoApiClient
 import mk.ams.mladi.mladiinfo.DataProviders.MladiInfoApiClient.CACHE_CONTROL.NO_CACHE
+import mk.ams.mladi.mladiinfo.MVPViews.MainActivity
 import mk.ams.mladi.mladiinfo.NAV_ITEMS
 import mk.ams.mladi.mladiinfo.R
 import retrofit2.Call
@@ -83,6 +86,11 @@ class NotificationJobService : JobService() {
     val notificationContent = buildNotificationContent(results)
     val totalUnread = results.sumBy { it.second }
 
+    val openAppIntent = PendingIntent.getActivity(this, 0, Intent(this, MainActivity::class.java),
+        PendingIntent.FLAG_ONE_SHOT)
+    val markAsReadIntent = PendingIntent.getService(this, 0, MarkAsReadService.getIntent(this, results.map { it.first }),
+        PendingIntent.FLAG_ONE_SHOT)
+
     val notification = NotificationCompat.Builder(this)
         .setSmallIcon(R.drawable.notification_icon)
         .setColor(ContextCompat.getColor(this, R.color.orange))
@@ -91,11 +99,14 @@ class NotificationJobService : JobService() {
         .setVibrate(longArrayOf(500, 500))
         .setStyle(NotificationCompat.BigTextStyle()
             .bigText(notificationContent))
+        .setContentIntent(openAppIntent)
+        .addAction(R.drawable.ic_check, "Mark as read", markAsReadIntent)
+        .setAutoCancel(true)
         .build()
     return notification
   }
 
-  private fun buildNotificationContent(results:List<Pair<Int, Int>>) : String {
+  private fun buildNotificationContent(results: List<Pair<Int, Int>>): String {
     val sb = StringBuilder()
     val res = resources
     results.forEach {
