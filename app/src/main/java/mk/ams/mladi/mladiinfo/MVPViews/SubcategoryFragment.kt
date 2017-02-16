@@ -33,6 +33,7 @@ class SubcategoryFragment : Fragment() {
   }
 
   override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    showLoading(true)
     // Bind the existing data from the subcategory
     bindData()
     // Register observer for further updates of the data
@@ -52,6 +53,9 @@ class SubcategoryFragment : Fragment() {
 
   private fun bindData() {
     subcategory.bindDataTo(subcategory.data, subcategoryAdapter)
+    if (subcategory.data.isNotEmpty()) {
+      showLoading(false)
+    }
     val lastArticle = subcategory.data.firstOrNull()
     if (lastArticle is DateInterface) {
       articlesStore.storeLastArticleDate(subcategory.navItem.id, lastArticle.getParsedDate())
