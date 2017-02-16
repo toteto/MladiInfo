@@ -18,11 +18,11 @@ import java.util.Locale;
  * <p/>
  */
 public class LocaleHelper {
-
+	private static final String DEFAULT_LANGUAGE = "mk";
 	private static final String SELECTED_LANGUAGE = "Locale.Helper.Selected.Language";
 
 	public static Context onAttach(Context context) {
-    String lang = getPersistedData(context, Locale.getDefault().getLanguage());
+    String lang = getPersistedData(context, DEFAULT_LANGUAGE);
 		return setLocale(context, lang);
 	}
 
@@ -32,7 +32,7 @@ public class LocaleHelper {
 	}
 
 	public static String getLanguage(Context context) {
-		return getPersistedData(context, Locale.getDefault().getLanguage());
+		return getPersistedData(context, DEFAULT_LANGUAGE);
 	}
 
 	public static Context setLocale(Context context, String language) {

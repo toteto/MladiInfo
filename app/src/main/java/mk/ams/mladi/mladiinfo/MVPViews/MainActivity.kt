@@ -1,6 +1,5 @@
 package mk.ams.mladi.mladiinfo.MVPViews
 
-import android.app.NotificationManager
 import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.SwitchCompat
@@ -58,6 +57,10 @@ class MainActivity : MVPActivity<MainContract.View, MainContract.Presenter>(), M
       drawerLayout.closeDrawer(navigationView)
       true
     }
+  }
+
+  override fun attachBaseContext(newBase: Context?) {
+    super.attachBaseContext(LocaleHelper.onAttach(newBase))
   }
 
   override fun onCategorySelected(category: NAV_ITEMS) {

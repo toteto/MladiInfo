@@ -6,7 +6,7 @@ import mk.ams.mladi.mladiinfo.notifications.NotificationJobService
 
 class MladiInfoApp : Application() {
   override fun attachBaseContext(base: Context) {
-    super.attachBaseContext(LocaleHelper.onAttach(base, "mk"))
+    super.attachBaseContext(LocaleHelper.onAttach(base))
   }
 
   override fun onCreate() {
