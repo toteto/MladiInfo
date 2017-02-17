@@ -19,6 +19,7 @@ import mk.ams.mladi.mladiinfo.NAV_ITEMS
 import mk.ams.mladi.mladiinfo.R
 import retrofit2.Call
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 /** Service that is responsible for retrieving and processing data from the services that will be used
  * to build notifications for the user.  */
@@ -33,7 +34,7 @@ class NotificationJobService : JobService() {
         .setTag(NotificationJobService.SERVICE_TAG)
         .setRecurring(true)
         .setLifetime(Lifetime.FOREVER)
-        .setTrigger(Trigger.executionWindow(/* fixme */1, 1))
+        .setTrigger(Trigger.executionWindow(30 * 60 /*30 minutes*/, 60 * 60 /*60 minutes*/))
         .setReplaceCurrent(false)
         .setRetryStrategy(RetryStrategy.DEFAULT_LINEAR)
         .setConstraints(Constraint.ON_ANY_NETWORK)
