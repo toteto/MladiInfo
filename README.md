@@ -1,20 +1,20 @@
-# MladInfo app for Android
+# MladiInfo app for Android
 
 Welcome to MladiInfo open source Android app.
 
 ![MladiInfo for Android](media/phone_in_hand.jpg)
 
-[MladiInfo](http://mladi.ams.mk/) (open translation "YouthInfo") is Macedonian website that aggregates internship, employment, scholarships, contact infromations of various institutions so they can be more easely found by young people interested in them.
+[MladiInfo](http://mladi.ams.mk/) (open translation "YouthInfo") is Macedonian website that aggregates internship, employment, scholarships, contact informations of various institutions so they can be more easily found by young people interested in them.
 
 This app was created as part of a competition hosted by the website and other non-government organizations. API services are open and can be found [here](http://mladi.ams.mk/getdata.aspx).
 
-Feel free to explore how it is build natevly for Android with Kotlin. If you feel adventoourus, you can submit a pull request for additional feature or bug fix. When we are at the bugs, please report any findings at the Issues page.
+Feel free to explore how it is built natively for Android with Kotlin. If you feel adventurous, you can submit a pull request for additional feature or bug fix. When we are at the bugs, please report any findings at the Issues page.
 
 #### Some features of this app include:
 - Styling that matches the one from the website
 - Browsing of all the categories and subcategories that the API provides
 - Contact information for many organizations and institutions
-- Cacheing and offline data available for more responsive app
+- Caching and offline data available for more responsive app
 - Notifications for various subcategories like internships, employments, etc.
 
 ##### Features that are planned, but not yet implemented
