@@ -68,7 +68,11 @@ class MainActivity : MVPActivity<MainContract.View, MainContract.Presenter>(), M
     notificationSwitch.isChecked = getNotificationPreferences().areNotificationsEnabled()
     notificationSwitch.setOnCheckedChangeListener { btn, b -> NotificationJobService.enableNotifications(this, b) }
     navigationView.setNavigationItemSelectedListener {
-      onCategorySelected(NAV_ITEMS.getItemById(it.itemId) ?: NAV_ITEMS.STARTING_PAGE)
+      if (R.id.language_switch == it.itemId) {
+        buildLanguagePreferenceDialog { onCategorySelected(NAV_ITEMS.STARTING_PAGE); recreate() }.show()
+      } else {
+        onCategorySelected(NAV_ITEMS.getItemById(it.itemId) ?: NAV_ITEMS.STARTING_PAGE)
+      }
       drawerLayout.closeDrawer(navigationView)
       true
     }

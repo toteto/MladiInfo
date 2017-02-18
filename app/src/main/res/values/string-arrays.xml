@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string-array name="available_languages">
+    <item>mk</item>
+    <item>en</item>
+  </string-array>
+</resources>

@@ -1,4 +1,5 @@
 <resources>
+  <string name="default_language" translatable="false">mk</string>
   <string name="app_name">MladiInfo</string>
   <string name="restart">Restart</string>
   <string name="more">More</string>
@@ -63,4 +64,7 @@
   <string name="developer_mail" translatable="false">antonioivanovski@gmail.com</string>
   <string name="notifications">Notifications</string>
   <string name="contact_the_developer">Contact developer</string>
+  <string name="choose_language">Choose language:</string>
+  <string name="cancel">Cancel</string>
+  <string name="confirm">Confirm</string>
 </resources>

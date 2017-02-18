@@ -1,12 +1,15 @@
 package mk.ams.mladi.mladiinfo
 
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.support.v4.view.ViewPager
+import android.support.v7.app.AlertDialog
 import android.text.format.DateUtils
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.TextView
 import java.text.SimpleDateFormat
 import java.util.*
@@ -102,5 +105,31 @@ fun TextView.setTextWithVisibility(content: CharSequence?) {
     text = content
     visibility = View.VISIBLE
   }
+}
+
+fun Context.buildLanguagePreferenceDialog(onLanguageChanged: (newLanguage: String) -> Unit): Dialog {
+  val builder = AlertDialog.Builder(this)
+  val supportedLanguages = resources.getStringArray(R.array.available_languages)
+  val currentLanguage = LocaleHelper.getLanguage(this)
+  val supportedLocales = supportedLanguages.map(::Locale)
+
+  val adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_single_choice,
+      supportedLocales.map { it.getDisplayLanguage(it).capitalize() })
+
+  var selectedIndex = supportedLanguages.indexOf(currentLanguage)
+
+  builder.setTitle(R.string.choose_language)
+      .setSingleChoiceItems(adapter,
+          selectedIndex, { dialog, i -> selectedIndex = i })
+      .setNegativeButton(getString(R.string.cancel), { dialog, i -> dialog.dismiss() })
+      .setPositiveButton(getString(R.string.confirm), { dialog, i ->
+        val selectedLanguage = supportedLanguages[selectedIndex]
+        if (selectedLanguage != currentLanguage) {
+          LocaleHelper.setLocale(this, selectedLanguage)
+          onLanguageChanged.invoke(selectedLanguage)
+        }
+        dialog.dismiss()
+      })
+  return builder.create()
 }
 

@@ -94,6 +94,10 @@
         android:id="@+id/youtube"
         android:icon="@drawable/icon_youtube"
         android:title="@string/you_tube"/>
+      <item
+        android:icon="@drawable/icon_language"
+        android:id="@+id/language_switch"
+        android:title="@string/choose_language"/>
     </menu>
   </item>
 

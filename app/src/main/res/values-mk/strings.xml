@@ -54,4 +54,7 @@
   <string name="mark_as_read">Маркирај како прочитано</string>
   <string name="notifications">Нотификации</string>
   <string name="open_on_github">Отвори на GitHub</string>
+  <string name="choose_language">Избери јазик:</string>
+  <string name="cancel">Откажи</string>
+  <string name="confirm">Потврди</string>
 </resources>
