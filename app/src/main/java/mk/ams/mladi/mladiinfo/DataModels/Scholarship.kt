@@ -26,9 +26,5 @@ data class Scholarship(
 
   override fun getArticleUrl(): String = websiteUrl
 
-  override fun searchArticle(query: String): Boolean {
-    throw UnsupportedOperationException("not implemented")
-  }
-
   override fun getArticleId(): Long = id.toLong()
 }

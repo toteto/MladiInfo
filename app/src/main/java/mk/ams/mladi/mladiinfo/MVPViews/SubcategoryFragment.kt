@@ -1,11 +1,13 @@
 package mk.ams.mladi.mladiinfo.MVPViews
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.view.MenuItemCompat
 import android.support.v7.widget.LinearLayoutManager
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.support.v7.widget.SearchView
+import android.view.*
+import android.view.inputmethod.InputMethodManager
 import kotlinx.android.synthetic.main.overview_fragment_layout.*
 import mk.ams.mladi.mladiinfo.DataModels.DateInterface
 import mk.ams.mladi.mladiinfo.R
@@ -33,6 +35,7 @@ class SubcategoryFragment : Fragment() {
   }
 
   override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    setHasOptionsMenu(subcategory.queryable)
     showLoading(true)
     // Bind the existing data from the subcategory
     bindData()
@@ -49,6 +52,14 @@ class SubcategoryFragment : Fragment() {
     }
 
     return inflater?.inflate(R.layout.overview_fragment_layout, container, false)
+  }
+
+  override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater) {
+    super.onCreateOptionsMenu(menu, inflater)
+    inflater.inflate(R.menu.subcategory_fragment_menu, menu)
+    val searchView = MenuItemCompat.getActionView(menu?.findItem(R.id.subcategory_search)) as SearchView?
+    searchView?.setOnQueryTextListener(searchQueryTextListener)
+    searchView?.setOnFocusChangeListener { view, b -> searchView.isIconified = true }
   }
 
   private fun bindData() {
@@ -73,5 +84,25 @@ class SubcategoryFragment : Fragment() {
 
   fun showLoading(show: Boolean) {
     srlRefresh?.isRefreshing = show
+  }
+
+  private val searchQueryTextListener = object : SearchView.OnQueryTextListener {
+    override fun onQueryTextSubmit(query: String?): Boolean {
+      val focusedView = activity?.currentFocus
+      if (focusedView != null) {
+        val ims = (activity.getSystemService(Context.INPUT_METHOD_SERVICE)) as InputMethodManager
+        ims.hideSoftInputFromWindow(focusedView.windowToken, 0)
+      }
+      return true
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+      srlRefresh?.isEnabled = newText.isNullOrEmpty()
+      if (newText != null) {
+        subcategoryAdapter.filterItems(newText)
+        return true
+      }
+      return false
+    }
   }
 }

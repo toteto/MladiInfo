@@ -67,4 +67,5 @@
   <string name="choose_language">Choose language:</string>
   <string name="cancel">Cancel</string>
   <string name="confirm">Confirm</string>
+  <string name="search">Search</string>
 </resources>

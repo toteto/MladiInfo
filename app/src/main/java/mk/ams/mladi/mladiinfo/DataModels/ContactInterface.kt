@@ -11,5 +11,6 @@ interface ContactInterface : DividerColorInterface {
   fun getContactFacebookProfile(): String?
   fun getContactTwitterProfile(): String?
   fun getContactId(): Long
-  fun getContactLogoUrl() : String?
+  fun getContactLogoUrl(): String?
+  fun queryContact(query: String): Boolean = getContactTitle().contains(query, true)
 }

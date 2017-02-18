@@ -24,5 +24,7 @@ data class Article(
 
   fun isProject() = articleCategory == TYPE.PROJECT.value
 
+  fun queryArticle(query: String): Boolean = title.contains(query, true)
+
   override fun getParsedDate(): Date = date.parseMladiInfoDate()
 }

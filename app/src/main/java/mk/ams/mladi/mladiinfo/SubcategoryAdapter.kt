@@ -26,6 +26,18 @@ class SubcategoryAdapter : EpoxyAdapter(), SubcategoryAdapterInterface {
 
   override fun bindArticleItemsWithImage(items: List<Article>) = bindModels(items.map(::ArticleWithImageModel))
 
+    fun filterItems(query: String) {
+    if (query.length < 3) {
+      showModels(models)
+    } else {
+      models.forEach {
+        it.show(it is QueryableModelInterface && it.queryModel(query))
+      }
+      notifyModelsChanged()
+    }
+    notificationModel?.show(query.isEmpty())
+  }
+
   private fun bindModels(newModels: List<EpoxyModel<*>>) {
     models.clear()
     if (notificationModel != null) {

@@ -2,7 +2,6 @@ package mk.ams.mladi.mladiinfo.ViewModels
 
 import android.content.Context
 import android.support.v7.app.AlertDialog
-import android.text.Html
 import android.view.View
 import android.webkit.WebView
 import com.airbnb.epoxy.EpoxyModel
@@ -16,7 +15,8 @@ import mk.ams.mladi.mladiinfo.toRelativeTime
 import java.net.URL
 
 
-class ArticleWithImageModel(val article: Article) : EpoxyModel<View>(article.id.toLong()) {
+class ArticleWithImageModel(val article: Article) :
+    EpoxyModel<View>(article.id.toLong()), QueryableModelInterface {
   override fun getDefaultLayout(): Int = R.layout.article_item_with_image
 
   override fun bind(view: View) {
@@ -42,6 +42,8 @@ class ArticleWithImageModel(val article: Article) : EpoxyModel<View>(article.id.
 
     view.ivArticleImage.setOnClickListener { openPopupWithContent(view.context) }
   }
+
+  override fun queryModel(query: String): Boolean = article.queryArticle(query)
 
   fun openPopupWithContent(context: Context?) {
     if (context != null) {

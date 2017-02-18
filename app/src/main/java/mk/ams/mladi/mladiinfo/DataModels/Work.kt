@@ -46,10 +46,6 @@ data class Work(
 
   override fun getArticleUrl(): String = moreInfoUrl
 
-  override fun searchArticle(query: String): Boolean {
-    throw UnsupportedOperationException("not implemented")
-  }
-
   fun isInternship(): Boolean = workType == TYPE.INTERNSHIP.value
 
   fun isEmployment(): Boolean = workType == TYPE.EMPLOYMENT.value

@@ -14,7 +14,8 @@ import mk.ams.mladi.mladiinfo.*
 import mk.ams.mladi.mladiinfo.DataModels.ContactInterface
 
 
-class ContactModel(val contact: ContactInterface) : EpoxyModelWithHolder<ContactModel.ContactViewHolder>(contact.getContactId()) {
+class ContactModel(val contact: ContactInterface) :
+    EpoxyModelWithHolder<ContactModel.ContactViewHolder>(contact.getContactId()), QueryableModelInterface {
   override fun createNewHolder(): ContactViewHolder = ContactViewHolder()
 
   override fun bind(holder: ContactViewHolder) {
@@ -28,6 +29,8 @@ class ContactModel(val contact: ContactInterface) : EpoxyModelWithHolder<Contact
   }
 
   override fun getDefaultLayout(): Int = R.layout.contact_item
+
+  override fun queryModel(query: String): Boolean = contact.queryContact(query)
 
   class ContactViewHolder : EpoxyHolder() {
     lateinit var view: View

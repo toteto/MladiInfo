@@ -8,7 +8,8 @@ import mk.ams.mladi.mladiinfo.DataModels.LinkItemInterface
 import mk.ams.mladi.mladiinfo.R
 import mk.ams.mladi.mladiinfo.openWebsite
 
-class LinkItemModel(val item: LinkItemInterface) : EpoxyModel<View>(item.hashCode().toLong()) {
+class LinkItemModel(val item: LinkItemInterface) :
+    EpoxyModel<View>(item.hashCode().toLong()), QueryableModelInterface {
   override fun getDefaultLayout(): Int = R.layout.link_item
 
   override fun bind(view: View) {
@@ -18,4 +19,6 @@ class LinkItemModel(val item: LinkItemInterface) : EpoxyModel<View>(item.hashCod
     view.itemDivider.setBackgroundColor(ContextCompat.getColor(view.context, item.getDividerColor()))
     view.setOnClickListener { view.context.openWebsite(item.getLinkItemUrl()) }
   }
+
+  override fun queryModel(query: String): Boolean = item.queryItem(query)
 }

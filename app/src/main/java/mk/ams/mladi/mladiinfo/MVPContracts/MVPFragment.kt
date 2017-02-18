@@ -13,6 +13,7 @@ abstract class MVPFragment<V : MVPContract.View, P : MVPContract.Presenter<V>> :
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     retainInstance = true
+    setHasOptionsMenu(true) /*fixme hotfix to remove search action from SubcategoryFragment */
   }
 
   override final fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

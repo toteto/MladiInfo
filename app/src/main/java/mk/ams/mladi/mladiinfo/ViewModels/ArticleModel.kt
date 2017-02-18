@@ -2,7 +2,6 @@ package mk.ams.mladi.mladiinfo.ViewModels
 
 import android.support.v4.content.ContextCompat
 import android.view.View
-import android.widget.TextView
 import com.airbnb.epoxy.EpoxyHolder
 import kotlinx.android.synthetic.main.article_item.view.*
 import mk.ams.mladi.mladiinfo.DataModels.ArticleInterface
@@ -11,7 +10,8 @@ import mk.ams.mladi.mladiinfo.openWebsite
 import mk.ams.mladi.mladiinfo.setTextWithVisibility
 import mk.ams.mladi.mladiinfo.toRelativeTime
 
-class ArticleModel(val article: ArticleInterface) : EpoxyModelWithDivider<ArticleModel.ArticleItemVH>(article.getArticleId()) {
+class ArticleModel(val article: ArticleInterface) :
+    EpoxyModelWithDivider<ArticleModel.ArticleItemVH>(article.getArticleId()), QueryableModelInterface {
 
   override fun createNewHolder() = ArticleItemVH()
 
@@ -22,6 +22,8 @@ class ArticleModel(val article: ArticleInterface) : EpoxyModelWithDivider<Articl
     holder.bind(article)
     holder.itemView.itemDivider.visibility = dividerVisible
   }
+
+  override fun queryModel(query: String): Boolean = article.searchArticle(query)
 
   class ArticleItemVH : EpoxyHolder() {
     var article: ArticleInterface? = null

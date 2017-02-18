@@ -14,9 +14,11 @@ import java.util.*
  * represents. (ex. Subcategory 'Seminars' can get List<Trainig>, but only needs to keep Trainings
  * of type 'Seminars' and not 'Conferences'
  * @param bindDataTo method that will bind the data from this item to an provided adapter to it.
- * @param color the color theme of this subcategory. */
+ * @param color the color theme of this subcategory.
+ * @param queryable will this subcategory support searching of the data it provides */
 open class Subcategory<T>(
     val navItem: NAV_ITEMS,
+    val queryable: Boolean = true,
     val dataPreprocessor: (data: List<T>) -> List<T> = { it },
     val bindDataTo: (data: List<T>, adapter: SubcategoryAdapterInterface) -> Unit,
     @ColorRes val color: Int = R.color.secondary_text) {

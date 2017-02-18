@@ -6,5 +6,5 @@ interface ArticleInterface : DividerColorInterface, DateInterface {
     fun getArticleDescription(): String
     fun getArticleSiteName(): String
     fun getArticleUrl(): String
-    fun searchArticle(query: String): Boolean
+    fun searchArticle(query: String): Boolean = getArticleTitle().contains(query, true)
 }
