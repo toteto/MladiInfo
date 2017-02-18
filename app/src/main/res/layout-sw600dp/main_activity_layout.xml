@@ -1,0 +1,64 @@
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="horizontal">
+
+  <android.support.design.widget.NavigationView
+    android:id="@+id/navigationView"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_gravity="start"
+    android:background="@android:color/white"
+    app:itemBackground="@android:color/transparent"
+    app:menu="@menu/drawer_menu_items"/>
+
+  <android.support.design.widget.CoordinatorLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <fragment
+      android:id="@+id/overviewFragment"
+      android:name="mk.ams.mladi.mladiinfo.MVPViews.OverviewFragment"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      app:layout_behavior="@string/appbar_scrolling_view_behavior"
+      tools:layout="@layout/overview_fragment_layout"/>
+
+    <FrameLayout
+      android:id="@+id/mainActivity_fragmentContainer"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+    <android.support.design.widget.AppBarLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:layout_scrollFlags="scroll|enterAlways">
+
+      <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primary"
+        android:minHeight="?attr/actionBarSize"
+        app:layout_scrollFlags="scroll|enterAlways"
+        app:theme="@style/AppTheme.ActionBar"/>
+
+      <TextView
+        android:id="@+id/noInternetConnectionView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/red"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="@string/no_internet_connection_available"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
+        android:visibility="gone"
+        tools:visibility="visible"/>
+
+    </android.support.design.widget.AppBarLayout>
+  </android.support.design.widget.CoordinatorLayout>
+</LinearLayout>

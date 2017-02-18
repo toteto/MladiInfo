@@ -61,8 +61,11 @@ class MainActivity : MVPActivity<MainContract.View, MainContract.Presenter>(), M
     super.onCreate(savedInstanceState)
     setContentView(R.layout.main_activity_layout)
     setSupportActionBar(toolbar)
-    supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_menu)
-    supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    if (drawerLayout != null) {
+      // there is no drawerLayout in tablet mode, meaning this is a phone and drawer icon should be shown
+      supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_menu)
+      supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
 
     val notificationSwitch = navigationView.menu.findItem(R.id.switch_enable_navigation)?.actionView as SwitchCompat
     notificationSwitch.isChecked = getNotificationPreferences().areNotificationsEnabled()
@@ -73,7 +76,7 @@ class MainActivity : MVPActivity<MainContract.View, MainContract.Presenter>(), M
       } else {
         onCategorySelected(NAV_ITEMS.getItemById(it.itemId) ?: NAV_ITEMS.STARTING_PAGE)
       }
-      drawerLayout.closeDrawer(navigationView)
+      drawerLayout?.closeDrawer(navigationView)
       true
     }
   }
@@ -88,7 +91,7 @@ class MainActivity : MVPActivity<MainContract.View, MainContract.Presenter>(), M
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     if (item.itemId == android.R.id.home) {
-      drawerLayout.openDrawer(Gravity.START)
+      drawerLayout?.openDrawer(Gravity.START)
       return true
     }
     return super.onOptionsItemSelected(item)
