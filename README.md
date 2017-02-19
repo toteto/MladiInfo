@@ -19,6 +19,8 @@ Feel free to explore how it is built natively for Android with Kotlin. If you fe
 - Searchable articles
 - Adaptive design for tablet devices ([Screenshot](media/phone_tablet.jpg))
 
+![Overview page of the app](media/overview page.jpg)
+
 ### Credits:
 - [Kotlin](https://kotlinlang.org/): Statically typed programming language for the JVM, Android and the browser
 - [Retrofit](https://github.com/square/retrofit): Type-safe HTTP client for Android and Java by Square, Inc.
