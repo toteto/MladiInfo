@@ -12,14 +12,12 @@ Feel free to explore how it is built natively for Android with Kotlin. If you fe
 
 #### Some features of this app include:
 - Styling that matches the one from the website
-- Browsing of all the categories and subcategories that the API provides
-- Contact information for many organizations and institutions
-- Caching and offline data available for more responsive app
-- Notifications for various subcategories like internships, employments, etc.
-
-##### Features that are planned, but not yet implemented
+- Browsing of all the categories and subcategories that the API provides [Screenshot](media/navigation_menu.jpg)
+- Contact information for many organizations and institutions [Screenshot](media/institutions.jpg)
+- Caching and offline data available for more responsive app [Screenshot](media/no_internet.jpg)
+- Notifications for various subcategories like internships, employments, etc. [Screenshot](media/notification.jpg)
 - Searchable articles
-- More adaptive design for tablet devices
+- Adaptive design for tablet devices [Screenshot](media/phone_tablet.jpg)
 
 ### Credits:
 - [Kotlin](https://kotlinlang.org/): Statically typed programming language for the JVM, Android and the browser
