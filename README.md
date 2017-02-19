@@ -14,7 +14,7 @@ Feel free to explore how it is built natively for Android with Kotlin. If you fe
 - Styling that matches the one from the website
 - Browsing of all the categories and subcategories that the API provides [Screenshot](media/navigation_menu.jpg)
 - Contact information for many organizations and institutions [Screenshot](media/institutions.jpg)
-- Caching and offline data available for more responsive app [Screenshot](media/no_internet.jpg)
+- Caching and offline data available for more responsive app [Screenshot](media/no_internet.png)
 - Notifications for various subcategories like internships, employments, etc. [Screenshot](media/notification.jpg)
 - Searchable articles
 - Adaptive design for tablet devices [Screenshot](media/phone_tablet.jpg)
