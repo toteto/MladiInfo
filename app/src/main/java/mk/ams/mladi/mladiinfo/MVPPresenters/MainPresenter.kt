@@ -1,12 +1,13 @@
 package mk.ams.mladi.mladiinfo.MVPPresenters
 
 import android.os.Bundle
-import mk.ams.mladi.mladiinfo.DataProviders.MladiInfoApiInterface
 import mk.ams.mladi.mladiinfo.MVPContracts.MainContract
 import mk.ams.mladi.mladiinfo.NAV_ITEMS
 
-class MainPresenter(val client: MladiInfoApiInterface) : MainContract.Presenter() {
-  var currentCategory: NAV_ITEMS = NAV_ITEMS.STARTING_PAGE
+/** This is where the magic happens. This presenter handles the main functionality of the app,
+ * like what page should be displayed.*/
+class MainPresenter : MainContract.Presenter() {
+  var currentPage: NAV_ITEMS = NAV_ITEMS.STARTING_PAGE
   override fun onCategoryItemSelected(item: NAV_ITEMS) {
     when (item) {
       NAV_ITEMS.FACEBOOK -> getView()?.openMladiInfoFacebook()
@@ -16,20 +17,21 @@ class MainPresenter(val client: MladiInfoApiInterface) : MainContract.Presenter(
       NAV_ITEMS.CONTACT_DEVELOPER -> getView()?.contactDeveloper()
       NAV_ITEMS.OPEN_GITHUB_PAGE -> getView()?.openGitHubPage()
       else ->
-        if (item != currentCategory) {
-          currentCategory = item
+        if (item != currentPage) {
+          currentPage = item
           updateViewCategory()
         }
     }
   }
 
+  /** Will update the page on the view based on the [currentPage].*/
   private fun updateViewCategory() {
     val view = getView()
     if (view != null) {
-      if (currentCategory == NAV_ITEMS.STARTING_PAGE) {
+      if (currentPage == NAV_ITEMS.STARTING_PAGE) {
         view.showOverview()
       } else {
-        view.showCategory(currentCategory)
+        view.showCategory(currentPage)
       }
     }
   }
@@ -43,14 +45,14 @@ class MainPresenter(val client: MladiInfoApiInterface) : MainContract.Presenter(
   }
 
   override fun saveState(outState: Bundle): Bundle {
-    outState.putInt(CURRENT_SUBCATEGORY, currentCategory.id)
+    outState.putInt(CURRENT_SUBCATEGORY, currentPage.id)
     return outState
   }
 
   override fun loadState(state: Bundle) {
     val subcategory = NAV_ITEMS.getItemById(state.getInt(CURRENT_SUBCATEGORY))
     if (subcategory != null) {
-      currentCategory = subcategory
+      currentPage = subcategory
     }
   }
 
@@ -58,8 +60,9 @@ class MainPresenter(val client: MladiInfoApiInterface) : MainContract.Presenter(
     super.detachView()
   }
 
+  /** Handling of back navigation. Shouldn't be done like this, but for this simple app is fine. */
   override fun onBackPressed(): Boolean {
-    if (currentCategory == NAV_ITEMS.STARTING_PAGE) {
+    if (currentPage == NAV_ITEMS.STARTING_PAGE) {
       return false
     } else {
       onCategoryItemSelected(NAV_ITEMS.STARTING_PAGE)

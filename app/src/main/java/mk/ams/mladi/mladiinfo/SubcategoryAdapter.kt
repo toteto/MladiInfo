@@ -5,6 +5,8 @@ import com.airbnb.epoxy.EpoxyModel
 import mk.ams.mladi.mladiinfo.DataModels.*
 import mk.ams.mladi.mladiinfo.ViewModels.*
 
+/** This adapter is used to display a whole. With this current implementation, it can show only one
+ * of the bind functions.*/
 class SubcategoryAdapter : EpoxyAdapter(), SubcategoryAdapterInterface {
   var notificationModel: NotificationModel? = null
 

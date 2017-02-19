@@ -16,6 +16,8 @@ import mk.ams.mladi.mladiinfo.ViewModels.Subcategory
 import mk.ams.mladi.mladiinfo.notifications.LastArticleReadStore
 import mk.ams.mladi.mladiinfo.notifications.getNotificationPreferences
 
+/** Not really a MVP View, but it is a View at least :)
+ * This ia more of a page that knows how to display an [Subcategory]. */
 class SubcategoryFragment : Fragment() {
   lateinit var subcategory: Subcategory<Any>
   val articlesStore by lazy { LastArticleReadStore(activity) }
@@ -34,7 +36,8 @@ class SubcategoryFragment : Fragment() {
     retainInstance = true
   }
 
-  override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+  override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+                            savedInstanceState: Bundle?): View? {
     setHasOptionsMenu(subcategory.queryable)
     showLoading(true)
     // Bind the existing data from the subcategory
@@ -57,7 +60,8 @@ class SubcategoryFragment : Fragment() {
   override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater) {
     super.onCreateOptionsMenu(menu, inflater)
     inflater.inflate(R.menu.subcategory_fragment_menu, menu)
-    val searchView = MenuItemCompat.getActionView(menu?.findItem(R.id.subcategory_search)) as SearchView?
+    val searchView = MenuItemCompat.getActionView(
+        menu?.findItem(R.id.subcategory_search)) as SearchView?
     searchView?.setOnQueryTextListener(searchQueryTextListener)
     searchView?.setOnFocusChangeListener { view, b -> searchView.isIconified = true }
   }

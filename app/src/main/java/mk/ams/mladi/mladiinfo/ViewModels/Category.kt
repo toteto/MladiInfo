@@ -7,8 +7,11 @@ import mk.ams.mladi.mladiinfo.DataModels.Training
 import mk.ams.mladi.mladiinfo.DataModels.Work
 import mk.ams.mladi.mladiinfo.NAV_ITEMS
 import mk.ams.mladi.mladiinfo.R
+import mk.ams.mladi.mladiinfo.ViewModels.Category.Factory
 import java.util.*
 
+/** This class is a ViewModel that hold one or more [subcategoryBundles]. For most cases, if you need
+ * new instance of this class, use the [Factory].*/
 class Category(val name: String) {
   var selectedSubcategory: NAV_ITEMS? = null
     private set
@@ -20,13 +23,15 @@ class Category(val name: String) {
     return this
   }
 
+  /** This will be used to preselect the provided subcategory when the [Category] is displayed. */
   fun withSelectedSubcategory(subcategory: NAV_ITEMS): Category {
     selectedSubcategory = subcategory
     return this
   }
 
   object Factory {
-    fun getTrainingCategory(context: Context, selectedSubcategory: NAV_ITEMS?) = Category(context.getString(R.string.trainings))
+    fun getTrainingCategory(context: Context, selectedSubcategory: NAV_ITEMS?) = Category(
+        context.getString(R.string.trainings))
         .addSubcategoryBundle(SubcategoryBundle(
             call = { it.getTraining() },
             subcategories = listOf(
@@ -40,7 +45,8 @@ class Category(val name: String) {
                     color = R.color.dark_orange))))
         .withSelectedSubcategory(selectedSubcategory ?: NAV_ITEMS.SEMINARS)
 
-    fun getWorkCategory(context: Context, selectedSubcategory: NAV_ITEMS?) = Category(context.getString(R.string.work))
+    fun getWorkCategory(context: Context, selectedSubcategory: NAV_ITEMS?) = Category(
+        context.getString(R.string.work))
         .addSubcategoryBundle(SubcategoryBundle(
             call = { it.getWorkPostings() },
             subcategories = listOf(
@@ -55,7 +61,8 @@ class Category(val name: String) {
             )))
         .withSelectedSubcategory(selectedSubcategory ?: NAV_ITEMS.INTERNSHIPS)
 
-    fun getOrganizations(context: Context, selectedSubcategory: NAV_ITEMS?) = Category(context.getString(R.string.organisations))
+    fun getOrganizations(context: Context, selectedSubcategory: NAV_ITEMS?) = Category(
+        context.getString(R.string.organisations))
         .addSubcategoryBundle(SubcategoryBundle(
             call = { it.getOrganizations() }, subcategories = listOf(
             Subcategory(NAV_ITEMS.STUDENT_ORGANIZATIONS,
@@ -68,7 +75,8 @@ class Category(val name: String) {
                 color = Organization.TYPE.NON_GOVERNMENTAL.color))))
         .withSelectedSubcategory(selectedSubcategory ?: NAV_ITEMS.STUDENT_ORGANIZATIONS)
 
-    fun getEducationalInstitutions(context: Context, selectedSubcategory: NAV_ITEMS?) = Category(context.getString(R.string.educational_institutions))
+    fun getEducationalInstitutions(context: Context, selectedSubcategory: NAV_ITEMS?) = Category(
+        context.getString(R.string.educational_institutions))
         .addSubcategoryBundle(SubcategoryBundle(
             call = { it.getUniversities() }, subcategories = listOf(
             Subcategory(NAV_ITEMS.STATE_UNIVERSITIES,
@@ -100,19 +108,22 @@ class Category(val name: String) {
                 color = R.color.dark_yellow))))
 
     fun getLibraries(context: Context) = Category(context.getString(R.string.libraries))
-        .addSubcategoryBundle(SubcategoryBundle(call = { it.getLibraries() }, subcategories = listOf(
-            Subcategory(NAV_ITEMS.LIBRARIES,
-                bindDataTo = { data, adapter -> adapter.bindContactItems(data) },
-                color = R.color.light_green))))
+        .addSubcategoryBundle(
+            SubcategoryBundle(call = { it.getLibraries() }, subcategories = listOf(
+                Subcategory(NAV_ITEMS.LIBRARIES,
+                    bindDataTo = { data, adapter -> adapter.bindContactItems(data) },
+                    color = R.color.light_green))))
 
     fun getScholarships(context: Context) = Category(context.getString(R.string.scholarships))
-        .addSubcategoryBundle(SubcategoryBundle(call = { it.getScholarships() }, subcategories = listOf(
-            Subcategory(NAV_ITEMS.SCHOLARSHIPS,
-                bindDataTo = { data, adapter -> adapter.bindArticleItems(data) },
-                color = R.color.orange)
-        )))
+        .addSubcategoryBundle(
+            SubcategoryBundle(call = { it.getScholarships() }, subcategories = listOf(
+                Subcategory(NAV_ITEMS.SCHOLARSHIPS,
+                    bindDataTo = { data, adapter -> adapter.bindArticleItems(data) },
+                    color = R.color.orange)
+            )))
 
-    fun getStudentDiscounts(context: Context) = Category(context.getString(R.string.student_discounts))
+    fun getStudentDiscounts(context: Context) = Category(
+        context.getString(R.string.student_discounts))
         .addSubcategoryBundle(SubcategoryBundle(call = { it.getEduCards() }, subcategories = listOf(
             Subcategory(NAV_ITEMS.STUDENT_DISCOUNT_EDU_CARD, false,
                 dataPreprocessor = { it.filter { it.name == "ЕДУ КАРТИЧКА" } },
@@ -125,17 +136,20 @@ class Category(val name: String) {
                 bindDataTo = { card, adapter -> adapter.bindDiscountCards(card) })
         )))
 
-    fun getAMSInfo(context: Context, selectedSubcategory: NAV_ITEMS?) = Category(context.getString(R.string.ams))
-        .addSubcategoryBundle(SubcategoryBundle(call = { it.getDocuments() }, subcategories = listOf(
-            Subcategory(NAV_ITEMS.DOCUMENTS,
-                bindDataTo = { data, adapter -> adapter.bindLinkItems(data) },
-                color = R.color.dark_yellow)
-        )))
-        .addSubcategoryBundle(SubcategoryBundle(call = { it.getUsefulLinks() }, subcategories = listOf(
-            Subcategory(NAV_ITEMS.USEFUL_LINKS,
-                bindDataTo = { data, adapter -> adapter.bindLinkItems(data) },
-                color = R.color.dark_yellow)
-        )))
+    fun getAMSInfo(context: Context, selectedSubcategory: NAV_ITEMS?) = Category(
+        context.getString(R.string.ams))
+        .addSubcategoryBundle(
+            SubcategoryBundle(call = { it.getDocuments() }, subcategories = listOf(
+                Subcategory(NAV_ITEMS.DOCUMENTS,
+                    bindDataTo = { data, adapter -> adapter.bindLinkItems(data) },
+                    color = R.color.dark_yellow)
+            )))
+        .addSubcategoryBundle(
+            SubcategoryBundle(call = { it.getUsefulLinks() }, subcategories = listOf(
+                Subcategory(NAV_ITEMS.USEFUL_LINKS,
+                    bindDataTo = { data, adapter -> adapter.bindLinkItems(data) },
+                    color = R.color.dark_yellow)
+            )))
         .withSelectedSubcategory(selectedSubcategory ?: NAV_ITEMS.DOCUMENTS)
 
     fun getAMSNews(context: Context) = Category(context.getString(R.string.ams_news))

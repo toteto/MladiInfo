@@ -6,6 +6,9 @@ import kotlinx.android.synthetic.main.notification_item.view.*
 import mk.ams.mladi.mladiinfo.R
 import mk.ams.mladi.mladiinfo.notifications.getNotificationPreferences
 
+/** Simple [EpoxyModel] that provides view and handling of notification settings for one listing (subcategory)
+ * @param listingId the id of the listing that it will control.
+ * @see mk.ams.mladi.mladiinfo.notifications.NotificationPreferences*/
 class NotificationModel(val listingId: Int) : EpoxyModel<View>() {
   override fun getDefaultLayout(): Int = R.layout.notification_item
 

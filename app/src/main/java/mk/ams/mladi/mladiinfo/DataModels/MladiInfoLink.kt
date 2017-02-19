@@ -2,6 +2,7 @@ package mk.ams.mladi.mladiinfo.DataModels
 
 import mk.ams.mladi.mladiinfo.R
 
+/** Simple model that holds the data for link to another website/file. */
 data class MladiInfoLink(val name: String, val url: String) : LinkItemInterface {
   override fun getLinkItemUrl(): String = url
 
@@ -9,5 +10,7 @@ data class MladiInfoLink(val name: String, val url: String) : LinkItemInterface 
 
   override fun getDividerColor(): Int = R.color.dark_yellow
 
-  override fun getLinkItemIcon(): Int = if (url.endsWith(".pdf")) R.drawable.icon_pdf else R.drawable.icon_website
+  override fun getLinkItemIcon(): Int =
+      if (url.endsWith(".pdf")) R.drawable.icon_pdf
+      else R.drawable.icon_website
 }

@@ -7,6 +7,7 @@ import mk.ams.mladi.mladiinfo.R
 import retrofit2.Call
 import java.util.*
 
+/** MVP contract for LoadContentError types. */
 interface MvpLceContract {
   interface LCEView : MVPContract.View {
     fun showLoading(show: Boolean)
@@ -14,7 +15,8 @@ interface MvpLceContract {
   }
 
   abstract class LCEPresenter<V : LCEView> : MVPPresenter<V>() {
-    val enqueuedCalls = ArrayList<Call<*>>()
+    /** Holder of all the calls that this presenter has made. */
+    private val enqueuedCalls = ArrayList<Call<*>>()
 
     override fun attachView(view: V, savedInstanceState: Bundle?) {
       super.attachView(view, savedInstanceState)
@@ -29,7 +31,11 @@ interface MvpLceContract {
 
     abstract fun loadData(forceUpdate: Boolean)
 
-    fun <T> enqueueCall(call: Call<T>, handleSuccess: (result: T) -> Unit, handleFailure: (call: Call<T>) -> Unit = {}) {
+    /** Helper function that will automatically make the call to the service, and call the
+     * appropriate callback function depending of the success of it. It will also keep track of calls
+     * that were mede in order to manage the loading state of the [LCEView]. */
+    fun <T> enqueueCall(call: Call<T>, handleSuccess: (result: T) -> Unit,
+                        handleFailure: (call: Call<T>) -> Unit = {}) {
       call.enqueueTrueSuccess({ result, call ->
         handleSuccess(result)
         onCallFinished(call)

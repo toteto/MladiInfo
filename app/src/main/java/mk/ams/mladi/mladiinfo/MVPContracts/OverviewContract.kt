@@ -6,6 +6,7 @@ import mk.ams.mladi.mladiinfo.DataModels.Scholarship
 import mk.ams.mladi.mladiinfo.DataModels.Training
 import mk.ams.mladi.mladiinfo.DataModels.Work
 
+/** Contract that will be used for the Overview page.*/
 interface OverviewContract {
   interface View : MvpLceContract.LCEView {
     fun showScholarships(list: List<Scholarship>)

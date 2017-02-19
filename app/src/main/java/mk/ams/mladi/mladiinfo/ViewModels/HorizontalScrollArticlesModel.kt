@@ -10,6 +10,7 @@ import kotlinx.android.synthetic.main.horizontal_scroll_recycler_view_item.view.
 import mk.ams.mladi.mladiinfo.DataModels.Article
 import mk.ams.mladi.mladiinfo.R
 
+/** An epoxy model that encapsulates a [RecyclerView] in order to provide horizontal article scrolling.*/
 class HorizontalScrollArticlesModel : EpoxyModel<View>() {
   private val adapter = ArticlesWithImageAdapter()
   private val snapHelper = MyLinearSnapHelper()
@@ -93,7 +94,8 @@ class HorizontalScrollArticlesModel : EpoxyModel<View>() {
   /** A simple linear snap helper that snap simply to the next/previous item based on the fling
    * direction. */
   class MyLinearSnapHelper : LinearSnapHelper() {
-    override fun findTargetSnapPosition(layoutManager: RecyclerView.LayoutManager, velocityX: Int, velocityY: Int): Int {
+    override fun findTargetSnapPosition(layoutManager: RecyclerView.LayoutManager, velocityX: Int,
+                                        velocityY: Int): Int {
       val centerView = findSnapView(layoutManager) ?: return RecyclerView.NO_POSITION
 
       val position = layoutManager.getPosition(centerView)

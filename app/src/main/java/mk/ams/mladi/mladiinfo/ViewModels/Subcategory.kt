@@ -7,8 +7,9 @@ import mk.ams.mladi.mladiinfo.SubcategoryAdapterInterface
 import mk.ams.mladi.mladiinfo.notifications.NotificationPreferences
 import java.util.*
 
-/** Simple subcategory item that has knowledge how to filter it's data and how to bind that data to
- * a adapter.
+/** Simple subcategory item that has knowledge how to [filter][dataPreprocessor] it's data and how
+ * to [bind][bindDataTo] that data to a [SubcategoryAdapterInterface]. To observe of the data changes
+ * in this subcategory, use [addDataObserver].
  * @param navItem the item from NAV_ITEMS that this subcategory represents.
  * @param dataPreprocessor this should filter the received raw data to data that this subcategory
  * represents. (ex. Subcategory 'Seminars' can get List<Trainig>, but only needs to keep Trainings
@@ -22,8 +23,13 @@ open class Subcategory<T>(
     val dataPreprocessor: (data: List<T>) -> List<T> = { it },
     val bindDataTo: (data: List<T>, adapter: SubcategoryAdapterInterface) -> Unit,
     @ColorRes val color: Int = R.color.secondary_text) {
+
+  /** This function will be called when some view requests data update for this subcategory.
+   * Example: [SubcategoryFragment][mk.ams.mladi.mladiinfo.MVPViews.SubcategoryFragment] wants to
+   * refresh the data, it will call this method.*/
   var requestUpdateDataHandler: (() -> Unit)? = null
     private set
+  /** Observers that will be notified when data changes on [data] are made. */
   private val observers: MutableList<(List<T>) -> Unit> = ArrayList()
   var data: List<T> = emptyList()
     set
@@ -43,9 +49,11 @@ open class Subcategory<T>(
     observers.add(observer)
   }
 
+  /** Set the handler that will be called when some view wants to refresh the data. */
   fun setRequestDataUpdateHandler(handler: () -> Unit) {
     requestUpdateDataHandler = handler
   }
 
-  fun supportsNotifications() = NotificationPreferences.areNotificationsForListingSupported(navItem.id)
+  fun supportsNotifications() = NotificationPreferences.areNotificationsForListingSupported(
+      navItem.id)
 }

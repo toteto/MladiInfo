@@ -10,7 +10,6 @@ import android.view.Gravity
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.main_activity_layout.*
 import mk.ams.mladi.mladiinfo.*
-import mk.ams.mladi.mladiinfo.DataProviders.MladiInfoApiClient
 import mk.ams.mladi.mladiinfo.MVPContracts.MVPActivity
 import mk.ams.mladi.mladiinfo.MVPContracts.MainContract
 import mk.ams.mladi.mladiinfo.MVPPresenters.InternetConnectionViewHandler
@@ -20,14 +19,19 @@ import mk.ams.mladi.mladiinfo.notifications.getNotificationPreferences
 
 
 class MainActivity : MVPActivity<MainContract.View, MainContract.Presenter>(), MainContract.View {
+  /** Try to get the [OverviewFragment] for this activity.*/
   private val overviewFragment: Fragment?
     get() = supportFragmentManager.findFragmentById(R.id.overviewFragment)
+  /** Try to get current [CategoryFragment] if there is any. */
   private var categoryFragment: Fragment? = null
     get() = supportFragmentManager.findFragmentById(R.id.mainActivity_fragmentContainer)
+
+  /** Keeping reference of this handler, in order to (un)register it at appropriate stage. */
   private var internetConnectionViewHandler: InternetConnectionViewHandler? = null
 
-  override fun createPresenter(): MainContract.Presenter = MainPresenter(MladiInfoApiClient(this).client)
+  override fun createPresenter(): MainContract.Presenter = MainPresenter()
 
+  /** This implementation will show the [overviewFragment] and hide [categoryFragment] (if there is one).*/
   override fun showOverview() {
     if (overviewFragment != null) {
       val transaction = supportFragmentManager.beginTransaction()
@@ -42,6 +46,8 @@ class MainActivity : MVPActivity<MainContract.View, MainContract.Presenter>(), M
     }
   }
 
+  /** This implementation will hide the [overviewFragment], build new [CategoryFragment] and assign
+   * it to [categoryFragment] so it can be shown after that. */
   override fun showCategory(category: NAV_ITEMS) {
     // Elvis (?:) operator is used to ge the parent category if the selected "category" is in fact a subcategory.
     val tag = (category.parentCategory?.id ?: category.id).toString()
@@ -67,15 +73,24 @@ class MainActivity : MVPActivity<MainContract.View, MainContract.Presenter>(), M
       supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    val notificationSwitch = navigationView.menu.findItem(R.id.switch_enable_navigation)?.actionView as SwitchCompat
+    // Setup the state and listener for the notification switch in the menu.
+    val notificationSwitch = navigationView.menu.findItem(
+        R.id.switch_enable_navigation)?.actionView as SwitchCompat
     notificationSwitch.isChecked = getNotificationPreferences().areNotificationsEnabled()
-    notificationSwitch.setOnCheckedChangeListener { btn, b -> NotificationJobService.enableNotifications(this, b) }
+    notificationSwitch.setOnCheckedChangeListener { btn, b ->
+      NotificationJobService.enableNotifications(this, b)
+    }
+
+    // Setup the listener for item clicks in the menu
     navigationView.setNavigationItemSelectedListener {
       if (R.id.language_switch == it.itemId) {
-        buildLanguagePreferenceDialog { onCategorySelected(NAV_ITEMS.STARTING_PAGE); recreate() }.show()
+        buildLanguagePreferenceDialog {
+          onCategorySelected(NAV_ITEMS.STARTING_PAGE); recreate()
+        }.show()
       } else {
         onCategorySelected(NAV_ITEMS.getItemById(it.itemId) ?: NAV_ITEMS.STARTING_PAGE)
       }
+      // using null-safe (?) call becouse in tablet mode drawerLayout is not available
       drawerLayout?.closeDrawer(navigationView)
       true
     }
@@ -111,7 +126,8 @@ class MainActivity : MVPActivity<MainContract.View, MainContract.Presenter>(), M
   override fun onResume() {
     super.onResume()
     internetConnectionViewHandler = InternetConnectionViewHandler(noInternetConnectionView)
-    registerReceiver(internetConnectionViewHandler, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
+    registerReceiver(internetConnectionViewHandler,
+        IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
   }
 
   override fun onDestroy() {

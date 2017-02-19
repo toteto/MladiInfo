@@ -5,6 +5,10 @@ import android.support.annotation.IdRes
 import android.support.annotation.StringRes
 import mk.ams.mladi.mladiinfo.ViewModels.Category
 
+/** This enum class makes navigation of this application work.
+ * @param id the id of the item
+ * @param title the title that this item represents
+ * @param parentCategory some subcategory items need a parent category for proper navigation. */
 enum class NAV_ITEMS(@IdRes val id: Int, @StringRes val title: Int, val parentCategory: NAV_ITEMS? = null) {
   STARTING_PAGE(R.id.starting_page, R.string.starting_page),
   TRAININGS(R.id.trainings, R.string.trainings),

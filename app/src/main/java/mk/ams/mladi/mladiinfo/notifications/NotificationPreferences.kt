@@ -16,20 +16,31 @@ class NotificationPreferences(context: Context) {
     fun areNotificationsForListingSupported(id: Int) = supportedListings.contains(id)
   }
 
-  private val sharedPreferences: SharedPreferences = context.getSharedPreferences(NOTIFICATION_PREFERENCES_KEY, Context.MODE_PRIVATE)
+  private val sharedPreferences: SharedPreferences = context.getSharedPreferences(
+      NOTIFICATION_PREFERENCES_KEY, Context.MODE_PRIVATE)
 
+  /** Returns true if notifications are enabled in general.*/
   fun areNotificationsEnabled() = sharedPreferences.getBoolean(NOTIFICATION_PREFERENCES_KEY, true)
 
-  fun setNotificationsEnabled(enabled: Boolean) = sharedPreferences.edit().putBoolean(NOTIFICATION_PREFERENCES_KEY, enabled).apply()
+  /** Enables or disabled the notification in general.*/
+  fun setNotificationsEnabled(enabled: Boolean) = sharedPreferences.edit().putBoolean(
+      NOTIFICATION_PREFERENCES_KEY, enabled).apply()
 
+  /** Returns true if notifications are enabled for the listing with the provided [id]*/
   fun areNotificationsEnabledForListing(id: Int) = sharedPreferences.getBoolean(id.toString(), true)
 
-  fun setNotificationsEnabledForListing(id: Int, enabled: Boolean = true) = sharedPreferences.edit().putBoolean(id.toString(), enabled).apply()
+  fun setNotificationsEnabledForListing(id: Int,
+                                        enabled: Boolean = true) = sharedPreferences.edit().putBoolean(
+      id.toString(), enabled).apply()
 
+  /** Returns a list of ids that identify subcategories that support notifications.*/
   fun getSupportedSubcategories(): List<Int> =
-      if (areNotificationsEnabled()) supportedListings.filter { areNotificationsEnabledForListing(it) }
+      if (areNotificationsEnabled()) supportedListings.filter {
+        areNotificationsEnabledForListing(it)
+      }
       else emptyList()
 
+  /** Helper method that returns whether notifications should be enabled.*/
   fun shouldEnableNotificationService(): Boolean = areNotificationsEnabled() && getSupportedSubcategories().isNotEmpty()
 }
 

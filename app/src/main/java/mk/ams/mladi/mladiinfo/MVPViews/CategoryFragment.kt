@@ -65,6 +65,7 @@ class CategoryFragment : MVPFragment<CategoryFragment, CategoryPresenter>(), Cat
 
   override fun showSubcategory(subcategory: Subcategory<Any>) {
     viewPager.post {
+      // Sometimes the viewPager is not yet inflated. This will wait for that
       viewPager.setCurrentItem(pagerAdapter.subcategories.indexOf(subcategory), false)
     }
   }

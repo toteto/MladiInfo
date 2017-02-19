@@ -17,12 +17,12 @@ import mk.ams.mladi.mladiinfo.DataProviders.MladiInfoApiClient.CACHE_CONTROL.NO_
 import mk.ams.mladi.mladiinfo.MVPViews.MainActivity
 import mk.ams.mladi.mladiinfo.NAV_ITEMS
 import mk.ams.mladi.mladiinfo.R
+import mk.ams.mladi.mladiinfo.notifications.NotificationJobService.Companion.buildJob
 import retrofit2.Call
 import java.util.*
-import java.util.concurrent.TimeUnit
 
 /** Service that is responsible for retrieving and processing data from the services that will be used
- * to build notifications for the user.  */
+ * to build notifications for the user. Please use [buildJob] to get [Job] that will start this service.*/
 class NotificationJobService : JobService() {
   companion object {
     val NOTIFICATION_ID = 1
@@ -42,6 +42,8 @@ class NotificationJobService : JobService() {
 
     fun selfCancel(dispatcher: FirebaseJobDispatcher) = dispatcher.cancel(SERVICE_TAG)
 
+    /** Manage the state the service (scheduled or not scheduled) based of the state for it in the
+     * [NotificationPreferences].*/
     fun managedBasedOnPreferences(context: Context) {
       if (context.getNotificationPreferences().shouldEnableNotificationService()) {
         context.scheduleNotificationService()
@@ -74,7 +76,8 @@ class NotificationJobService : JobService() {
           }
         }
         if (results.isNotEmpty()) {
-          val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+          val notificationManager = getSystemService(
+              Context.NOTIFICATION_SERVICE) as NotificationManager
           notificationManager.notify(NOTIFICATION_ID, buildNotification(results))
         }
         jobFinished(job, true)
@@ -83,20 +86,26 @@ class NotificationJobService : JobService() {
     return true // Answers the question: "Is there still work going on?"
   }
 
+  /** Build unread articles notification based on the provided [results].
+   * @param results list of [Pair], where the [Pair.first] is the id of the subcategory, and
+   *  [Pair.second] is the number of unread articles in that subcategory. */
   private fun buildNotification(results: List<Pair<Int, Int>>): Notification {
     val notificationContent = buildNotificationContent(results)
     val totalUnread = results.sumBy { it.second }
 
     val openAppIntent = PendingIntent.getActivity(this, 0, Intent(this, MainActivity::class.java),
         PendingIntent.FLAG_ONE_SHOT)
-    val markAsReadIntent = PendingIntent.getService(this, 0, MarkAsReadService.getIntent(this, results.map { it.first }, NOTIFICATION_ID),
+    val markAsReadIntent = PendingIntent.getService(this, 0,
+        MarkAsReadService.getIntent(this, results.map { it.first }, NOTIFICATION_ID),
         PendingIntent.FLAG_ONE_SHOT)
 
     val notification = NotificationCompat.Builder(this)
         .setSmallIcon(R.drawable.notification_icon)
         .setColor(ContextCompat.getColor(this, R.color.orange))
         .setContentTitle(getString(R.string.new_mladiinfo_articles))
-        .setContentText(resources.getQuantityString(R.plurals.number_of_unread_articles, totalUnread, totalUnread))
+        .setContentText(
+            resources.getQuantityString(R.plurals.number_of_unread_articles, totalUnread,
+                totalUnread))
         .setVibrate(longArrayOf(500, 500))
         .setStyle(NotificationCompat.BigTextStyle()
             .bigText(notificationContent))
@@ -107,6 +116,10 @@ class NotificationJobService : JobService() {
     return notification
   }
 
+  /** Build a notification content when the notification is in [NotificationCompat.BigTextStyle].
+   * @param results list of [Pair], where the [Pair.first] is the id of the subcategory, and
+   *  [Pair.second] is the number of unread articles in that subcategory.
+   * @see buildNotification */
   private fun buildNotificationContent(results: List<Pair<Int, Int>>): String {
     val sb = StringBuilder()
     val res = resources
@@ -115,7 +128,8 @@ class NotificationJobService : JobService() {
         val titleId = NAV_ITEMS.getItemById(it.first)?.title
         if (titleId != null) {
           val title = getString(titleId)
-          sb.append(res.getQuantityString(R.plurals.number_unread_articles_per_category, it.second, it.second, title.toLowerCase()))
+          sb.append(res.getQuantityString(R.plurals.number_unread_articles_per_category, it.second,
+              it.second, title.toLowerCase()))
           sb.append("\n")
         }
       }
@@ -133,14 +147,19 @@ class NotificationJobService : JobService() {
         R.id.scholarships ->
           threads.add(SyncThread(it, client.getScholarships(NO_CACHE.value), store))
         R.id.internships ->
-          threads.add(SyncThread(it, client.getWorkPostings(NO_CACHE.value), store, Work::isInternship))
+          threads.add(
+              SyncThread(it, client.getWorkPostings(NO_CACHE.value), store, Work::isInternship))
         R.id.employments ->
-          threads.add(SyncThread(it, client.getWorkPostings(NO_CACHE.value), store, Work::isEmployment))
+          threads.add(
+              SyncThread(it, client.getWorkPostings(NO_CACHE.value), store, Work::isEmployment))
         R.id.seminars ->
-          threads.add(SyncThread(it, client.getTraining(NO_CACHE.value), store, Training::isSeminar))
+          threads.add(
+              SyncThread(it, client.getTraining(NO_CACHE.value), store, Training::isSeminar))
         R.id.conferences ->
-          threads.add(SyncThread(it, client.getTraining(NO_CACHE.value), store, Training::isConference))
-        else -> Log.e(LOG_TAG, "Notification for subcategory: ${NAV_ITEMS.getItemById(it)}, is not supported.")
+          threads.add(
+              SyncThread(it, client.getTraining(NO_CACHE.value), store, Training::isConference))
+        else -> Log.e(LOG_TAG,
+            "Notification for subcategory: ${NAV_ITEMS.getItemById(it)}, is not supported.")
       }
     }
     return threads
@@ -172,7 +191,10 @@ class NotificationJobService : JobService() {
   }
 }
 
-fun Context.scheduleNotificationService(dispatcher: FirebaseJobDispatcher = FirebaseJobDispatcher(GooglePlayDriver(this))) {
+/** Helper method that will schedule the [NotificationJobService] with job definition
+ * of [NotificationJobService.buildJob]*/
+fun Context.scheduleNotificationService(
+    dispatcher: FirebaseJobDispatcher = FirebaseJobDispatcher(GooglePlayDriver(this))) {
   val notificationJob = NotificationJobService.buildJob(dispatcher)
   try {
     dispatcher.mustSchedule(notificationJob)
@@ -181,6 +203,8 @@ fun Context.scheduleNotificationService(dispatcher: FirebaseJobDispatcher = Fire
   }
 }
 
-fun Context.cancelNotificationService(dispatcher: FirebaseJobDispatcher = FirebaseJobDispatcher(GooglePlayDriver(this))) {
+/** Helper method for canceling of [NotificationJobService].*/
+fun Context.cancelNotificationService(
+    dispatcher: FirebaseJobDispatcher = FirebaseJobDispatcher(GooglePlayDriver(this))) {
   NotificationJobService.selfCancel(dispatcher)
 }

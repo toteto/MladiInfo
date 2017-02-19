@@ -12,6 +12,7 @@ class CategoryHeaderModel(val category: NAV_ITEMS, @ColorRes val headerColor: In
   private var clickListener: View.OnClickListener? = null
 
   companion object {
+    /** Key used to identify the tag on the [R.layout.category_header] what [category] this header belongs*/
     val CATEGORY_TAG_KEY = R.id.category_tag_key
   }
 

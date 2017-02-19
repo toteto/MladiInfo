@@ -1,5 +1,6 @@
 package mk.ams.mladi.mladiinfo.DataModels
 
+/** Interface for reading the data from the data class and provided it to [mk.ams.mladi.mladiinfo.ViewModels.ContactModel]*/
 interface ContactInterface : DividerColorInterface {
   fun getContactTitle(): String
   fun getContactDescription(): String?

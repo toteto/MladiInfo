@@ -4,6 +4,7 @@ import android.support.annotation.StringRes
 import mk.ams.mladi.mladiinfo.ViewModels.Category
 import mk.ams.mladi.mladiinfo.ViewModels.Subcategory
 
+/** Contract that will be used for the category view/presenter. */
 interface CategoryContract {
   interface View : MVPContract.View {
     /** Set the subcategories that will be available to be displayed.
@@ -16,9 +17,9 @@ interface CategoryContract {
     /** Set the title of the view. */
     fun setTitle(title: String)
 
+    /** Show error message. */
     fun showError(@StringRes strId: Int)
   }
 
-  abstract class Presenter<V : View>(val category: Category) : MVPPresenter<V>() {
-  }
+  abstract class Presenter<V : View>(val category: Category) : MVPPresenter<V>()
 }

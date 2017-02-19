@@ -13,8 +13,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
 import java.util.concurrent.TimeUnit
 
-
+/** Client for accessing the apis for MladiInfo. */
 class MladiInfoApiClient(val context: Context) {
+  /** Headers used for header control. */
   enum class CACHE_CONTROL(val value: String?) {
     NO_CACHE("no-cache"),
     MAYBE_CACHED(null)
@@ -37,28 +38,34 @@ class MladiInfoApiClient(val context: Context) {
         .build().create(MladiInfoApiInterface::class.java)
   }
 
-  val RESPONSE_CACHE_INTERCEPTOR = Interceptor { chain ->
+  /** Interceptor that is responsible for providing cache header to the responses. */
+  private val RESPONSE_CACHE_INTERCEPTOR = Interceptor { chain ->
     val originalResponse = chain.proceed(chain.request())
     originalResponse.newBuilder()
-        .header("Cache-Control", "public, max-age=${TimeUnit.MINUTES.toSeconds(CACHE_MINUTES_VALIDITY)}")
+        .header("Cache-Control",
+            "public, max-age=${TimeUnit.MINUTES.toSeconds(CACHE_MINUTES_VALIDITY)}")
         .build()
   }
 
+  /** Interceptor responsible for making the offline mode possible. */
   private val OFFLINE_RESPONSE_CACHE_INTERCEPTOR = Interceptor { chain ->
     var request = chain.request()
     if (context.getConnectivityManager().activeNetworkInfo?.isConnected?.not() ?: true) {
       request = request.newBuilder()
           .header("Cache-Control",
-              "public, only-if-cached, max-stale=" + TimeUnit.DAYS.toSeconds(OFFLINE_CACHE_VALIDITY))
+              "public, only-if-cached, max-stale=" + TimeUnit.DAYS.toSeconds(
+                  OFFLINE_CACHE_VALIDITY))
           .build()
     }
     chain.proceed(request)
   }
 }
 
-fun Context.getConnectivityManager() = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+fun Context.getConnectivityManager() = getSystemService(
+    Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
-fun <T> Call<T>.enqueueTrueSuccess(blockOnSuccess: (result: T, call: Call<T>) -> Unit, blockOnFailure: (call: Call<T>) -> Unit): Call<T> {
+fun <T> Call<T>.enqueueTrueSuccess(blockOnSuccess: (result: T, call: Call<T>) -> Unit,
+                                   blockOnFailure: (call: Call<T>) -> Unit): Call<T> {
   enqueue(object : Callback<T> {
     override fun onResponse(call: Call<T>, response: Response<T>?) {
       val result = response?.body()

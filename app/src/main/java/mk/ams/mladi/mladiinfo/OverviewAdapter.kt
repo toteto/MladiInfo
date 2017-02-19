@@ -9,6 +9,7 @@ import mk.ams.mladi.mladiinfo.DataModels.Training
 import mk.ams.mladi.mladiinfo.DataModels.Work
 import mk.ams.mladi.mladiinfo.ViewModels.*
 
+/** This adapter is used for displaying a overview of some of the subcategories. */
 class OverviewAdapter(context: Context) : EpoxyAdapter() {
   var onCategoryHeaderClickListener: OnCategoryHeaderClickListener? = null
 
@@ -48,23 +49,23 @@ class OverviewAdapter(context: Context) : EpoxyAdapter() {
   }
 
   fun bindScholarships(scholarships: List<Scholarship>) {
-    bindCategory(scholarshipsSection, scholarships.flatMap { listOf(ArticleModel(it)) })
+    bindCategory(scholarshipsSection, scholarships.map(::ArticleModel))
   }
 
   fun bindInternships(internships: List<Work>) {
-    bindCategory(internshipsSection, internships.flatMap { listOf(ArticleModel(it)) })
+    bindCategory(internshipsSection, internships.map(::ArticleModel))
   }
 
   fun bindEmployments(employments: List<Work>) {
-    bindCategory(employmentsSection, employments.flatMap { listOf(ArticleModel(it)) })
+    bindCategory(employmentsSection, employments.map(::ArticleModel))
   }
 
   fun bindSeminars(seminars: List<Training>) {
-    bindCategory(seminarsSection, seminars.flatMap { listOf(ArticleModel(it)) })
+    bindCategory(seminarsSection, seminars.map(::ArticleModel))
   }
 
   fun bindConferences(conferences: List<Training>) {
-    bindCategory(conferencesSection, conferences.flatMap { listOf(ArticleModel(it)) })
+    bindCategory(conferencesSection, conferences.map(::ArticleModel))
   }
 
   fun bindCategory(section: OverviewSection, newModels: List<EpoxyModelWithDivider<*>>) {
